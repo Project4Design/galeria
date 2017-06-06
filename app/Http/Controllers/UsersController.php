@@ -29,7 +29,7 @@ class UsersController extends Controller
     {
         //
     	$user = new User;
-      return view("users.create", ["title" => "Agregar","user" => $user,"url" => "/users", "method" => "POST"]);
+      return view("users.create", ["title" => "Agregar","user" => $user,"url" => "admin/users", "method" => "POST"]);
     }
 
     /**
@@ -40,23 +40,37 @@ class UsersController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        //dd($request->all());
+        $this->validate($request, [
+
+            'email' =>'required|email|unique:users',
+            'password' => 'required|max:8',
+            'nombre' => 'required',
+            'apellido' => 'required',
+            'cedula' => 'required|max:10|unique:users',
+            'password' => 'required|min:6|max:8|confirmed',
+            'verificar' => 'required|min:6|max:8',
+
+            ]);
+
     	$user = new User;
-    	$user->fill($request->all());
-    	$user->password = bcrypt($request->input('password'));
-    	$user->nivel = "A";
-    	$user->estado = "A";
+    	$user->nombre = $request->input('nombre');
+        $user->apellido = $request->input('apellido');
+        $user->email = $request->input('email');
+        $user->cedula = $request->input('cedula');
+        $user->telefono = $request->input('telefono');
+        $user->password = bcrypt($request->input('password'));
+        $user->nivel = '1';
+
+
     	if($user->save()){
-        return redirect("/users")->with([
+        return redirect("admin/dashboard")->with([
             'flash_message' => 'Usuario agregado correctamente.',
             'flash_class' => 'alert-success'
             ]);
     	}else{
-        return view("/users")->with([
+        return view("admin/dashboard")->with([
         		'title' => "Agregar",
-        		'user' => $user,
-        		'url' => '/users',
-        		'methos' => 'POST',
             'flash_message' => 'Ha ocurrido un error.',
             'flash_class' => 'alert-danger',
             'flash_important' => true
@@ -74,7 +88,8 @@ class UsersController extends Controller
      */
     public function show($id)
     {
-        //
+       $user = user::findOrFail($id);
+       return view("users.show", ["user" => $user]);
     }
 
     /**
@@ -87,7 +102,7 @@ class UsersController extends Controller
     {
         //
     	$user = user::findOrFail($id);
-      return view("users.create", ["title" => "Editar","user" => $user,"url"=> "/users/{$id}/","method" => 'PATCH']);
+      return view("users.create", ["title" => "Editar","user" => $user,"url"=> "admin/users/{$id}/","method" => 'PATCH']);
     }
 
     /**
@@ -103,12 +118,12 @@ class UsersController extends Controller
     	$user = User::findOrFail($id);
     	$user->fill($request->all());
     	if($user->save()){
-        return redirect("/users")->with([
+        return redirect("admin/users")->with([
             'flash_message' => 'Usuario editado correctamente.',
             'flash_class' => 'alert-success'
             ]);
     	}else{
-        return view("/users")->with([
+        return view("admin/users")->with([
         		'title' => 'Editar',
         		'user' => $user,
         		'url'=> '/users/{$id}/',
@@ -128,6 +143,6 @@ class UsersController extends Controller
      */
     public function destroy($id)
     {
-        //
+        User::destroy($id);
     }
 }

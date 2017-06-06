@@ -87,7 +87,7 @@
         </div>
       </div>
     </div><!--row-->
-
+  @include('partials.flash')
 	  <div class="row">
 	    <div class="col-md-12">
 	      <div class="box box-danger">

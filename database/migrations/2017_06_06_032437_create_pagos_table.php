@@ -21,7 +21,7 @@ class CreatePagosTable extends Migration
             $table->decimal('monto',9,2)->unsigned();
             $table->string('fecha',10);
             $table->softDeletes();
-            $table->timestamp()->nullable();
+            $table->timestamps();
         });
     }
 

@@ -21,7 +21,7 @@ class CreateCursosTable extends Migration
             $table->string('foto',55);
             $table->float('precio')->unsigned();
             $table->softDeletes();
-            $table->timestamp()->nullable();
+            $table->timestamps();
         });
     }
 
