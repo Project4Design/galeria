@@ -64,12 +64,12 @@ class UsersController extends Controller
 
 
     	if($user->save()){
-        return redirect("dashboard")->with([
+        return redirect("admin/dashboard")->with([
             'flash_message' => 'Usuario agregado correctamente.',
             'flash_class' => 'alert-success'
             ]);
     	}else{
-        return view("dashboard")->with([
+        return view("admin/dashboard")->with([
         		'title' => "Agregar",
             'flash_message' => 'Ha ocurrido un error.',
             'flash_class' => 'alert-danger',
@@ -88,7 +88,8 @@ class UsersController extends Controller
      */
     public function show($id)
     {
-        //
+       $user = user::findOrFail($id);
+       return view("users.show", ["user" => $user]);
     }
 
     /**
@@ -117,12 +118,12 @@ class UsersController extends Controller
     	$user = User::findOrFail($id);
     	$user->fill($request->all());
     	if($user->save()){
-        return redirect("/users")->with([
+        return redirect("admin/users")->with([
             'flash_message' => 'Usuario editado correctamente.',
             'flash_class' => 'alert-success'
             ]);
     	}else{
-        return view("/users")->with([
+        return view("admin/users")->with([
         		'title' => 'Editar',
         		'user' => $user,
         		'url'=> '/users/{$id}/',
@@ -142,6 +143,6 @@ class UsersController extends Controller
      */
     public function destroy($id)
     {
-        //
+        User::destroy($id);
     }
 }

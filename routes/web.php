@@ -16,13 +16,19 @@ Route::get('/', function () {
 });
 
 
-Route::get('dashboard', 'LoginController@index');
+
 Route::post('auth', 'LoginController@login')->name('auth');
 Route::post('/logout', 'LoginController@logout')->name('logout');
 
-//Usuarios
-Route::get('perfil','UsersController@perfil')->name('perfil');
-Route::resource('/users','UsersController');
 
-//Cursos
-Route::resource('/cursos','CursosController');
+
+//VIEWS ADMIN
+//verificar rutas con permiso auth
+Route::group(['middleware' => 'auth','prefix' => 'admin'],function(){
+	Route::get('dashboard', 'LoginController@index');
+	//Usuarios
+	Route::get('perfil','UsersController@perfil')->name('perfil');
+	Route::resource('/users','UsersController');
+	//Cursos
+	Route::resource('/cursos','CursosController');
+});

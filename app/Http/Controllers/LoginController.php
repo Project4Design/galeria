@@ -33,7 +33,7 @@ class LoginController extends Controller
 
 	        if (Auth::attempt($request->only(['email' , 'password'])))
 	        {
-	        	return redirect()->intended('dashboard');
+	        	return redirect()->intended('admin/dashboard');
 	        }else{
 	        	return redirect()->route('index_show_login')->withErrors('An error has occurred, check your credentials');
 	        }
