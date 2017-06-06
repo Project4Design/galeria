@@ -57,13 +57,13 @@
     <div class="wrapper">
       <header class="main-header">
         <!-- Logo -->
-        <a href="#" class="logo">
+        <a href="{{route('admin_index')}}" class="logo">
           <!-- mini logo for sidebar mini 50x50 pixels -->
           <span class="logo-mini"><img class="img-responsive" src="{{ asset('img/logo.png') }}" alt="Logo" style="height:30px;margin:10px 0 0 10px"></span>
           <!-- logo for regular state and mobile devices -->
           <span class="logo-lg">
             <b style="font-size: 18px">
-              <img src="{{ asset('img/logo.png') }}" alt="logo" height="25px">&nbsp;{{ config('app.name') }}
+              <!--<img src="{{ asset('img/logo.png') }}" alt="logo" height="25px">-->&nbsp;{{ config('app.name') }}
             </b>
           </span>
         </a>
@@ -125,7 +125,7 @@
             <li class="header">MENU</li>
 
             <li>
-              <a href="#">
+              <a href="{{route('admin_index')}}">
                 <i class="fa fa-dashboard" aria-hidden="true"></i> <span>Escritorio</span>
               </a>
             </li>
@@ -212,7 +212,7 @@
       </div><!-- /.content-wrapper -->
       <!--Fin-Contenido-->
       <footer class="main-footer">
-        <strong>Copyright &copy; 2017 <a href="http://www.project4design.com.ve">Project 4 Design C.A.</a></strong> All rights reserved.
+        <strong>Copyright &copy; GALERIA D´ ABILIO 2017 </strong>. - Desarrollado por Marilyn Ortegana
       </footer>
     </div>
 

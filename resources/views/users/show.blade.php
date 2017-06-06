@@ -1,18 +1,18 @@
 @extends('layouts.app')
-@section('title','Cursos - '.config('app.name'))
-@section('header','Cursos')
+@section('title','Usuario - '.config('app.name'))
+@section('header','Usuario')
 @section('breadcrumb')
 	<ol class="breadcrumb">
-	  <li><a href="#"><i class="fa fa-dashboard" aria-hidden="true"></i> Escritorio</a></li>
+	  <li><a href="{{route('admin_index')}}"><i class="fa fa-dashboard" aria-hidden="true"></i> Escritorio</a></li>
 	  <li> Usuarios </li>
-	  <li class="active"> Ver Usuarios </li>
+	  <li class="active">Ver </li>
 	</ol>
 @endsection
 @section('content')
 <!-- Formulario -->
 		<section>
-	    <a class="btn btn-flat btn-default" href="{{ url('/users') }}"><i class="fa fa-reply" aria-hidden="true"></i> Volver</a>
-	    <a class="btn btn-flat btn-success" href="{{ url('/users/'.$user->id.'/edit') }}"><i class="fa fa-pencil" aria-hidden="true"></i> Editar</a>
+	    <a class="btn btn-flat btn-default" href="{{ url('admin/users') }}"><i class="fa fa-reply" aria-hidden="true"></i> Volver</a>
+	    <a class="btn btn-flat btn-success" href="{{ url('admin/users/'.$user->id.'/edit') }}"><i class="fa fa-pencil" aria-hidden="true"></i> Editar</a>
 	    <!--
 	    <button class="btn btn-flat btn-danger" data-toggle="modal" data-target="#delModal"><i class="fa fa-times" aria-hidden="true"></i> Eliminar</button>
 	    -->

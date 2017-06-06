@@ -33,7 +33,7 @@ Route::post('/logout', 'LoginController@logout')->name('logout');
 //VIEWS ADMIN
 //verificar rutas con permiso auth
 Route::group(['middleware' => 'auth','prefix' => 'admin'],function(){
-	Route::get('dashboard', 'LoginController@index');
+	Route::get('dashboard', 'LoginController@index')->name('admin_index');
 	//Usuarios
 	Route::get('perfil','UsersController@perfil')->name('perfil');
 	Route::resource('/users','UsersController');

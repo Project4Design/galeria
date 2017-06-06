@@ -53,8 +53,8 @@
 									<td class="text-right">{{number_format($d->precio,2,",",".")}}</td>
 									<td>{{$d->created_at}}</td>
 									<td>
-										<a class="btn btn-primary btn-flat btn-sm" href="{{ url('cursos/'.$d->curso_id) }}"><i class="fa fa-search"></i></a>
-										<a href="{{ url('cursos/'.$d->curso_id.'/edit') }}" class="btn btn-flat btn-success btn-sm" title="Editar"><i class="fa fa-edit"></i></a>
+										<a class="btn btn-primary btn-flat btn-sm" href="{{ url('admin/cursos/'.$d->curso_id) }}"><i class="fa fa-search"></i></a>
+										<a href="{{ url('admin/cursos/'.$d->curso_id.'/edit') }}" class="btn btn-flat btn-success btn-sm" title="Editar"><i class="fa fa-edit"></i></a>
 									</td>
 								</tr>
 								@php $i++; @endphp

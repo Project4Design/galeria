@@ -3,7 +3,7 @@
 @section('header','Usuarios')
 @section('breadcrumb')
 	<ol class="breadcrumb">
-	  <li><a href="#"><i class="fa fa-dashboard" aria-hidden="true"></i> Escritorio</a></li>
+	  <li><a href="{{route('admin_index')}}"><i class="fa fa-dashboard" aria-hidden="true"></i> Escritorio</a></li>
 	  <li class="active"> Usuarios </li>
 	</ol>
 @endsection
@@ -55,8 +55,8 @@
 									<td>{{$d->email}}</td>
 									<td>{{$d->telefono}}</td>
 									<td>
-										<a class="btn btn-primary btn-flat btn-sm" href="{{ url('users/'.$d->id) }}"><i class="fa fa-search"></i></a>
-										<a  href="{{ url('users/'.$d->id.'/edit') }}" class="btn btn-flat btn-success btn-sm" title="Editar"><i class="fa fa-edit"></i></a>
+										<a class="btn btn-primary btn-flat btn-sm" href="{{ url('admin/users/'.$d->id) }}"><i class="fa fa-search"></i></a>
+										<a  href="{{ url('admin/users/'.$d->id.'/edit') }}" class="btn btn-flat btn-success btn-sm" title="Editar"><i class="fa fa-edit"></i></a>
 									</td>
 								</tr>
 								@php $i++; @endphp

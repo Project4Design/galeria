@@ -4,16 +4,16 @@ namespace App\Http\Controllers;
 
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
+use App\User;
+use App\Curso;
 
 class LoginController extends Controller
 {
     public function index()
     {
-
-    	 /*if(Auth::check()){
-            Auth::logout();
-        }*/
- 		return view('dashboard');
+    	$users = User::all();
+    	$cursos = Curso::all();
+ 			return view('dashboard',['users'=>$users,'cursos'=>$cursos]);
 	 }
 
 
