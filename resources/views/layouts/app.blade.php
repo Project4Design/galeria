@@ -6,56 +6,66 @@
     <title>@yield('title',config('app.name'))</title>
     <!-- Tell the browser to be responsive to screen width -->
     <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
+    <!-- favicon / icons
+    ============================================ -->
+    <link rel="apple-touch-icon" href="{{ asset('img/apple-icon-180x180.png') }}">
+		<link rel="icon" type="image/png" sizes="192x192"  href="{{ asset('img/android-icon-192x192.png') }}">
+    <link rel="shortcut icon" type="image/x-icon" sizes="32x32"  href="{{ asset('img/favicon.ico') }}">
+    <link rel="manifest" href="{{ asset('manifest.json') }}">
+    <meta name="msapplication-TileColor" content="#ffffff">
+		<meta name="msapplication-TileImage" content="{{ asset('img/ms-icon-144x144.png') }}">
+		<meta name="theme-color" content="#ffffff">
     <!-- Bootstrap 3.3.5 -->
     <link rel="stylesheet" href="{{asset('css/bootstrap.min.css')}}">
     <!-- Font Awesome -->
     <link rel="stylesheet" href="{{asset('css/font-awesome.css')}}">
     <!-- Theme style -->
     <link rel="stylesheet" href="{{asset('css/AdminLTE.min.css')}}">
+    <!-- Custom style -->
+    <link rel="stylesheet" href="{{asset('css/Styles.css')}}">
     <link rel="stylesheet" type="text/css" href="{{asset('css/glyphicons.css')}}">
     <link rel="stylesheet" type="text/css" href="{{asset('plugins/datatables/dataTables.bootstrap.css')}}">
     <!-- AdminLTE Skins. Choose a skin from the css/skins
-         folder instead of downloading all of them to reduce the load. -->
+    	folder instead of downloading all of them to reduce the load. -->
     <link rel="stylesheet" href="{{asset('css/_all-skins.min.css')}}">
-    <link rel="stylesheet" type="text/css" href="{{asset('css/highcharts.css')}}">
-    <link rel="shortcut icon" href="{{asset('img/unnamed.png')}}">
+    
+	  <style type="text/css">
+	    .view-subtitle{
+	      color: #d22a2a;
+	      font-weight: 600;
+	      font-size: 17px;
+	    }
 
+	    .perfil{
+			  position: relative;
+			  background: #fff;
+			  border: 1px solid #f4f4f4;
+			  padding: 20px;
+			  margin: 10px 25px;
+			}
+
+			.separador{ 
+			   border: 0.3px solid #dd4b39; 
+			   border-radius: 200px /8px; 
+			   height: 0px; 
+			   text-align: center; 
+			 }
+	  </style>
   </head>
 
-  <style type="text/css">
-    .view-subtitle{
-      color: #d22a2a;
-      font-weight: 600;
-      font-size: 17px;
-    }
-
-    .perfil{
-  position: relative;
-  background: #fff;
-  border: 1px solid #f4f4f4;
-  padding: 20px;
-  margin: 10px 25px;
-}
-
-.separador{ 
-   border: 0.3px solid #dd4b39; 
-   border-radius: 200px /8px; 
-   height: 0px; 
-   text-align: center; 
- } 
-    
-  </style>
-  <body class="hold-transition skin-blue sidebar-mini">
+  <body class="hold-transition skin-red sidebar-mini">
     <div class="wrapper">
-
       <header class="main-header">
-
         <!-- Logo -->
-        <a href="index2.html" class="logo">
+        <a href="#" class="logo">
           <!-- mini logo for sidebar mini 50x50 pixels -->
-          <span class="logo-mini"><b>P4</b>D</span>
+          <span class="logo-mini"><img class="img-responsive" src="{{ asset('img/logo.png') }}" alt="Logo" style="height:30px;margin:10px 0 0 10px"></span>
           <!-- logo for regular state and mobile devices -->
-          <span class="logo-lg"><b>PROYECTO</b></span>
+          <span class="logo-lg">
+            <b style="font-size: 18px">
+              <img src="{{ asset('img/logo.png') }}" alt="logo" height="25px">&nbsp;{{ config('app.name') }}
+            </b>
+          </span>
         </a>
 
         <!-- Header Navbar: style can be found in header.less -->
@@ -72,23 +82,28 @@
               <!-- User Account: style can be found in dropdown.less -->
               <li class="dropdown user user-menu">
                 <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-                  <span class="hidden-xs">USUARIO</span>
+                  <span class="hidden-xs">{{ Auth::user()->nombre }}</span>
                 </a>
                 <ul class="dropdown-menu">
                   <!-- User image -->
                   <li class="user-header">
+                    <h4>{{ Auth::user()->email }}</h4>
+                    <h4>Administrator</h4>
                     
-                    <p>
-                      DESCRIPCCION
-                      <small>LEYENDA DEL USUARIO ONLINE</small>
-                    </p>
                   </li>
                   
                   <!-- Menu Footer-->
                   <li class="user-footer">
-                    
+                    <div class="pull-left">
+                      <a class="btn btn-flat btn-default" href="{{route('perfil')}}"><i class="fa fa-user"></i> Mi perfil</a>
+                    </div>
                     <div class="pull-right">
-                      <a href="#" class="btn btn-default btn-flat">Cerrar</a>
+                      <form id="logout-form" action="{{ route('logout') }}" method="POST">
+                        {{ csrf_field() }}
+                        <button class="btn btn-flat btn-default" type="submit"><i class="fa fa-sign-out" aria-hidden="true"></i> Salir</button>
+                      </form>
+                    </div>
+                    <div class="pull-left">
                     </div>
                   </li>
                 </ul>
@@ -107,84 +122,99 @@
                     
           <!-- sidebar menu: : style can be found in sidebar.less -->
           <ul class="sidebar-menu">
-            <li class="header"></li>
-            
+            <li class="header">MENU</li>
+
+            <li>
+              <a href="#">
+                <i class="fa fa-dashboard" aria-hidden="true"></i> <span>Escritorio</span>
+              </a>
+            </li>
+
             <li class="treeview">
               <a href="#">
-                <i class="fa fa-laptop"></i>
-                <span>MENU DESPLEGABLE</span>
+                <i class="fa fa-users"></i>
+                <span>Usuarios</span>
                 <i class="fa fa-angle-left pull-right"></i>
               </a>
               <ul class="treeview-menu">
-                <li><a href="almacen/articulo"><i class="fa fa-circle-o"></i> MENU</a></li>
-                <li><a href="almacen/categoria"><i class="fa fa-circle-o"></i> MENU</a></li>
+                <li><a href="{{ url('/users') }}"><i class="fa fa-circle-o"></i>Ver Usuarios</a></li>
+                <li><a href="{{ url('/users/create') }}"><i class="fa fa-circle-o"></i>Agregar Usuario</a></li>
               </ul>
             </li>
-            
-            
-             <li>
+
+            <li class="treeview">
               <a href="#">
-                <i class="fa fa-plus-square"></i> <span>Ayuda</span>
-                <small class="label pull-right bg-red">PDF</small>
+                <i class="fa fa-university"></i>
+                <span>Cursos</span>
+                <i class="fa fa-angle-left pull-right"></i>
               </a>
+              <ul class="treeview-menu">
+                <li><a href="{{ url('/cursos') }}"><i class="fa fa-circle-o"></i>Ver Cursos</a></li>
+                <li><a href="{{ url('/cursos/create') }}"><i class="fa fa-circle-o"></i>Agregar Curso</a></li>
+              </ul>
             </li>
-            <li>
+
+            <li class="treeview">
               <a href="#">
-                <i class="fa fa-info-circle"></i> <span>Acerca De...</span>
-                <small class="label pull-right bg-yellow">IT</small>
+                <i class="fa fa-credit-card"></i>
+                <span>Pagos</span>
+                <i class="fa fa-angle-left pull-right"></i>
               </a>
+              <ul class="treeview-menu">
+                <li><a href="{{ url('/pagos') }}"><i class="fa fa-circle-o"></i>Ver Pagos</a></li>
+                <li><a href="{{ url('/pagos/create') }}"><i class="fa fa-circle-o"></i>Agregar Pago</a></li>
+              </ul>
             </li>
-                        
+
+            <li class="treeview">
+              <a href="#">
+                <i class="fa fa-address-card"></i>
+                <span>Profesores</span>
+                <i class="fa fa-angle-left pull-right"></i>
+              </a>
+              <ul class="treeview-menu">
+                <li><a href="{{ url('/profesores') }}"><i class="fa fa-circle-o"></i>Ver Profesores</a></li>
+                <li><a href="{{ url('/profesores/create') }}"><i class="fa fa-circle-o"></i>Agregar Profesore</a></li>
+              </ul>
+            </li>
+
+            <li class="treeview">
+              <a href="#">
+                <i class="fa fa-address-book-o"></i>
+                <span>Estudiantes</span>
+                <i class="fa fa-angle-left pull-right"></i>
+              </a>
+              <ul class="treeview-menu">
+                <li><a href="{{ url('/estudiantes') }}"><i class="fa fa-circle-o"></i>Ver Estudiantes</a></li>
+                <li><a href="{{ url('/estudiantes/create') }}"><i class="fa fa-circle-o"></i>Agregar Estudiante</a></li>
+              </ul>
+            </li>
           </ul>
         </section>
         <!-- /.sidebar -->
       </aside>
 
 
-
-
-
        <!--Contenido-->
       <!-- Content Wrapper. Contains page content -->
       <div class="content-wrapper">
-        
         <!-- Main content -->
-        <section class="content">
-          
-          <div class="row">
-            <div class="col-md-12">
-              <div class="box">
-                <div class="box-header with-border">
-                  <h3 class="box-title">Sistema de Ventas</h3>
-                  <div class="box-tools pull-right">
-                    <button class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i></button>
-                    
-                    <button class="btn btn-box-tool" data-widget="remove"><i class="fa fa-times"></i></button>
-                  </div>
-                </div>
-                <!-- /.box-header -->
-                <div class="box-body">
-                    <div class="row">
-                      <div class="col-md-12">
-                              <!--Contenido-->
-                             @yield('content') 
-                              <!--Fin Contenido-->
-                           </div>
-                        </div>
-                        
-                      </div>
-                    </div><!-- /.row -->
-                </div><!-- /.box-body -->
-              </div><!-- /.box -->
-            </div><!-- /.col -->
-          </div><!-- /.row -->
-
-        </section><!-- /.content -->
+        <section class="content-header">
+          <h1 class="text-center">
+            @yield('header')
+          </h1>
+          @yield('breadcrumb')
+        </section>
+        <!-- Main content -->
+        <div class="content">
+        	@yield('content')
+        </div>
       </div><!-- /.content-wrapper -->
       <!--Fin-Contenido-->
       <footer class="main-footer">
-        <strong>Copyright &copy; 2016-2017 <a href="http://www.project4design.com.ve">Project 4 Design C.A</a>.</strong> All rights reserved.
+        <strong>Copyright &copy; 2017 <a href="http://www.project4design.com.ve">Project 4 Design C.A.</a></strong> All rights reserved.
       </footer>
+    </div>
 
       
     <!-- jQuery 2.1.4 -->
@@ -195,15 +225,19 @@
     <script src="{{asset('js/app.min.js')}}"></script>
     <script type="text/javascript" src="{{asset('plugins/datatables/jquery.dataTables.min.js')}}"></script>
     <script src="{{asset('plugins/datatables/dataTables.bootstrap.js')}}"></script>
-    <script type="text/javascript" src="{{asset('js/highcharts.js')}}"></script>
     <script type="text/javascript">
-      $(window).ready(function(){
+      $(document).ready(function(){
+      	$('div.alert').not('.alert-important').delay(5000).slideUp(300);
+
         $('.data-table').DataTable({
           responsive: true
         });
       })
+     
     </script>
 
     @yield('script')
   </body>
 </html>
+
+

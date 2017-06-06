@@ -25,7 +25,7 @@
       <a href="#"><b>{{ config('app.name') }}</b></a>
     </div><!-- /.login-logo -->
     <div class="login-box-body">
-      <p class="login-box-msg">-Authorized personal only-</p>
+      <p class="login-box-msg">-Solo personal autorizado-</p>
       @if (count($errors) > 0)
           <div class="alert alert-danger">
           <ul>
@@ -35,7 +35,7 @@
            </ul>  
           </div>
         @endif
-      <form id="form-login" action="#" method="POST">
+      <form id="form-login" action="{{route('auth')}}" method="POST">
           {{ csrf_field() }}
     
         <div class="form-group has-feedback">
@@ -43,7 +43,7 @@
           <span class="glyphicon glyphicon-envelope form-control-feedback"></span>
         </div>
         <div class="form-group has-feedback">
-          <input id="password" class="form-control" type="password" name="password" placeholder="Password">
+          <input id="password" class="form-control" type="password" name="password" placeholder="Contraseña">
           <span class="glyphicon glyphicon-lock form-control-feedback"></span>
         </div>
         <div class="form-group">
@@ -55,12 +55,6 @@
         <div class="row">
           <div class="col-xs-4">
             <button id="b-login" type="submit" class="btn btn-primary btn-block btn-flat">Login</button>
-
-  
-        
-
-        
-
           </div><!-- /.col -->
         </div>
       </form>

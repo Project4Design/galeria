@@ -15,5 +15,14 @@ Route::get('/', function () {
     return view('login');
 });
 
-/* ---- Ruuta para llamar al dashboard , modificarla si es necesario ----- */
+
 Route::get('dashboard', 'LoginController@index');
+Route::post('auth', 'LoginController@login')->name('auth');
+Route::post('/logout', 'LoginController@logout')->name('logout');
+
+//Usuarios
+Route::get('perfil','UsersController@perfil')->name('perfil');
+Route::resource('/users','UsersController');
+
+//Cursos
+Route::resource('/cursos','CursosController');

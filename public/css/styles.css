@@ -1,0 +1,51 @@
+
+/*======================|| Image in inputs ||===========================*/
+
+/* Contenedor de imagen*/
+
+.imageUploadWidget {
+  background-color: #fff;
+  border: 1px solid #ddd;
+  display: block;
+  height: 170px;
+  width: 100%;
+}
+
+.imageUploadWidget .imageArea {
+  height: 125px;
+  line-height: 125px;
+  text-align: center;
+  vertical-align: middle;
+}
+
+.imageUploadWidget .imageArea img {
+  max-height: 115px;
+  max-width: 160px;
+  vertical-align: middle;
+  display: inline-block;
+}
+
+.imageUploadWidget .imageArea .spinner-image {
+  display: none;
+  height: 50px;
+  width: 50px;
+}
+
+.imageUploadWidget .btnArea {
+  background-color: #ddd;
+  font-size: 12px;
+  height: 44px;
+  line-height: 46px;
+  overflow: hidden;
+  vertical-align: middle;
+}
+
+.imageUploadWidget.has-error,
+.has-error .imageUploadWidget {
+  border: 1px solid #dd4b39 !important;
+}
+
+.imageUploadWidget.has-error .btnArea,
+.has-error .imageUploadWidget .btnArea {
+  background-color: #dd4b39 !important;
+}

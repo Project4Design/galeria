@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
 
 class LoginController extends Controller
@@ -16,7 +17,7 @@ class LoginController extends Controller
 	 }
 
 
-	 public function login()
+	 public function login(Request $request)
 	 {
 	 	/*----------- LOGIN MANUAL , MODIFICABLE ----------*/
 
@@ -33,9 +34,7 @@ class LoginController extends Controller
 	        if (Auth::attempt($request->only(['email' , 'password'])))
 	        {
 	        	return redirect()->intended('dashboard');
-	            
 	        }else{
-
 	        	return redirect()->route('index_show_login')->withErrors('An error has occurred, check your credentials');
 	        }
 	 }
