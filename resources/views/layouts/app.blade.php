@@ -137,8 +137,8 @@
                 <i class="fa fa-angle-left pull-right"></i>
               </a>
               <ul class="treeview-menu">
-                <li><a href="{{ url('/users') }}"><i class="fa fa-circle-o"></i>Ver Usuarios</a></li>
-                <li><a href="{{ url('/users/create') }}"><i class="fa fa-circle-o"></i>Agregar Usuario</a></li>
+                <li><a href="{{ url('admin/users') }}"><i class="fa fa-circle-o"></i>Ver Usuarios</a></li>
+                <li><a href="{{ url('admin/users/create') }}"><i class="fa fa-circle-o"></i>Agregar Usuario</a></li>
               </ul>
             </li>
 
@@ -149,8 +149,8 @@
                 <i class="fa fa-angle-left pull-right"></i>
               </a>
               <ul class="treeview-menu">
-                <li><a href="{{ url('/cursos') }}"><i class="fa fa-circle-o"></i>Ver Cursos</a></li>
-                <li><a href="{{ url('/cursos/create') }}"><i class="fa fa-circle-o"></i>Agregar Curso</a></li>
+                <li><a href="{{ url('admin/cursos') }}"><i class="fa fa-circle-o"></i>Ver Cursos</a></li>
+                <li><a href="{{ url('admin/cursos/create') }}"><i class="fa fa-circle-o"></i>Agregar Curso</a></li>
               </ul>
             </li>
 
@@ -161,8 +161,8 @@
                 <i class="fa fa-angle-left pull-right"></i>
               </a>
               <ul class="treeview-menu">
-                <li><a href="{{ url('/pagos') }}"><i class="fa fa-circle-o"></i>Ver Pagos</a></li>
-                <li><a href="{{ url('/pagos/create') }}"><i class="fa fa-circle-o"></i>Agregar Pago</a></li>
+                <li><a href="{{ url('admin/pagos') }}"><i class="fa fa-circle-o"></i>Ver Pagos</a></li>
+                <li><a href="{{ url('admin/pagos/create') }}"><i class="fa fa-circle-o"></i>Agregar Pago</a></li>
               </ul>
             </li>
 
@@ -173,8 +173,8 @@
                 <i class="fa fa-angle-left pull-right"></i>
               </a>
               <ul class="treeview-menu">
-                <li><a href="{{ url('/profesores') }}"><i class="fa fa-circle-o"></i>Ver Profesores</a></li>
-                <li><a href="{{ url('/profesores/create') }}"><i class="fa fa-circle-o"></i>Agregar Profesore</a></li>
+                <li><a href="{{ url('admin/profesores') }}"><i class="fa fa-circle-o"></i>Ver Profesores</a></li>
+                <li><a href="{{ url('admin/profesores/create') }}"><i class="fa fa-circle-o"></i>Agregar Profesore</a></li>
               </ul>
             </li>
 
@@ -185,8 +185,8 @@
                 <i class="fa fa-angle-left pull-right"></i>
               </a>
               <ul class="treeview-menu">
-                <li><a href="{{ url('/estudiantes') }}"><i class="fa fa-circle-o"></i>Ver Estudiantes</a></li>
-                <li><a href="{{ url('/estudiantes/create') }}"><i class="fa fa-circle-o"></i>Agregar Estudiante</a></li>
+                <li><a href="{{ url('admin/estudiantes') }}"><i class="fa fa-circle-o"></i>Ver Estudiantes</a></li>
+                <li><a href="{{ url('admin/estudiantes/create') }}"><i class="fa fa-circle-o"></i>Agregar Estudiante</a></li>
               </ul>
             </li>
           </ul>

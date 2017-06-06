@@ -29,7 +29,7 @@ class UsersController extends Controller
     {
         //
     	$user = new User;
-      return view("users.create", ["title" => "Agregar","user" => $user,"url" => "/users", "method" => "POST"]);
+      return view("users.create", ["title" => "Agregar","user" => $user,"url" => "admin/users", "method" => "POST"]);
     }
 
     /**
@@ -49,7 +49,7 @@ class UsersController extends Controller
             'apellido' => 'required',
             'cedula' => 'required|max:10|unique:users',
             'password' => 'required|min:6|max:8|confirmed',
-            'verificar' => 'required|min:6|max:8|same:password',
+            'verificar' => 'required|min:6|max:8',
 
             ]);
 
@@ -102,7 +102,7 @@ class UsersController extends Controller
     {
         //
     	$user = user::findOrFail($id);
-      return view("users.create", ["title" => "Editar","user" => $user,"url"=> "/users/{$id}/","method" => 'PATCH']);
+      return view("users.create", ["title" => "Editar","user" => $user,"url"=> "admin/users/{$id}/","method" => 'PATCH']);
     }
 
     /**
