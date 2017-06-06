@@ -11,7 +11,15 @@
 |
 */
 
-Route::get('/', function () {
+Route::get('/','FrontCrontroller@index')->name('front_index');
+Route::get('/about',function(){
+	return view('front.about');
+})->name('about');
+Route::get('/contacto',function(){
+	return view('front.contacto');
+})->name('contacto');
+
+Route::get('/admin', function () {
     return view('login');
 });
 

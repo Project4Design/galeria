@@ -47,7 +47,7 @@
 						</thead>
 						<tbody class="text-center">
 							@php $i=1; @endphp
-							@foreach($users as $d)	
+							@foreach($users as $d)
 								<tr>
 									<td>{{$i}}</td>
 									<td>{{$d->nombre}}</td>
