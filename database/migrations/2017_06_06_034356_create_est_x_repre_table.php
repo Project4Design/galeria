@@ -19,7 +19,7 @@ class CreateEstXRepreTable extends Migration
             $table->integer('representante_id')->unsigned();
             $table->integer('estudiante_id')->unsigned();
             $table->softDeletes();
-            $table->timestamp()->nullable();
+            $table->timestamps();
         });
     }
 

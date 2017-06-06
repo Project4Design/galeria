@@ -24,7 +24,7 @@ class CreateRepresentantesTable extends Migration
             $table->string('tlf_local',150)->nullable();
             $table->string('foto',55);
             $table->softDeletes();
-            $table->timestamp()->nullable();
+            $table->timestamps();
         });
     }
 

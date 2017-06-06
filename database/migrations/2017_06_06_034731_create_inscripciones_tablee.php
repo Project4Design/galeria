@@ -21,7 +21,7 @@ class CreateInscripcionesTablee extends Migration
             $table->integer('user_id')->unsigned();
             $table->string('fecha',10);
             $table->softDeletes();
-            $table->timestamp()->nullable();
+            $table->timestamps();
         });
     }
 
