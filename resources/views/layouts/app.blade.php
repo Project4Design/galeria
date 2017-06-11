@@ -142,6 +142,18 @@
               </ul>
             </li>
 
+             <li class="treeview">
+              <a href="#">
+                <i class="fa fa-user-circle"></i>
+                <span>Profesores</span>
+                <i class="fa fa-angle-left pull-right"></i>
+              </a>
+              <ul class="treeview-menu">
+                <li><a href="{{ route('profesores.index') }}"><i class="fa fa-circle-o"></i>Ver Profesores</a></li>
+                <li><a href="{{ route('profesores.create') }}"><i class="fa fa-circle-o"></i>Agregar Profesor</a></li>
+              </ul>
+            </li>
+
             <li class="treeview">
               <a href="#">
                 <i class="fa fa-university"></i>

@@ -19,6 +19,8 @@ class CreateCursosTable extends Migration
             $table->string('titulo',120);
             $table->string('descripcion',500);
             $table->string('foto',55);
+            $table->integer('id_profesor')->unsigned();
+            $table->foreign('id_profesor')->references('id')->on('profesores')->onDelete('cascade');
             $table->float('precio')->unsigned();
             $table->softDeletes();
             $table->timestamps();

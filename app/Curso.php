@@ -13,6 +13,15 @@ class Curso extends Model
 	protected $primaryKey = "curso_id";
 
 	protected $fillable = [
-      'titulo','descripcion', 'foto','precio'
+      'titulo',
+      'descripcion',
+       'foto',
+       'precio',
+       'id_profesor'
   ];
+
+  public function profesor()
+    {
+        return $this->belongsTo('App\Profesores','id_profesor');
+    }
 }
