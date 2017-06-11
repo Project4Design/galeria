@@ -31,4 +31,6 @@
         </div>
       </div>
     </div>
+
+    @include('partials.front_sidebar')
 @endsection

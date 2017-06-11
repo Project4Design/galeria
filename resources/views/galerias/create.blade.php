@@ -20,7 +20,7 @@
 					<div class="form-group">
             <div class="imageUploadWidget">
               <div class="imageArea">
-                <img id="img" src="{{ asset('/images') }}{{isset($cuadro->foto) ? '/galeria/'.$cuadro->foto : '/no-image.png' }}" alt="">
+                <img id="img" src="{{ asset('/images/cuadros/') }}{{isset($cuadro->foto) ? '/'.$cuadro->foto : '/no-image.png' }}" alt="">
                 <img class="spinner-image" src="{{ asset('images/spinner.gif') }}">
               </div>
               <div class="btnArea">
