@@ -61,6 +61,9 @@
       </div>
     	<div class="clear"></div>
     </div>
+    <div style="text-align: center">
+    	<strong>Copyright &copy; GALERIA D´ ABILIO 2017 </strong>. - Desarrollado por Marilyn Ortegana
+    </div>
   </div>
 
 	<!-- jQuery 2.1.4 -->

@@ -30,7 +30,7 @@ class CursosController extends Controller
     {
         //
     	$curso = new curso;
-      return view("cursos.create", ["title" => "Agregar","curso" => $curso,"url" => "/cursos", "method" => "POST"]);
+      return view("cursos.create", ["title" => "Agregar","curso" => $curso,"url" => "admin/cursos", "method" => "POST"]);
     }
 
     /**
@@ -60,7 +60,7 @@ class CursosController extends Controller
           return view("admin/cursos")->with([
           		'title' => 'Agregar',
           		'curso' => $curso,
-          		'url'=> '/cursos',
+          		'url'=> 'admin/cursos',
           		'method' => 'POST',
               'flash_message' => 'Ha ocurrido un error.',
               'flash_class' => 'alert-danger',
@@ -92,7 +92,7 @@ class CursosController extends Controller
     {
         //
     	$curso = curso::findOrFail($id);
-      return view("cursos.create", ["title" => "Edit","curso" => $curso,"url"=> "/cursos/{$id}/","method" => 'PATCH']);
+      return view("cursos.create", ["title" => "Edit","curso" => $curso,"url"=> "admin/cursos/{$id}/","method" => 'PATCH']);
     }
 
     /**
@@ -123,7 +123,7 @@ class CursosController extends Controller
         return view("admin/cursos")->with([
         		'title' => 'Editar',
         		'curso' => $curso,
-        		'url'=> '/users/{$id}/',
+        		'url'=> "admin/cursos/{$id}/",
         		'method' => 'PATCH',
             'flash_message' => 'Ha ocurrido un error.',
             'flash_class' => 'alert-danger',

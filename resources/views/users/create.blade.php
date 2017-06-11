@@ -48,9 +48,9 @@
 						<input id="password" class="form-control" type="password" name="password" value="{{ old('password')?old('password'):$user->password }}">
 					</div>
 
-					<div class="form-group {{ $errors->has('verificar')?'has-error':'' }}">
-						<label class="control-label" for="verificar">Verificar:</label>
-						<input id="verificar" class="form-control" type="password" name="verificar" value="{{ old('verificar')?old('verificar'):$user->verificar }}">
+					<div class="form-group {{ $errors->has('password_confirmation')?'has-error':'' }}">
+						<label class="control-label" for="password_confirmation">Verificar:</label>
+						<input id="password_confirmation" class="form-control" type="password" name="password_confirmation" value="{{ old('password_confirmation')?old('password_confirmation'):$user->password_confirmation }}">
 					</div>
 				@endif
 
