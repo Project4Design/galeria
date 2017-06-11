@@ -49,7 +49,7 @@ class UsersController extends Controller
             'apellido' => 'required',
             'cedula' => 'required|max:10|unique:users',
             'password' => 'required|min:6|max:8|confirmed',
-            'verificar' => 'required|min:6|max:8',
+            'verificar' => 'required|min:6|max:8|same:password',
 
             ]);
 
