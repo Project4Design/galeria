@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Input;
 use App\Curso;
+use App\Profesores;
 
 class CursosController extends Controller
 {
@@ -30,7 +31,8 @@ class CursosController extends Controller
     {
         //
     	$curso = new curso;
-      return view("cursos.create", ["title" => "Agregar","curso" => $curso,"url" => "/cursos", "method" => "POST"]);
+        $profesores = Profesores::all();
+      return view("cursos.create", ["title" => "Agregar","curso" => $curso,"url" => "admin/cursos", "method" => "POST" , "profesor" => $profesores]);
     }
 
     /**
@@ -41,7 +43,7 @@ class CursosController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        //dd($request->all());
     	$curso = new Curso;
     	$curso->fill($request->all());
 
@@ -60,7 +62,7 @@ class CursosController extends Controller
           return view("admin/cursos")->with([
           		'title' => 'Agregar',
           		'curso' => $curso,
-          		'url'=> '/cursos',
+          		'url'=> 'admin/cursos',
           		'method' => 'POST',
               'flash_message' => 'Ha ocurrido un error.',
               'flash_class' => 'alert-danger',
@@ -92,7 +94,8 @@ class CursosController extends Controller
     {
         //
     	$curso = curso::findOrFail($id);
-      return view("cursos.create", ["title" => "Edit","curso" => $curso,"url"=> "/cursos/{$id}/","method" => 'PATCH']);
+        $profesores = Profesores::all();
+      return view("cursos.create", ["title" => "Edit","curso" => $curso,"url"=> "admin/cursos/{$id}/","method" => 'PATCH','profesor' => $profesores]);
     }
 
     /**

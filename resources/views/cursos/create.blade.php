@@ -44,6 +44,16 @@
 						<input id="precio" class="form-control" type="number" name="precio" value="{{ old('precio')?old('precio'):$curso->precio }}" placeholder="precio">
 					</div>
 
+					<div class="form-group {{ $errors->has('profesor')?'has-error':'' }}">
+						<label class="control-label" for="profesor">Profesor:</label>
+						<select name="id_profesor" class="form-control">
+							<option value="">Seleccione...</option>
+							@foreach($profesor as $p)
+								<option value="{{ old('id_profesor')?old('id_profesor'):$p->id }}" {{$curso->id_profesor?'selected':''}}>{{$p->nombre.' '.$p->apellido}}</option>
+							@endforeach
+						</select>
+					</div>
+
 					@if(count($errors)>0)
 						<div class="alert alert-danger">
 			        <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>

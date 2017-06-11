@@ -33,10 +33,18 @@
 					<p><b>Precio: </b> {{ number_format($curso->precio,2,",",".") }} </p>
 					<p><b>Descripcion: </b> {{ $curso->descripcion }} </p>
 				</div>
-				<div class="col-md-4">
+				<div class="col-md-3">
 					<h4>Imagen del curso</h4>
 					<img class="img-responsive" src="{{ asset('/images/cursos/'.$curso->foto) }}">
 				</div>
+
+        <div class="col-md-4 col-md-offset-1">
+          <h4>Profesor</h4>
+          <p><b>Nombre y Apellido:</b> {{$curso->profesor->nombre.' '.$curso->profesor->apellido}}</p>
+          <p><b>Profesion: </b> {{$curso->profesor->profesion}}</p>
+          <p><b>Foto: </b> <img class="img-responsive" src="{{ asset('/images/profesores/'.$curso->profesor->foto) }}"></p>
+        </div>
+
 			</div>
 		</section>
 	</div>
