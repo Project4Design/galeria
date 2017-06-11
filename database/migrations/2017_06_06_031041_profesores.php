@@ -18,6 +18,8 @@ class Profesores extends Migration
             $table->string('cedula');
             $table->string('nombre');
             $table->string('apellido');
+            $table->string('email');
+            $table->string('telefono');
             $table->string('direccion');
             $table->string('profesion');
             $table->string('descripcion_perfil');

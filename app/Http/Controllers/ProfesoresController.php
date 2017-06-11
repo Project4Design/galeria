@@ -42,13 +42,13 @@ class ProfesoresController extends Controller
         //dd($request->all());
         
         $this->validate($request, [
-
             'nombre' =>'required',
             'apellido' => 'required',
+            'email' => 'required|email|unique:users',
+            'telefono' => 'required',
             'cedula' => 'numeric|required|unique:profesores',
             'foto' => 'required', 
             'profesion' => 'required',
-
             ]);
         
         $profesor = new Profesores;
@@ -69,7 +69,7 @@ class ProfesoresController extends Controller
           return view("admin/profesores")->with([
                 'title' => 'Agregar',
                 'profesor' => $profesor,
-                'url'=> '/galeria',
+                'url'=> '/admin/profesores',
                 'method' => 'POST',
               'flash_message' => 'Ha ocurrido un error.',
               'flash_class' => 'alert-danger',
@@ -86,7 +86,10 @@ class ProfesoresController extends Controller
      */
     public function show($id)
     {
-        dd(Profesores::findOrFail($id));
+      $profesor = Profesores::findOrFail($id);
+      $cursos = array();
+
+      return view('profesores.view',['profesor'=>$profesor,'cursos'=>$cursos]);
     }
 
     /**
@@ -128,7 +131,7 @@ class ProfesoresController extends Controller
         return view("admin/profesores")->with([
                 'title' => 'Editar',
                 'profesor' => $profesor,
-                'url'=> '/users/{$id}/',
+                'url'=> "/admin/profesores/{$id}/",
                 'method' => 'PATCH',
             'flash_message' => 'Ha ocurrido un error.',
             'flash_class' => 'alert-danger',

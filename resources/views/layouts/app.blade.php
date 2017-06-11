@@ -192,18 +192,6 @@
 
             <li class="treeview">
               <a href="#">
-                <i class="fa fa-address-card"></i>
-                <span>Profesores</span>
-                <i class="fa fa-angle-left pull-right"></i>
-              </a>
-              <ul class="treeview-menu">
-                <li><a href="{{ url('admin/profesores') }}"><i class="fa fa-circle-o"></i>Ver Profesores</a></li>
-                <li><a href="{{ url('admin/profesores/create') }}"><i class="fa fa-circle-o"></i>Agregar Profesore</a></li>
-              </ul>
-            </li>
-
-            <li class="treeview">
-              <a href="#">
                 <i class="fa fa-address-book-o"></i>
                 <span>Estudiantes</span>
                 <i class="fa fa-angle-left pull-right"></i>
@@ -254,7 +242,10 @@
       	$('div.alert').not('.alert-important').delay(5000).slideUp(300);
 
         $('.data-table').DataTable({
-          responsive: true
+          responsive: true,
+          language: {
+          	url:'{{asset("js/spanish.json")}}'
+          }
         });
       })
      

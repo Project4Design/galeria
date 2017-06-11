@@ -12,6 +12,8 @@ class Profesores extends Model
      'cedula',
      'nombre',
      'apellido',
+     'email',
+     'telefono',
      'direccion',
      'profesion',
      'descripcion_perfil',

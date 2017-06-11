@@ -6,10 +6,7 @@
 	<title>@yield('title',config('app.name'))</title>
 	<link rel="stylesheet" type="text/css" media="all" href="{{asset('css/style.css')}}" />
 	<link rel="stylesheet" href="{{asset('css/prettyPhoto.css')}}" type="text/css" media="screen" charset="utf-8"/>
-	<link href='http://fonts.googleapis.com/css?family=Marmelad' rel='stylesheet' type='text/css'>
-	<script type="text/javascript" src="{{asset('js/jquery.flexslider-min.js')}}"></script>
-	<script src="{{asset('js/jquery.prettyPhoto.js')}}" type="text/javascript" charset="utf-8"></script>
-<script type="text/javascript" src="{{asset('js/custom.quicksand.js')}}"></script>
+	<link href='http://fonts.googleapis.com/css?family=Marmelad' rel='stylesheet' type='text/css'/>
 </head>
 <body>
 	<div id="wrap">
@@ -68,5 +65,9 @@
 
 	<!-- jQuery 2.1.4 -->
   <script src="{{asset('js/jQuery-2.1.4.min.js')}}"></script>
+	<script type="text/javascript" src="{{asset('js/jquery.flexslider-min.js')}}"></script>
+	<script src="{{asset('js/jquery.prettyPhoto.js')}}" type="text/javascript" charset="utf-8"></script>
+	<script type="text/javascript" src="{{asset('js/custom.quicksand.js')}}"></script>
+  @yield('scripts')
 </body>
 </html>
