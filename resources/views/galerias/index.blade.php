@@ -41,6 +41,7 @@
 								<th class="text-center">#</th>
 								<th class="text-center">Titulo</th>
 								<th class="text-center">Descripcion</th>
+								<th class="text-center">Cuadro</th>
 								<th class="text-center">Registrado</th>
 								<th class="text-center">Accion</th>
 							</tr>
@@ -53,7 +54,7 @@
 									<td>{{$d->titulo}}</td>
 									<td>{{$d->descripcion}}</td>
 									<td>
-										<img src="{{asset('images/cuadros/'.$d->foto)}}" alt="{{ $d->nombre }}" height="100px" width="100px" class="img-responsive img-thumbnail">
+										<img src="{{asset('images/cuadros/'.$d->foto)}}" alt="{{ $d->nombre }}" height="60px" width="60px" class="img-responsive img-thumbnail">
 									</td>
 									<td>{{$d->created_at}}</td>
 									<td>

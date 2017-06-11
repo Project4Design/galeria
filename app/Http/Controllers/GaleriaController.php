@@ -26,7 +26,7 @@ class GaleriaController extends Controller
      */
     public function create()
     {
-        $cuadro = new Galeria;
+      $cuadro = new Galeria;
       return view("galerias.create", ["title" => "Agregar","cuadro" => $cuadro,"url" => "admin/galeria", "method" => "POST"]);
     }
 
@@ -38,8 +38,6 @@ class GaleriaController extends Controller
      */
     public function store(Request $request)
     {
-        //dd($request->all());
-
         $cuadro = new Galeria;
         $cuadro->fill($request->all());
 
@@ -89,6 +87,8 @@ class GaleriaController extends Controller
     public function edit($id)
     {
         //
+    	$cuadro = Galeria::find($id);
+      return view("galerias.create", ["title" => "Editar","cuadro" => $cuadro,"url" => "admin/galeria/{$id}/", "method" => "PATCH"]);
     }
 
     /**
@@ -101,6 +101,31 @@ class GaleriaController extends Controller
     public function update(Request $request, $id)
     {
         //
+    	$cuadro = Galeria::findOrFail($id);
+    	$cuadro->fill($request->all());
+
+    	if(input::hasFile('image')){
+        $file = Input::file('image');
+        $file->move(public_path().'/images/cuadros/',$file->getClientOriginalName());
+        $cuadro->foto = $file->getClientOriginalName();
+      }
+
+    	if($cuadro->save()){
+        return redirect("admin/galeria")->with([
+            'flash_message' => 'Cuadro editado correctamente.',
+            'flash_class' => 'alert-success'
+            ]);
+    	}else{
+        return view("admin/galeria")->with([
+        		'title' => 'Editar',
+        		'cuadro' => $cuadro,
+        		'url'=> "/galeria/{$id}/edit",
+        		'method' => 'PATCH',
+            'flash_message' => 'Ha ocurrido un error.',
+            'flash_class' => 'alert-danger',
+            'flash_important' => true
+            ]);
+    	}
     }
 
     /**
