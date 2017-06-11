@@ -18,7 +18,7 @@ Route::get('/about',function(){
 Route::get('/contacto',function(){
 	return view('front.contacto');
 })->name('contacto');
-
+Route::get('/galeria', 'FrontCrontroller@galeria')->name('galeria');
 Route::get('/admin', function () {
     return view('login');
 });
