@@ -87,7 +87,7 @@ class ProfesoresController extends Controller
     public function show($id)
     {
       $profesor = Profesores::findOrFail($id);
-      $cursos = array();
+      $cursos = $profesor->cursos()->get();
 
       return view('profesores.view',['profesor'=>$profesor,'cursos'=>$cursos]);
     }

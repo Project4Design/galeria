@@ -60,7 +60,6 @@
 										<th class="text-center">#</th>
 										<th class="text-center">Titulo</th>
 										<th class="text-center">Precio</th>
-										<th class="text-center">Registrado</th>
 										<th class="text-center">Accion</th>
 									</tr>
 								</thead>
@@ -70,7 +69,6 @@
 										<tr>
 											<td>{{$i}}</td>
 											<td>{{$d->titulo}}</td>
-											<td class="text-right">{{number_format($d->precio,2,",",".")}}</td>
 											<td>{{$d->created_at}}</td>
 											<td>
 												<a class="btn btn-primary btn-flat btn-sm" href="{{ url('admin/cursos/'.$d->curso_id) }}"><i class="fa fa-search"></i></a>

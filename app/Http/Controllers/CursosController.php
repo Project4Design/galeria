@@ -32,7 +32,7 @@ class CursosController extends Controller
         //
     	$curso = new curso;
 
-        $profesores = Profesores::all();
+      $profesores = Profesores::all();
       return view("cursos.create", ["title" => "Agregar","curso" => $curso,"url" => "admin/cursos", "method" => "POST" , "profesor" => $profesores]);
 
 
@@ -46,7 +46,15 @@ class CursosController extends Controller
      */
     public function store(Request $request)
     {
-        //dd($request->all());
+        
+        
+      $this->validate($request, [
+        'titulo' =>'required|min:5',
+        'precio' => 'required|numeric',
+        'image' => 'required|image',
+        'id_profesor'=>'required'
+      ]);
+
     	$curso = new Curso;
     	$curso->fill($request->all());
 

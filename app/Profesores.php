@@ -20,8 +20,8 @@ class Profesores extends Model
      'foto'
   ];
 
-   public function curso()
-    {
-        return $this->hasOne('App\Curso');
-    }
+ 	public function cursos()
+  {
+    return $this->hasMany('App\Curso','id_profesor');
+  }
 }
