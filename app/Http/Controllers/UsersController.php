@@ -49,7 +49,7 @@ class UsersController extends Controller
             'apellido' => 'required',
             'cedula' => 'required|max:10|unique:users',
             'password' => 'required|min:6|max:8|confirmed',
-            'verificar' => 'required|min:6|max:8|same:password',
+            'password_confirmation' => 'required|min:6|max:8|same:password',
 
             ]);
 
@@ -64,12 +64,12 @@ class UsersController extends Controller
 
 
     	if($user->save()){
-        return redirect("admin/dashboard")->with([
+        return redirect("admin/users")->with([
             'flash_message' => 'Usuario agregado correctamente.',
             'flash_class' => 'alert-success'
             ]);
     	}else{
-        return view("admin/dashboard")->with([
+        return view("admin/users")->with([
         		'title' => "Agregar",
             'flash_message' => 'Ha ocurrido un error.',
             'flash_class' => 'alert-danger',
@@ -126,7 +126,7 @@ class UsersController extends Controller
         return view("admin/users")->with([
         		'title' => 'Editar',
         		'user' => $user,
-        		'url'=> '/users/{$id}/',
+        		'url'=> "admin/users/{$id}/",
         		'method' => 'PATCH',
             'flash_message' => 'Ha ocurrido un error.',
             'flash_class' => 'alert-danger',

@@ -15,7 +15,7 @@
 				<form class="" action="{{ url($url) }}" method="POST" enctype="multipart/form-data">
 					{{ method_field( $method ) }}
 					{{ csrf_field() }}
-					<h4>{{ $title }} Usuario</h4>
+					<h4>{{ $title }} Curso</h4>
 
 					<div class="form-group">
             <div class="imageUploadWidget">
