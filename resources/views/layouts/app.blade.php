@@ -153,6 +153,18 @@
                 <li><a href="{{ url('admin/cursos/create') }}"><i class="fa fa-circle-o"></i>Agregar Curso</a></li>
               </ul>
             </li>
+        
+         <li class="treeview">
+              <a href="#">
+                <i class="fa fa-file-image-o"></i>
+                <span>Cuadros</span>
+                <i class="fa fa-angle-left pull-right"></i>
+              </a>
+              <ul class="treeview-menu">
+                <li><a href="{{ route('galeria.index') }}"><i class="fa fa-circle-o"></i>Ver Cuadros</a></li>
+                <li><a href="{{ route('galeria.create') }}"><i class="fa fa-circle-o"></i>Agregar Cuadro</a></li>
+              </ul>
+            </li>
 
             <li class="treeview">
               <a href="#">

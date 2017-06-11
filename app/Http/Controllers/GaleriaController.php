@@ -3,10 +3,10 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Galeria;
 use Illuminate\Support\Facades\Input;
-use App\Curso;
 
-class CursosController extends Controller
+class GaleriaController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -15,10 +15,8 @@ class CursosController extends Controller
      */
     public function index()
     {
-        //
-    	$cursos = Curso::all();
-
-    	return view('cursos.index',['cursos'=>$cursos]);
+        $cuadros = Galeria::all();
+        return view('galerias.index',['cuadros' => $cuadros]);
     }
 
     /**
@@ -28,9 +26,8 @@ class CursosController extends Controller
      */
     public function create()
     {
-        //
-    	$curso = new curso;
-      return view("cursos.create", ["title" => "Agregar","curso" => $curso,"url" => "/cursos", "method" => "POST"]);
+        $cuadro = new Galeria;
+      return view("galerias.create", ["title" => "Agregar","cuadro" => $cuadro,"url" => "admin/galeria", "method" => "POST"]);
     }
 
     /**
@@ -41,27 +38,28 @@ class CursosController extends Controller
      */
     public function store(Request $request)
     {
-        //
-    	$curso = new Curso;
-    	$curso->fill($request->all());
+        //dd($request->all());
+
+        $cuadro = new Galeria;
+        $cuadro->fill($request->all());
 
       if(input::hasFile('image')){
         $file = Input::file('image');
-        $file->move(public_path().'/images/cursos/',$file->getClientOriginalName());
-        $curso->foto = $file->getClientOriginalName();
+        $file->move(public_path().'/images/cuadros/',$file->getClientOriginalName());
+        $cuadro->foto = $file->getClientOriginalName();
       }
 
-      if($curso->save()){
-          return redirect("admin/cursos")->with([
-              'flash_message' => 'Curso agregado correctamente.',
+      if($cuadro->save()){
+          return redirect("admin/galeria")->with([
+              'flash_message' => 'Cuadro agregado correctamente.',
               'flash_class' => 'alert-success'
               ]);
       }else{
-          return view("admin/cursos")->with([
-          		'title' => 'Agregar',
-          		'curso' => $curso,
-          		'url'=> '/cursos',
-          		'method' => 'POST',
+          return view("admin/galeria")->with([
+                'title' => 'Agregar',
+                'cuadro' => $cuadro,
+                'url'=> '/galeria',
+                'method' => 'POST',
               'flash_message' => 'Ha ocurrido un error.',
               'flash_class' => 'alert-danger',
               'flash_important' => true
@@ -77,9 +75,9 @@ class CursosController extends Controller
      */
     public function show($id)
     {
-        //
-    	$curso = Curso::findOrFail($id);
-      return view("cursos.view", ["curso" => $curso]);
+        $cuadro = Galeria::findOrFail($id);
+
+        return view('galerias.view',['cuadro' => $cuadro]);
     }
 
     /**
@@ -91,8 +89,6 @@ class CursosController extends Controller
     public function edit($id)
     {
         //
-    	$curso = curso::findOrFail($id);
-      return view("cursos.create", ["title" => "Edit","curso" => $curso,"url"=> "/cursos/{$id}/","method" => 'PATCH']);
     }
 
     /**
@@ -105,31 +101,6 @@ class CursosController extends Controller
     public function update(Request $request, $id)
     {
         //
-    	$curso = Curso::findOrFail($id);
-    	$curso->fill($request->all());
-
-    	if(input::hasFile('image')){
-        $file = Input::file('image');
-        $file->move(public_path().'/images/cursos/',$file->getClientOriginalName());
-        $curso->foto = $file->getClientOriginalName();
-      }
-
-    	if($curso->save()){
-        return redirect("admin/cursos")->with([
-            'flash_message' => 'Curso editado correctamente.',
-            'flash_class' => 'alert-success'
-            ]);
-    	}else{
-        return view("admin/cursos")->with([
-        		'title' => 'Editar',
-        		'curso' => $curso,
-        		'url'=> '/users/{$id}/',
-        		'method' => 'PATCH',
-            'flash_message' => 'Ha ocurrido un error.',
-            'flash_class' => 'alert-danger',
-            'flash_important' => true
-            ]);
-    	}
     }
 
     /**
@@ -140,14 +111,14 @@ class CursosController extends Controller
      */
     public function destroy($id)
     {
-        $curso = new Curso;
-            if ($curso->destroy($id)) {
-                return redirect("admin/cursos")->with([
+         $cuadro = new Galeria;
+            if ($cuadro->destroy($id)) {
+                return redirect("admin/galeria")->with([
                     'flash_message' => 'Cuadro se ha eliminado correctamente.',
                     'flash_class' => 'alert-success'
                     ]);
             }else{
-                return redirect("admin/cursos")->with([
+                return redirect("admin/galeria")->with([
                     'flash_message' => '¡Ha ocurrido un error!',
                     'flash_class' => 'alert-danger'
                     ]);

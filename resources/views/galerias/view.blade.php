@@ -1,21 +1,21 @@
 @extends('layouts.app')
-@section('title','Cursos - '.config('app.name'))
-@section('header','Cursos')
+@section('title','Galeria - '.config('app.name'))
+@section('header','Cuadro')
 @section('breadcrumb')
 	<ol class="breadcrumb">
 	  <li><a href="#"><i class="fa fa-dashboard" aria-hidden="true"></i> Escritorio</a></li>
-	  <li> Cursos </li>
+	  <li> Cuadro </li>
 	  <li class="active"> Ver </li>
 	</ol>
 @endsection
 @section('content')
 <!-- Formulario -->
 		<section>
-	    <a class="btn btn-flat btn-default" href="{{ url('admin/cursos') }}"><i class="fa fa-reply" aria-hidden="true"></i> Volver</a>
-	    <a class="btn btn-flat btn-success" href="{{ url('admin/cursos/'.$curso->curso_id.'/edit') }}"><i class="fa fa-pencil" aria-hidden="true"></i> Editar</a>
-
+	    <a class="btn btn-flat btn-default" href="{{ url('admin/galeria') }}"><i class="fa fa-reply" aria-hidden="true"></i> Volver</a>
+	    <a class="btn btn-flat btn-success" href="{{ url('admin/galeria/'.$cuadro->id.'/edit') }}"><i class="fa fa-pencil" aria-hidden="true"></i> Editar</a>
+	    
 	    <button class="btn btn-flat btn-danger" data-toggle="modal" data-target="#delModal"><i class="fa fa-times" aria-hidden="true"></i> Eliminar</button>
-
+	    
 		</section>
 
 		<section class="perfil">
@@ -23,19 +23,19 @@
 	    	<div class="col-md-12">
 	    		<h2 class="page-header" style="margin-top:0!important">
             <i class="fa fa-university" aria-hidden="true"></i>
-            {{ $curso->titulo }}
-            <small class="pull-right">Registrado: {{ $curso->created_at }}</small>
+            {{ $cuadro->titulo }}
+            <small class="pull-right">Registrado: {{ $cuadro->created_at }}</small>
             <span class="clearfix"></span>
           </h2>
 	    	</div>
 				<div class="col-md-4">
 					<h4>Detalles del curso</h4>
-					<p><b>Precio: </b> {{ number_format($curso->precio,2,",",".") }} </p>
-					<p><b>Descripcion: </b> {{ $curso->descripcion }} </p>
+          <p><b>Titulo: </b> {{$cuadro->titulo}}</p>
+					<p><b>Descripcion: </b> {{ $cuadro->descripcion }} </p>
 				</div>
 				<div class="col-md-4">
-					<h4>Imagen del curso</h4>
-					<img class="img-responsive" src="{{ asset('/images/cursos/'.$curso->foto) }}">
+					<h4>Cuadro: </h4>
+					<img class="img-responsive" src="{{ asset('/images/cuadros/'.$cuadro->foto) }}">
 				</div>
 			</div>
 		</section>
@@ -46,15 +46,15 @@
       <div class="modal-content">
         <div class="modal-header">
           <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-          <h4 class="modal-title" id="delModalLabel">Eliminar curso</h4>
+          <h4 class="modal-title" id="delModalLabel">Eliminar cuadro</h4>
         </div>
         <div class="modal-body">
           <div class="row">
-            <form id="delProduct" class="col-md-8 col-md-offset-2" action="{{url('admin/cursos/'.$curso->curso_id)}}" method="POST">
+            <form id="delProduct" class="col-md-8 col-md-offset-2" action="{{url('admin/galeria/'.$cuadro->id)}}" method="POST">
               <input type="hidden" name="_method" value="DELETE">
               {{ csrf_field() }}
-              <h4 class="text-center">Esta seguro de eliminar este curso?</h4><br>
-
+              <h4 class="text-center">Esta seguro de eliminar este cuadro?</h4><br>
+    
               <div class="form-group">
                 <div class="progress" style="display:none">
                   <div class="progress-bar progress-bar-striped active" role="progressbar" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100" style="width:100%">
@@ -64,7 +64,7 @@
               </div>
               <center>
                 <button class="btn btn-flat btn-danger" type="submit">Eliminar</button>
-                <button type="button" class="btn btn-flat btn-default" data-dismiss="modal">Cancelar</button>
+                <button type="button" class="btn btn-flat btn-default" data-dismiss="modal">Cerrar</button>
               </center>
             </form>
           </div>
