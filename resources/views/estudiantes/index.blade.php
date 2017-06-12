@@ -55,8 +55,8 @@
 									<td>{{$d->email}}</td>
 									<td>{{$d->tlf_personal}}</td>
 									<td>
-										<a class="btn btn-primary btn-flat btn-sm" href="{{ url('admin/estudiantantes/'.$d->estudiantes_id) }}"><i class="fa fa-search"></i></a>
-										<a  href="{{ url('admin/estudiantantes/'.$d->estudiantes_id.'/edit') }}" class="btn btn-flat btn-success btn-sm" title="Editar"><i class="fa fa-edit"></i></a>
+										<a class="btn btn-primary btn-flat btn-sm" href="{{ url('admin/estudiantes/'.$d->estudiante_id) }}"><i class="fa fa-search"></i></a>
+										<a  href="{{ url('admin/estudiantes/'.$d->estudiante_id.'/edit') }}" class="btn btn-flat btn-success btn-sm" title="Editar"><i class="fa fa-edit"></i></a>
 									</td>
 								</tr>
 								@php $i++; @endphp

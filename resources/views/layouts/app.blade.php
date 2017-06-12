@@ -25,6 +25,7 @@
     <link rel="stylesheet" href="{{asset('css/Styles.css')}}">
     <link rel="stylesheet" type="text/css" href="{{asset('css/glyphicons.css')}}">
     <link rel="stylesheet" type="text/css" href="{{asset('plugins/datatables/dataTables.bootstrap.css')}}">
+    <link rel="stylesheet" type="text/css" href="{{asset('css/bootstrap-datepicker3.min.css')}}">
     <!-- AdminLTE Skins. Choose a skin from the css/skins
     	folder instead of downloading all of them to reduce the load. -->
     <link rel="stylesheet" href="{{asset('css/_all-skins.min.css')}}">
@@ -209,8 +210,8 @@
                 <i class="fa fa-angle-left pull-right"></i>
               </a>
               <ul class="treeview-menu">
-                <li><a href="{{ url('admin/estudiantes') }}"><i class="fa fa-circle-o"></i>Ver Estudiantes</a></li>
-                <li><a href="{{ url('admin/estudiantes/create') }}"><i class="fa fa-circle-o"></i>Agregar Estudiante</a></li>
+                <li><a href="{{ route('estudiantes.index') }}"><i class="fa fa-circle-o"></i>Ver Estudiantes</a></li>
+                <li><a href="{{ route('estudiantes.create') }}"><i class="fa fa-circle-o"></i>Agregar Estudiante</a></li>
               </ul>
             </li>
           </ul>
@@ -249,6 +250,7 @@
     <script src="{{asset('js/app.min.js')}}"></script>
     <script type="text/javascript" src="{{asset('plugins/datatables/jquery.dataTables.min.js')}}"></script>
     <script src="{{asset('plugins/datatables/dataTables.bootstrap.js')}}"></script>
+    <script type="text/javascript" src="{{asset('js/bootstrap-datepicker.min.js')}}"></script>
     <script type="text/javascript">
       $(document).ready(function(){
       	$('div.alert').not('.alert-important').delay(5000).slideUp(300);
@@ -259,6 +261,13 @@
           	url:'{{asset("js/spanish.json")}}'
           }
         });
+
+        $('.datepicker').datepicker({
+        autoclose: true,
+        format: "dd-mm-yyyy",
+        endDate: "today",
+        enableOnReadonly: false
+      });
       })
      
     </script>

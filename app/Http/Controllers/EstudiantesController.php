@@ -1,7 +1,7 @@
 <?php
 
 namespace App\Http\Controllers;
-
+use Illuminate\Support\Facades\Input;
 use Illuminate\Http\Request;
 use App\Estudiante;
 
@@ -26,7 +26,8 @@ class EstudiantesController extends Controller
      */
     public function create()
     {
-        //
+         $estudiante = new Estudiante;
+      return view("estudiantes.create", ["title" => "Agregar","estudiante" => $estudiante,"url" => "admin/estudiantes", "method" => "POST"]);
     }
 
     /**
@@ -37,7 +38,32 @@ class EstudiantesController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        //dd($request->all());
+        $estudiante = new Estudiante;
+        $estudiante->fill($request->all());
+
+      if(input::hasFile('foto')){
+        $file = Input::file('foto');
+        $file->move(public_path().'/images/estudiantes/',$file->getClientOriginalName());
+        $estudiante->foto = $file->getClientOriginalName();
+      }
+
+      if($estudiante->save()){
+          return redirect("admin/estudiantes")->with([
+              'flash_message' => 'Estudiante agregado correctamente.',
+              'flash_class' => 'alert-success'
+              ]);
+      }else{
+          return view("admin/galeria")->with([
+                'title' => 'Agregar',
+                'estudiante' => $estudiante,
+                'url'=> '/galeria',
+                'method' => 'POST',
+              'flash_message' => 'Ha ocurrido un error.',
+              'flash_class' => 'alert-danger',
+              'flash_important' => true
+              ]);
+      }
     }
 
     /**
@@ -48,7 +74,9 @@ class EstudiantesController extends Controller
      */
     public function show($id)
     {
-        //
+        $estudiante = Estudiante::findOrFail($id);
+
+      return view('estudiantes.view',['estudiante'=>$estudiante]);
     }
 
     /**
@@ -59,7 +87,8 @@ class EstudiantesController extends Controller
      */
     public function edit($id)
     {
-        //
+        $estudiante = Estudiante::findOrFail($id);
+      return view("estudiantes.create", ["title" => "Editar","estudiante" => $estudiante,"url"=> "admin/estudiantes/{$id}/","method" => 'PATCH']);
     }
 
     /**
@@ -71,7 +100,31 @@ class EstudiantesController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $estudiante = Estudiante::findOrFail($id);
+        $estudiante->fill($request->all());
+
+        if(input::hasFile('foto')){
+        $file = Input::file('foto');
+        $file->move(public_path().'/images/estudiantes/',$file->getClientOriginalName());
+        $estudiante->foto = $file->getClientOriginalName();
+      }
+
+        if($estudiante->save()){
+        return redirect("admin/estudiantes")->with([
+            'flash_message' => 'Estudiante editado correctamente.',
+            'flash_class' => 'alert-success'
+            ]);
+        }else{
+        return view("admin/estudiantes")->with([
+                'title' => 'Editar',
+                'estudiante' => $estudiante,
+                'url'=> "/admin/estudiantes/{$id}/",
+                'method' => 'PATCH',
+            'flash_message' => 'Ha ocurrido un error.',
+            'flash_class' => 'alert-danger',
+            'flash_important' => true
+            ]);
+        }
     }
 
     /**

@@ -7,6 +7,9 @@ use Illuminate\Database\Eloquent\Model;
 class Estudiante extends Model
 {
     //
+    //
+    
+    public $table = "estudiantes";
 
 	protected $primaryKey = 'estudiante_id';
 
