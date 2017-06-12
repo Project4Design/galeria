@@ -209,8 +209,8 @@
                 <i class="fa fa-angle-left pull-right"></i>
               </a>
               <ul class="treeview-menu">
-                <li><a href="{{ url('admin/estudiantes') }}"><i class="fa fa-circle-o"></i>Ver Estudiantes</a></li>
-                <li><a href="{{ url('admin/estudiantes/create') }}"><i class="fa fa-circle-o"></i>Agregar Estudiante</a></li>
+                <li><a href="{{ route('estudiantes.index') }}"><i class="fa fa-circle-o"></i>Ver Estudiantes</a></li>
+                <li><a href="{{ route('estudiantes.create') }}"><i class="fa fa-circle-o"></i>Agregar Estudiante</a></li>
               </ul>
             </li>
           </ul>

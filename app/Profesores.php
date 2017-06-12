@@ -20,6 +20,6 @@ class Profesores extends Model
 
    public function curso()
     {
-        return $this->hasOne('App\Curso');
+        return $this->hasOne('App\Curso','id_profesor');
     }
 }
