@@ -15,9 +15,9 @@ class Curso extends Model
 	protected $fillable = [
       'titulo',
       'descripcion',
-       'foto',
-       'precio',
-       'id_profesor'
+      'foto',
+      'precio',
+      'id_profesor'
   ];
 
   public function profesor()

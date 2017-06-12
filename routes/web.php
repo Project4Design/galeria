@@ -37,6 +37,8 @@ Route::group(['middleware' => 'auth','prefix' => 'admin'],function(){
 	//Usuarios
 	Route::get('perfil','UsersController@perfil')->name('perfil');
 	Route::resource('/users','UsersController');
+	//Pagos
+	Route::resource('/pagos','PagosController');
 	//Cursos
 	Route::resource('/cursos','CursosController');
 	//Galeria

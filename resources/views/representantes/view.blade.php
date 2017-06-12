@@ -74,7 +74,7 @@
 											<td>{{$d->nombres}}</td>
 											<td>{{$d->apellidos}}</td>
 											<td>
-												<a class="btn btn-primary btn-flat btn-sm" href="{{ url('admin/estudiantes/'.$d->estudiantes_ids) }}"><i class="fa fa-search"></i></a>
+												<a class="btn btn-primary btn-flat btn-sm" href="{{ url('admin/estudiantes/'.$d->estudiantes_id) }}"><i class="fa fa-search"></i></a>
 											</td>
 										</tr>
 										@php $i++; @endphp

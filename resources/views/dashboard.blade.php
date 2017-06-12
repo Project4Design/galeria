@@ -20,7 +20,7 @@
           <div class="icon">
             <i class="fa fa-users"></i>
           </div>
-          <a href="{{ url('admin/users') }}" class="small-box-footer">
+          <a href="{{ route('users.index') }}" class="small-box-footer">
             More info <i class="fa fa-arrow-circle-right"></i>
           </a>
         </div>
@@ -35,7 +35,7 @@
           <div class="icon">
             <i class="fa fa-university"></i>
           </div>
-          <a href="{{ url('admin/cursos') }}" class="small-box-footer">
+          <a href="{{ route('cursos.index') }}" class="small-box-footer">
             More info <i class="fa fa-arrow-circle-right"></i>
           </a>
         </div>
@@ -46,13 +46,13 @@
       <div class="col-md-2 col-sm-6 col-xs-12">
         <div class="small-box bg-yellow">
           <div class="inner">
-            <h3>0</h3>
+            <h3>{{count($pagos)}}</h3>
             <p>Pagos</p>
           </div>
           <div class="icon">
             <i class="fa fa-credit-card"></i>
           </div>
-          <a href="#" class="small-box-footer">
+          <a href="{{ route('pagos.index') }}" class="small-box-footer">
             More info <i class="fa fa-arrow-circle-right"></i>
           </a>
         </div>
@@ -61,13 +61,13 @@
       <div class="col-md-2 col-sm-6 col-xs-12">
         <div class="small-box bg-blue">
           <div class="inner">
-            <h3>0</h3>
+            <h3>{{count($profesores)}}</h3>
             <p>Profesores</p>
           </div>
           <div class="icon">
             <i class="fa fa-address-card"></i>
           </div>
-          <a href="#" class="small-box-footer">
+          <a href="{{ route('profesores.index') }}" class="small-box-footer">
             More info <i class="fa fa-arrow-circle-right"></i>
           </a>
         </div>
@@ -76,13 +76,13 @@
       <div class="col-md-2 col-sm-6 col-xs-12">
         <div class="small-box bg-purple">
           <div class="inner">
-            <h3>0</h3>
+            <h3>{{count($estudiantes)}}</h3>
             <p>Estudiantes</p>
           </div>
           <div class="icon">
             <i class="fa fa-address-book-o"></i>
           </div>
-          <a href="#" class="small-box-footer">
+          <a href="{{ route('estudiantes.index') }}" class="small-box-footer">
             More info <i class="fa fa-arrow-circle-right"></i>
           </a>
         </div>

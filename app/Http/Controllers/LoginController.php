@@ -6,6 +6,9 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
 use App\User;
 use App\Curso;
+use App\Pago;
+use App\Profesores;
+use App\Estudiante;
 
 class LoginController extends Controller
 {
@@ -13,7 +16,11 @@ class LoginController extends Controller
     {
     	$users = User::all();
     	$cursos = Curso::all();
- 			return view('dashboard',['users'=>$users,'cursos'=>$cursos]);
+    	$pagos = Pago::all();
+    	$profesores = Profesores::all();
+    	$estudiantes = Estudiante::all();
+
+ 			return view('dashboard',['users'=>$users,'cursos'=>$cursos,'pagos'=>$pagos,'profesores'=>$profesores,'estudiantes'=>$estudiantes]);
 	 }
 
 

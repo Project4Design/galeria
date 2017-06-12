@@ -40,7 +40,6 @@ class RepresentantesController extends Controller
      */
     public function store(Request $request)
     {
-      //dd($request->all());
       $this->validate($request, [
           'email' =>'required|email|unique:representantes',
           'nombres' => 'required',
@@ -73,8 +72,6 @@ class RepresentantesController extends Controller
             'flash_important' => true
             ]);
     	}
-
-
     }
 
     /**
@@ -86,7 +83,7 @@ class RepresentantesController extends Controller
     public function show($id)
     {
        $representante = representante::findOrFail($id);
-       $estudiantes = array();
+       $estudiantes = $representante->estudiantes()->get();
        return view("representantes.view", ["representante" => $representante,'estudiantes'=>$estudiantes]);
     }
 

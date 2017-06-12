@@ -22,6 +22,6 @@ class Representante extends Model
 	];
 
 	public function estudiantes(){
-		return $this->hayMany('App\Estudiantes','representante_id');
+		return $this->hasMany('App\Estudiante','representante_id');
 	}
 }

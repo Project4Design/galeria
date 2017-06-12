@@ -38,6 +38,10 @@ class GaleriaController extends Controller
      */
     public function store(Request $request)
     {
+    	$this->validate($request,[
+    		'image'=>'required|image',
+    		'titulo' => 'required'
+    	]);
         $cuadro = new Galeria;
         $cuadro->fill($request->all());
 
