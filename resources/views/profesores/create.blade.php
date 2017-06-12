@@ -29,7 +29,7 @@
             </div>
           </div>
 
-          			<div class="form-group {{ $errors->has('cedula')?'has-error':'' }}">
+         	<div class="form-group {{ $errors->has('cedula')?'has-error':'' }}">
 						<label class="control-label" for="cedula">Cedula:</label>
 						<input id="cedula" class="form-control" type="text" name="cedula" value="{{ old('cedula')?old('cedula'):$profesor->cedula }}" placeholder="Cedula">
 					</div>

@@ -192,6 +192,18 @@
 
             <li class="treeview">
               <a href="#">
+                <i class="fa fa-address-card-o"></i>
+                <span>Representantes</span>
+                <i class="fa fa-angle-left pull-right"></i>
+              </a>
+              <ul class="treeview-menu">
+                <li><a href="{{ route('representantes.index') }}"><i class="fa fa-circle-o"></i>Ver Representantes</a></li>
+                <li><a href="{{ route('representantes.create') }}"><i class="fa fa-circle-o"></i>Agregar Representante</a></li>
+              </ul>
+            </li>
+
+            <li class="treeview">
+              <a href="#">
                 <i class="fa fa-address-book-o"></i>
                 <span>Estudiantes</span>
                 <i class="fa fa-angle-left pull-right"></i>

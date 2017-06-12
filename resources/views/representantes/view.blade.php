@@ -1,18 +1,18 @@
 @extends('layouts.app')
-@section('title','Profesor - '.config('app.name'))
-@section('header','Profesor')
+@section('title','Representante - '.config('app.name'))
+@section('header','Representante')
 @section('breadcrumb')
 	<ol class="breadcrumb">
 	  <li><a href="{{route('admin_index')}}"><i class="fa fa-dashboard" aria-hidden="true"></i> Escritorio</a></li>
-	  <li> Profesores </li>
+	  <li> Representantees </li>
 	  <li class="active">Ver </li>
 	</ol>
 @endsection
 @section('content')
 <!-- Formulario -->
 		<section>
-	    <a class="btn btn-flat btn-default" href="{{ url('admin/users') }}"><i class="fa fa-reply" aria-hidden="true"></i> Volver</a>
-	    <a class="btn btn-flat btn-success" href="{{ url('admin/users/'.$profesor->id.'/edit') }}"><i class="fa fa-pencil" aria-hidden="true"></i> Editar</a>
+	    <a class="btn btn-flat btn-default" href="{{ route('representantes.index') }}"><i class="fa fa-reply" aria-hidden="true"></i> Volver</a>
+	    <a class="btn btn-flat btn-success" href="{{ url('admin/representantes/'.$representante->representante_id.'/edit') }}"><i class="fa fa-pencil" aria-hidden="true"></i> Editar</a>
 	    <!--
 	    <button class="btn btn-flat btn-danger" data-toggle="modal" data-target="#delModal"><i class="fa fa-times" aria-hidden="true"></i> Eliminar</button>
 	    -->
@@ -25,23 +25,24 @@
           <!-- Profile Image -->
           <div class="box box-danger">
             <div class="box-body box-profile">
-              <img class="profile-user-img img-responsive img-circle" src="{{asset('images/profesores/'.$profesor->foto)}}" alt="Foto de perfil">
-              <h3 class="profile-username text-center">{{$profesor->nombre." ".$profesor->apellido}}</h3>
-
-              <p class="text-muted text-center">{{$profesor->profesion}}</p>
+              <img class="profile-user-img img-responsive img-circle" src="{{asset('images/representantes/'.$representante->foto)}}" alt="Foto de perfil">
+              <h3 class="profile-username text-center">{{$representante->nombres." ".$representante->apellidos}}</h3>
 
               <ul class="list-group list-group-unbordered">
                 <li class="list-group-item">
-                  <b>Cedula</b> <span class="pull-right">{{number_format($profesor->cedula,0,",",".")}}</span>
+                  <b>Cedula</b> <span class="pull-right">{{number_format($representante->cedula,0,",",".")}}</span>
                 </li>
                 <li class="list-group-item">
-                  <b>Email</b> <span class="pull-right">{{ $profesor->email }}</span>
+                  <b>Email</b> <span class="pull-right">{{ $representante->email }}</span>
                 </li>
                 <li class="list-group-item">
-                  <b>Telefono</b> <span class="pull-right">{{$profesor->telefono}}</span>
+                  <b>Telefono personal</b> <span class="pull-right">{{$representante->tlf_personal}}</span>
                 </li>
                 <li class="list-group-item">
-                  <b>Direccion</b> <span class="pull-right">{{$profesor->direccion}}</span>
+                  <b>Telefono local</b> <span class="pull-right">{{$representante->tlf_local}}</span>
+                </li>
+                <li class="list-group-item">
+                  <b>Residencia</b> <span class="pull-right">{{$representante->residencia}}</span>
                 </li>
               </ul>
             </div>
@@ -53,27 +54,27 @@
         <div class="col-md-9">
         	<div class="box box-success">
 			      <div class="box-header with-border">
-			        <h3 class="box-title"><i class="fa fa-university"></i> Crusos bajo su cargo</h3>
+			        <h3 class="box-title"><i class="fa fa-address-book-o"></i> Estudiantes a su cargo</h3>
 			      </div>
 		      	<div class="box-body">
 							<table class="table data-table table-bordered table-hover table-condensed">
 								<thead>
 									<tr>
 										<th class="text-center">#</th>
-										<th class="text-center">Titulo</th>
-										<th class="text-center">Precio</th>
+										<th class="text-center">Nombres</th>
+										<th class="text-center">Apellidos</th>
 										<th class="text-center">Accion</th>
 									</tr>
 								</thead>
 								<tbody class="text-center">
 									@php $i=1; @endphp
-									@foreach($cursos as $d)	
+									@foreach($estudiantes as $d)	
 										<tr>
 											<td>{{$i}}</td>
-											<td>{{$d->titulo}}</td>
-											<td>{{$d->created_at}}</td>
+											<td>{{$d->nombres}}</td>
+											<td>{{$d->apellidos}}</td>
 											<td>
-												<a class="btn btn-primary btn-flat btn-sm" href="{{ url('admin/cursos/'.$d->curso_id) }}"><i class="fa fa-search"></i></a>
+												<a class="btn btn-primary btn-flat btn-sm" href="{{ url('admin/estudiantes/'.$d->estudiantes_ids) }}"><i class="fa fa-search"></i></a>
 											</td>
 										</tr>
 										@php $i++; @endphp
