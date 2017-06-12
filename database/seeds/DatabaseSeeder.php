@@ -25,6 +25,31 @@ class DatabaseSeeder extends Seeder
                 'nivel' => '1'
                
             ]);
+
+            App\Representante::create([
+            	'nombres' => 'Jose',
+							'apellidos' => 'Carmona',
+							'cedula' => '2151647',
+							'email' => 'Josecar@hotmail.com',
+							'residencia' => 'El rosal',
+							'tlf_personal' => '04122188731',
+							'tlf_local' => '0412217751',
+							'foto' => 'a',
+            	]);
+
+            App\Estudiante::create([	
+							'representante_id' => 1,
+							'nombres' => 'Ricardo',
+							'apellidos' => 'Carmona',
+							'email' => 'RicardoCarmona@gmail.com',
+							'sexo' => 'M',
+							'nacimiento' => '10/06/2003',
+							'residencia' => 'El rosal',
+							'alergico' => 0,
+							'tlf_personal' => '024124124',
+							'tlf_local' => '0412217751',
+							'foto' => 'C',
+            ]);
         }
     }
 }

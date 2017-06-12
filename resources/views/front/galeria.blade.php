@@ -17,3 +17,17 @@
 		@endforeach
   </div>
 @endsection
+@section('scripts')
+<script type="text/javascript">
+	$(document).ready(function(){
+		$("body").on("contextmenu", ".galeria-img,.galeria-img img", function(e) {
+		  return false;
+		});
+		$('body').on('dragstart', ".galeria-img,.galeria-img img", function(e){
+			//e.preventDefault();
+			return false;
+		});
+	});
+</script>
+	
+@endsection

@@ -25,6 +25,7 @@
     <link rel="stylesheet" href="{{asset('css/Styles.css')}}">
     <link rel="stylesheet" type="text/css" href="{{asset('css/glyphicons.css')}}">
     <link rel="stylesheet" type="text/css" href="{{asset('plugins/datatables/dataTables.bootstrap.css')}}">
+    <link rel="stylesheet" type="text/css" href="{{asset('css/bootstrap-datepicker3.min.css')}}">
     <!-- AdminLTE Skins. Choose a skin from the css/skins
     	folder instead of downloading all of them to reduce the load. -->
     <link rel="stylesheet" href="{{asset('css/_all-skins.min.css')}}">
@@ -192,13 +193,13 @@
 
             <li class="treeview">
               <a href="#">
-                <i class="fa fa-address-card"></i>
-                <span>Profesores</span>
+                <i class="fa fa-address-card-o"></i>
+                <span>Representantes</span>
                 <i class="fa fa-angle-left pull-right"></i>
               </a>
               <ul class="treeview-menu">
-                <li><a href="{{ url('admin/profesores') }}"><i class="fa fa-circle-o"></i>Ver Profesores</a></li>
-                <li><a href="{{ url('admin/profesores/create') }}"><i class="fa fa-circle-o"></i>Agregar Profesore</a></li>
+                <li><a href="{{ route('representantes.index') }}"><i class="fa fa-circle-o"></i>Ver Representantes</a></li>
+                <li><a href="{{ route('representantes.create') }}"><i class="fa fa-circle-o"></i>Agregar Representante</a></li>
               </ul>
             </li>
 
@@ -249,13 +250,24 @@
     <script src="{{asset('js/app.min.js')}}"></script>
     <script type="text/javascript" src="{{asset('plugins/datatables/jquery.dataTables.min.js')}}"></script>
     <script src="{{asset('plugins/datatables/dataTables.bootstrap.js')}}"></script>
+    <script type="text/javascript" src="{{asset('js/bootstrap-datepicker.min.js')}}"></script>
     <script type="text/javascript">
       $(document).ready(function(){
       	$('div.alert').not('.alert-important').delay(5000).slideUp(300);
 
         $('.data-table').DataTable({
-          responsive: true
+          responsive: true,
+          language: {
+          	url:'{{asset("js/spanish.json")}}'
+          }
         });
+
+        $('.datepicker').datepicker({
+        autoclose: true,
+        format: "dd-mm-yyyy",
+        endDate: "today",
+        enableOnReadonly: false
+      });
       })
      
     </script>

@@ -18,7 +18,7 @@
 					<h4>{{ $title }} Profesor</h4>
 
 					<div class="form-group">
-            <div class="imageUploadWidget">
+            <div class="imageUploadWidget {{ $errors->has('foto')?'has-error':'' }}">
               <div class="imageArea">
                 <img id="img" src="{{ asset('/images') }}{{isset($profesor->foto) ? '/profesores/'.$profesor->foto : '/no-image.png' }}" alt="">
                 <img class="spinner-image" src="{{ asset('images/spinner.gif') }}">
@@ -29,19 +29,29 @@
             </div>
           </div>
 
-          			<div class="form-group {{ $errors->has('cedula')?'has-error':'' }}">
+         	<div class="form-group {{ $errors->has('cedula')?'has-error':'' }}">
 						<label class="control-label" for="cedula">Cedula:</label>
 						<input id="cedula" class="form-control" type="text" name="cedula" value="{{ old('cedula')?old('cedula'):$profesor->cedula }}" placeholder="Cedula">
 					</div>
 
 					<div class="form-group {{ $errors->has('nombre')?'has-error':'' }}">
 						<label class="control-label" for="nombre">Nombre:</label>
-						<input id="nombre" class="form-control" type="text" name="nombre" value="{{ old('nombre')?old('nombre'):$profesor->nombre }}" placeholder="Titulo">
+						<input id="nombre" class="form-control" type="text" name="nombre" value="{{ old('nombre')?old('nombre'):$profesor->nombre }}" placeholder="Nombre">
 					</div>
 					
 					<div class="form-group {{ $errors->has('apellido')?'has-error':'' }}">
 						<label class="control-label" for="apellido">Apellido:</label>
 						<input id="apellido" class="form-control" type="text" name="apellido" value="{{ old('apellido')?old('apellido'):$profesor->apellido }}" placeholder="Apellido">
+					</div>
+
+					<div class="form-group {{ $errors->has('email')?'has-error':'' }}">
+						<label class="control-label" for="email">Email:</label>
+						<input id="email" class="form-control" type="text" name="email" value="{{ old('email')?old('email'):$profesor->email }}" placeholder="Email">
+					</div>
+
+					<div class="form-group {{ $errors->has('telefono')?'has-error':'' }}">
+						<label class="control-label" for="telefono">Telefono:</label>
+						<input id="telefono" class="form-control" type="text" name="telefono" value="{{ old('telefono')?old('telefono'):$profesor->telefono }}" placeholder="telefono">
 					</div>
 
 					<div class="form-group {{ $errors->has('direccion')?'has-error':'' }}">
@@ -59,9 +69,6 @@
 						<textarea id="descripcion_perfil" class="form-control" type="text" name="descripcion_perfil"  placeholder="Descripcion del perfil">{{ old('descripcion_perfil')?old('descripcion_perfil'):$profesor->descripcion_perfil }}</textarea>
 					</div>
 
-					
-
-
 					@if(count($errors)>0)
 						<div class="alert alert-danger">
 			        <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
@@ -70,7 +77,7 @@
 					@endif
 
 					<div class="form-group text-right">
-						<a class="btn btn-flat btn-default" href="{{route('galeria.index')}}"><i class="fa fa-reply"></i> Atras</a>
+						<a class="btn btn-flat btn-default" href="{{route('profesores.index')}}"><i class="fa fa-reply"></i> Atras</a>
 						<button class="btn btn-flat btn-primary" type="submit"><i class="fa fa-send"></i> Guardar</button>
 					</div>
 				</form>

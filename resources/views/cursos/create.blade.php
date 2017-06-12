@@ -18,7 +18,7 @@
 					<h4>{{ $title }} Curso</h4>
 
 					<div class="form-group">
-            <div class="imageUploadWidget">
+            <div class="imageUploadWidget {{ $errors->has('image')?'has-error':'' }}">
               <div class="imageArea">
                 <img id="img" src="{{ asset('/images') }}{{isset($curso->foto) ? '/cursos/'.$curso->foto : '/no-image.png' }}" alt="">
                 <img class="spinner-image" src="{{ asset('images/spinner.gif') }}">
@@ -44,12 +44,12 @@
 						<input id="precio" class="form-control" type="number" name="precio" value="{{ old('precio')?old('precio'):$curso->precio }}" placeholder="precio">
 					</div>
 
-					<div class="form-group {{ $errors->has('profesor')?'has-error':'' }}">
-						<label class="control-label" for="profesor">Profesor:</label>
-						<select name="id_profesor" class="form-control">
+					<div class="form-group {{ $errors->has('id_profesor')?'has-error':'' }}">
+						<label class="control-label" for="id_profesor">Profesor:</label>
+						<select id="id_profesor" name="id_profesor" class="form-control">
 							<option value="">Seleccione...</option>
 							@foreach($profesor as $p)
-								<option value="{{ old('id_profesor')?old('id_profesor'):$p->id }}" {{$curso->id_profesor?'selected':''}}>{{$p->nombre.' '.$p->apellido}}</option>
+								<option value="{{ old('id_profesor')?old('id_profesor'):$p->id}}" {{$curso->id_profesor?'selected':''}}>{{$p->nombre.' '.$p->apellido}}</option>
 							@endforeach
 						</select>
 					</div>
@@ -64,7 +64,7 @@
 					@endif
 
 					<div class="form-group text-right">
-						<a class="btn btn-flat btn-default" href="{{url('/users')}}"><i class="fa fa-reply"></i> Atras</a>
+						<a class="btn btn-flat btn-default" href="{{route('cursos.index')}}"><i class="fa fa-reply"></i> Atras</a>
 						<button class="btn btn-flat btn-primary" type="submit"><i class="fa fa-send"></i> Guardar</button>
 					</div>
 				</form>

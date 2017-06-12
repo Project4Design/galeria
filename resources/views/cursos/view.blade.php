@@ -13,9 +13,9 @@
 		<section>
 	    <a class="btn btn-flat btn-default" href="{{ url('admin/cursos') }}"><i class="fa fa-reply" aria-hidden="true"></i> Volver</a>
 	    <a class="btn btn-flat btn-success" href="{{ url('admin/cursos/'.$curso->curso_id.'/edit') }}"><i class="fa fa-pencil" aria-hidden="true"></i> Editar</a>
-
+	    <!--
 	    <button class="btn btn-flat btn-danger" data-toggle="modal" data-target="#delModal"><i class="fa fa-times" aria-hidden="true"></i> Eliminar</button>
-
+	    -->
 		</section>
 
 		<section class="perfil">
@@ -39,10 +39,10 @@
 				</div>
 
         <div class="col-md-4 col-md-offset-1">
-          <h4>Profesor</h4>
+          <h4>Profesor - <a href="{{url('admin/profesores/'.$curso->profesor->id)}}">Ver perfil</a></h4>
           <p><b>Nombre y Apellido:</b> {{$curso->profesor->nombre.' '.$curso->profesor->apellido}}</p>
           <p><b>Profesion: </b> {{$curso->profesor->profesion}}</p>
-          <p><b>Foto: </b> <img class="img-responsive" src="{{ asset('/images/profesores/'.$curso->profesor->foto) }}"></p>
+          <p><b>Foto: </b> <img style="max-height: 150px" class="img-responsive" src="{{ asset('/images/profesores/'.$curso->profesor->foto) }}"></p>
         </div>
 
 			</div>

@@ -12,14 +12,18 @@ class Profesores extends Model
      'cedula',
      'nombre',
      'apellido',
+     'email',
+     'telefono',
      'direccion',
      'profesion',
      'descripcion_perfil',
      'foto'
   ];
 
-   public function curso()
-    {
-        return $this->hasOne('App\Curso','id_profesor');
-    }
+
+ 	public function cursos()
+  {
+    return $this->hasMany('App\Curso','id_profesor');
+  }
+
 }

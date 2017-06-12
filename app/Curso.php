@@ -21,7 +21,7 @@ class Curso extends Model
   ];
 
   public function profesor()
-    {
-        return $this->belongsTo('App\Profesores','id_profesor');
-    }
+  {
+      return $this->belongsTo('App\Profesores','id_profesor');
+  }
 }

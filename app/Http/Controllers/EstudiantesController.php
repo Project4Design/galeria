@@ -1,12 +1,11 @@
 <?php
 
 namespace App\Http\Controllers;
-
 use Illuminate\Support\Facades\Input;
 use Illuminate\Http\Request;
-use App\Profesores;
+use App\Estudiante;
 
-class ProfesoresController extends Controller
+class EstudiantesController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -15,9 +14,9 @@ class ProfesoresController extends Controller
      */
     public function index()
     {
-        $profesores = Profesores::all();
-        
-        return view('profesores.index',['profesores' => $profesores]);
+      //
+      $estudiantes = Estudiante::all();
+    	return view('estudiantes.index',['estudiantes'=>$estudiantes]);
     }
 
     /**
@@ -27,8 +26,8 @@ class ProfesoresController extends Controller
      */
     public function create()
     {
-        $profesor = new Profesores;
-      return view("profesores.create", ["title" => "Agregar","profesor" => $profesor,"url" => "admin/profesores", "method" => "POST"]);
+         $estudiante = new Estudiante;
+      return view("estudiantes.create", ["title" => "Agregar","estudiante" => $estudiante,"url" => "admin/estudiantes", "method" => "POST"]);
     }
 
     /**
@@ -40,36 +39,25 @@ class ProfesoresController extends Controller
     public function store(Request $request)
     {
         //dd($request->all());
-        
-        $this->validate($request, [
-            'nombre' =>'required',
-            'apellido' => 'required',
-            'email' => 'required|email|unique:users',
-            'telefono' => 'required',
-            'cedula' => 'numeric|required|unique:profesores',
-            'foto' => 'required', 
-            'profesion' => 'required',
-            ]);
-        
-        $profesor = new Profesores;
-        $profesor->fill($request->all());
+        $estudiante = new Estudiante;
+        $estudiante->fill($request->all());
 
       if(input::hasFile('foto')){
         $file = Input::file('foto');
-        $file->move(public_path().'/images/profesores/',$file->getClientOriginalName());
-        $profesor->foto = $file->getClientOriginalName();
+        $file->move(public_path().'/images/estudiantes/',$file->getClientOriginalName());
+        $estudiante->foto = $file->getClientOriginalName();
       }
 
-      if($profesor->save()){
-          return redirect("admin/profesores")->with([
-              'flash_message' => 'Profesor agregado correctamente.',
+      if($estudiante->save()){
+          return redirect("admin/estudiantes")->with([
+              'flash_message' => 'Estudiante agregado correctamente.',
               'flash_class' => 'alert-success'
               ]);
       }else{
-          return view("admin/profesores")->with([
+          return view("admin/galeria")->with([
                 'title' => 'Agregar',
-                'profesor' => $profesor,
-                'url'=> '/admin/profesores',
+                'estudiante' => $estudiante,
+                'url'=> '/galeria',
                 'method' => 'POST',
               'flash_message' => 'Ha ocurrido un error.',
               'flash_class' => 'alert-danger',
@@ -86,10 +74,9 @@ class ProfesoresController extends Controller
      */
     public function show($id)
     {
-      $profesor = Profesores::findOrFail($id);
-      $cursos = $profesor->cursos()->get();
+        $estudiante = Estudiante::findOrFail($id);
 
-      return view('profesores.view',['profesor'=>$profesor,'cursos'=>$cursos]);
+      return view('estudiantes.view',['estudiante'=>$estudiante]);
     }
 
     /**
@@ -100,8 +87,8 @@ class ProfesoresController extends Controller
      */
     public function edit($id)
     {
-        $profesor = Profesores::findOrFail($id);
-      return view("profesores.create", ["title" => "Edit","profesor" => $profesor,"url"=> "admin/profesores/{$id}/","method" => 'PATCH']);
+        $estudiante = Estudiante::findOrFail($id);
+      return view("estudiantes.create", ["title" => "Editar","estudiante" => $estudiante,"url"=> "admin/estudiantes/{$id}/","method" => 'PATCH']);
     }
 
     /**
@@ -113,25 +100,25 @@ class ProfesoresController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $profesor = Profesores::findOrFail($id);
-        $profesor->fill($request->all());
+        $estudiante = Estudiante::findOrFail($id);
+        $estudiante->fill($request->all());
 
         if(input::hasFile('foto')){
         $file = Input::file('foto');
-        $file->move(public_path().'/images/profesores/',$file->getClientOriginalName());
-        $profesor->foto = $file->getClientOriginalName();
+        $file->move(public_path().'/images/estudiantes/',$file->getClientOriginalName());
+        $estudiante->foto = $file->getClientOriginalName();
       }
 
-        if($profesor->save()){
-        return redirect("admin/profesores")->with([
-            'flash_message' => 'Profesor editado correctamente.',
+        if($estudiante->save()){
+        return redirect("admin/estudiantes")->with([
+            'flash_message' => 'Estudiante editado correctamente.',
             'flash_class' => 'alert-success'
             ]);
         }else{
-        return view("admin/profesores")->with([
+        return view("admin/estudiantes")->with([
                 'title' => 'Editar',
-                'profesor' => $profesor,
-                'url'=> "/admin/profesores/{$id}/",
+                'estudiante' => $estudiante,
+                'url'=> "/admin/estudiantes/{$id}/",
                 'method' => 'PATCH',
             'flash_message' => 'Ha ocurrido un error.',
             'flash_class' => 'alert-danger',

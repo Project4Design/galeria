@@ -42,7 +42,8 @@
 								<th class="text-center">Cedula</th>
 								<th class="text-center">Nombre</th>
 								<th class="text-center">Apellido</th>
-								<th class="text-center">Foto</th>
+								<th class="text-center">Correo</th>
+								<th class="text-center">Telefono</th>
 								<th class="text-center">Accion</th>
 							</tr>
 						</thead>
@@ -54,9 +55,7 @@
 									<td>{{$d->cedula}}</td>
 									<td>{{$d->nombre}}</td>
 									<td>{{$d->apellido}}</td>
-									<td>
-										<img src="{{asset('images/profesores/'.$d->foto)}}" alt="{{ $d->nombre }}" height="100px" width="100px" class="img-responsive img-thumbnail">
-									</td>
+									<td>{{$d->email}}</td>
 									<td>{{$d->created_at}}</td>
 									<td>
 										<a class="btn btn-primary btn-flat btn-sm" href="{{ url('admin/profesores/'.$d->id) }}"><i class="fa fa-search"></i></a>
