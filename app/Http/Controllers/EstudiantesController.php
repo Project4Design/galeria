@@ -74,9 +74,10 @@ class EstudiantesController extends Controller
      */
     public function show($id)
     {
-        $estudiante = Estudiante::findOrFail($id);
+      $estudiante = Estudiante::findOrFail($id);
+      $cursos = array();
 
-      return view('estudiantes.view',['estudiante'=>$estudiante]);
+      return view('estudiantes.view',['estudiante'=>$estudiante,'cursos'=>$cursos]);
     }
 
     /**

@@ -18,7 +18,7 @@
           <p>Estudiantes</p>
         </div>
         <div class="icon">
-          <i class="fa fa-address-card-o"></i>
+          <i class="fa fa-address-book-o"></i>
         </div>
       </div>
     </div>
@@ -28,9 +28,9 @@
   	<div class="col-md-12">
     	<div class="box box-danger">
 	      <div class="box-header with-border">
-	        <h3 class="box-title"><i class="fa fa-address-card-o"></i> Estudiantes</h3>
+	        <h3 class="box-title"><i class="fa fa-address-book-o"></i> Estudiantes</h3>
 	        <span class="pull-right">
-						<a href="{{ route('estudiantes.create') }}" class="btn btn-flat btn-success"><i class="fa fa-plus" aria-hidden="true"></i> Nuevo representante</a>
+						<a href="{{ route('estudiantes.create') }}" class="btn btn-flat btn-success"><i class="fa fa-plus" aria-hidden="true"></i> Nuevo estudiantes</a>
 					</span>
 	      </div>
       	<div class="box-body">
@@ -55,8 +55,8 @@
 									<td>{{$d->email}}</td>
 									<td>{{$d->tlf_personal}}</td>
 									<td>
-										<a class="btn btn-primary btn-flat btn-sm" href="{{ url('admin/estudiantes/'.$d->estudiante_id) }}"><i class="fa fa-search"></i></a>
-										<a  href="{{ url('admin/estudiantes/'.$d->estudiante_id.'/edit') }}" class="btn btn-flat btn-success btn-sm" title="Editar"><i class="fa fa-edit"></i></a>
+										<a class="btn btn-primary btn-flat btn-sm" href="{{ route('estudiantes.index').'/'.$d->estudiante_id }}"><i class="fa fa-search"></i></a>
+										<a href="{{ url('admin/estudiantes/'.$d->estudiante_id.'/edit') }}" class="btn btn-flat btn-success btn-sm" title="Editar"><i class="fa fa-edit"></i></a>
 									</td>
 								</tr>
 								@php $i++; @endphp

@@ -59,7 +59,7 @@
     	<div class="clear"></div>
     </div>
     <div style="text-align: center">
-    	<strong>Copyright &copy; GALERIA D´ ABILIO 2017 </strong>. - Desarrollado por Marilyn Ortegana
+    	<strong>Copyright &copy; GALERIA D´ ABILIO 2017 </strong>. - Desarrollado por Marily Ortegana y Frangelis Hernandez
     </div>
   </div>
 

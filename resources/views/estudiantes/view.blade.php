@@ -1,6 +1,6 @@
 @extends('layouts.app')
 @section('title','Estudiante - '.config('app.name'))
-@section('header','Estudiante')
+@section('header','Estudiantes')
 @section('breadcrumb')
 	<ol class="breadcrumb">
 	  <li><a href="{{route('admin_index')}}"><i class="fa fa-dashboard" aria-hidden="true"></i> Escritorio</a></li>
@@ -11,7 +11,7 @@
 @section('content')
 <!-- Formulario -->
 		<section>
-	    <a class="btn btn-flat btn-default" href="{{ url('admin/estudiantes') }}"><i class="fa fa-reply" aria-hidden="true"></i> Volver</a>
+	    <a class="btn btn-flat btn-default" href="{{ route('estudiantes.index') }}"><i class="fa fa-reply" aria-hidden="true"></i> Volver</a>
 	    <a class="btn btn-flat btn-success" href="{{ url('admin/estudiantes/'.$estudiante->estudiante_id.'/edit') }}"><i class="fa fa-pencil" aria-hidden="true"></i> Editar</a>
 	    <!--
 	    <button class="btn btn-flat btn-danger" data-toggle="modal" data-target="#delModal"><i class="fa fa-times" aria-hidden="true"></i> Eliminar</button>
@@ -56,6 +56,42 @@
           <!-- /.box -->
         </div>
 
+        <div class="col-md-9">
+		    	<div class="box box-success">
+			      <div class="box-header with-border">
+			        <h3 class="box-title"><i class="fa fa-university"></i> Cursos inscriptos</h3>
+			      </div>
+		      	<div class="box-body">
+							<table class="table data-table table-bordered table-hover table-cond}ensed">
+								<thead>
+									<tr>
+										<th class="text-center">#</th>
+										<th class="text-center">Titulo</th>
+										<th class="text-center">Precio</th>
+										<th class="text-center">Profesor</th>
+										<th class="text-center">Accion</th>
+									</tr>
+								</thead>
+								<tbody class="text-center">
+									@php $i=1; @endphp
+									@foreach($cursos as $d)	
+										<tr>
+											<td>{{$i}}</td>
+											<td>{{$d->titulo}}</td>
+											<td class="text-right">{{number_format($d->precio,2,",",".")}}</td>
+											<td>{{$d->profesor->nombre." ".$d->profesor->apellido}}</td>
+											<td>{{$d->created_at}}</td>
+											<td>
+												<a class="btn btn-primary btn-flat btn-sm" href="{{ url('admin/cursos/'.$d->curso_id) }}"><i class="fa fa-search"></i></a>
+											</td>
+										</tr>
+										@php $i++; @endphp
+									@endforeach
+								</tbody>
+							</table>
+						</div>
+					</div>
+				</div>
        <!-- Aqui va el cuadrod e relacion -->
 			</div>
 		</section>

@@ -138,8 +138,8 @@
                 <i class="fa fa-angle-left pull-right"></i>
               </a>
               <ul class="treeview-menu">
-                <li><a href="{{ url('admin/users') }}"><i class="fa fa-circle-o"></i>Ver Usuarios</a></li>
-                <li><a href="{{ url('admin/users/create') }}"><i class="fa fa-circle-o"></i>Agregar Usuario</a></li>
+                <li><a href="{{ url('admin/users') }}"><i class="fa fa-circle-o"></i>Ver usuarios</a></li>
+                <li><a href="{{ url('admin/users/create') }}"><i class="fa fa-circle-o"></i>Agregar usuario</a></li>
               </ul>
             </li>
 
@@ -150,8 +150,8 @@
                 <i class="fa fa-angle-left pull-right"></i>
               </a>
               <ul class="treeview-menu">
-                <li><a href="{{ route('profesores.index') }}"><i class="fa fa-circle-o"></i>Ver Profesores</a></li>
-                <li><a href="{{ route('profesores.create') }}"><i class="fa fa-circle-o"></i>Agregar Profesor</a></li>
+                <li><a href="{{ route('profesores.index') }}"><i class="fa fa-circle-o"></i>Ver profesores</a></li>
+                <li><a href="{{ route('profesores.create') }}"><i class="fa fa-circle-o"></i>Agregar profesor</a></li>
               </ul>
             </li>
 
@@ -162,8 +162,8 @@
                 <i class="fa fa-angle-left pull-right"></i>
               </a>
               <ul class="treeview-menu">
-                <li><a href="{{ url('admin/cursos') }}"><i class="fa fa-circle-o"></i>Ver Cursos</a></li>
-                <li><a href="{{ url('admin/cursos/create') }}"><i class="fa fa-circle-o"></i>Agregar Curso</a></li>
+                <li><a href="{{ url('admin/cursos') }}"><i class="fa fa-circle-o"></i>Ver cursos</a></li>
+                <li><a href="{{ url('admin/cursos/create') }}"><i class="fa fa-circle-o"></i>Agregar curso</a></li>
               </ul>
             </li>
         
@@ -174,8 +174,8 @@
                 <i class="fa fa-angle-left pull-right"></i>
               </a>
               <ul class="treeview-menu">
-                <li><a href="{{ route('galeria.index') }}"><i class="fa fa-circle-o"></i>Ver Cuadros</a></li>
-                <li><a href="{{ route('galeria.create') }}"><i class="fa fa-circle-o"></i>Agregar Cuadro</a></li>
+                <li><a href="{{ route('galeria.index') }}"><i class="fa fa-circle-o"></i>Ver cuadros</a></li>
+                <li><a href="{{ route('galeria.create') }}"><i class="fa fa-circle-o"></i>Agregar cuadro</a></li>
               </ul>
             </li>
 
@@ -186,8 +186,8 @@
                 <i class="fa fa-angle-left pull-right"></i>
               </a>
               <ul class="treeview-menu">
-                <li><a href="{{ url('admin/pagos') }}"><i class="fa fa-circle-o"></i>Ver Pagos</a></li>
-                <li><a href="{{ url('admin/pagos/create') }}"><i class="fa fa-circle-o"></i>Agregar Pago</a></li>
+                <li><a href="{{ url('admin/pagos') }}"><i class="fa fa-circle-o"></i>Ver pagos</a></li>
+                <li><a href="{{ url('admin/pagos/create') }}"><i class="fa fa-circle-o"></i>Agregar pago</a></li>
               </ul>
             </li>
 
@@ -198,8 +198,8 @@
                 <i class="fa fa-angle-left pull-right"></i>
               </a>
               <ul class="treeview-menu">
-                <li><a href="{{ route('representantes.index') }}"><i class="fa fa-circle-o"></i>Ver Representantes</a></li>
-                <li><a href="{{ route('representantes.create') }}"><i class="fa fa-circle-o"></i>Agregar Representante</a></li>
+                <li><a href="{{ route('representantes.index') }}"><i class="fa fa-circle-o"></i>Ver representantes</a></li>
+                <li><a href="{{ route('representantes.create') }}"><i class="fa fa-circle-o"></i>Agregar representante</a></li>
               </ul>
             </li>
 
@@ -210,8 +210,8 @@
                 <i class="fa fa-angle-left pull-right"></i>
               </a>
               <ul class="treeview-menu">
-                <li><a href="{{ route('estudiantes.index') }}"><i class="fa fa-circle-o"></i>Ver Estudiantes</a></li>
-                <li><a href="{{ route('estudiantes.create') }}"><i class="fa fa-circle-o"></i>Agregar Estudiante</a></li>
+                <li><a href="{{ route('estudiantes.index') }}"><i class="fa fa-circle-o"></i>Ver estudiantes</a></li>
+                <li><a href="{{ route('estudiantes.create') }}"><i class="fa fa-circle-o"></i>Agregar estudiante</a></li>
               </ul>
             </li>
           </ul>
@@ -237,7 +237,7 @@
       </div><!-- /.content-wrapper -->
       <!--Fin-Contenido-->
       <footer class="main-footer">
-        <strong>Copyright &copy; GALERIA D´ ABILIO 2017 </strong>. - Desarrollado por Marilyn Ortegana
+        <strong>Copyright &copy; GALERIA D´ ABILIO 2017 </strong>. - Desarrollado por Marily Ortegana y Frangelis Hernandez
       </footer>
     </div>
 
