@@ -109,6 +109,7 @@ class GaleriaController extends Controller
     	$cuadro->fill($request->all());
 
     	if(input::hasFile('image')){
+        unlink(public_path().'/images/cuadros/'.$cuadro->foto);//Borrar imagen de local storage "Public"
         $file = Input::file('image');
         $file->move(public_path().'/images/cuadros/',$file->getClientOriginalName());
         $cuadro->foto = $file->getClientOriginalName();
@@ -141,7 +142,7 @@ class GaleriaController extends Controller
     public function destroy($id)
     {
          $cuadro = Galeria::findOrFail($id);
-         
+
             unlink(public_path().'/images/cuadros/'.$cuadro->foto);//Borrar imagen de local storage "Public"
 
             if ($cuadro->destroy($id)) {
