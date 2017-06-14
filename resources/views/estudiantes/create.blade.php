@@ -17,17 +17,17 @@
 					{{ csrf_field() }}
 					<h4>{{ $title }} estudiante</h4>
 
-					<div class="form-group">
-            <div class="imageUploadWidget">
-              <div class="imageArea">
-                <img id="img" src="{{ asset('/images') }}{{isset($estudiante->foto) ? '/estudiantes/'.$estudiante->foto : '/no-image.png' }}" alt="">
-                <img class="spinner-image" src="{{ asset('images/spinner.gif') }}">
-              </div>
-              <div class="btnArea">
-                <input id='file' name='foto' accept='image/jpeg,image/png' type='file'>
-              </div>
-            </div>
-          </div>
+							<div class="form-group">
+		            <div class="imageUploadWidget">
+		              <div class="imageArea">
+		                <img id="img" src="{{ asset('/images') }}{{isset($estudiante->foto) ? '/estudiantes/'.$estudiante->foto : '/no-image.png' }}" alt="">
+		                <img class="spinner-image" src="{{ asset('images/spinner.gif') }}">
+		              </div>
+		              <div class="btnArea">
+		                <input id='file' name='foto' accept='image/jpeg,image/png' type='file'>
+		              </div>
+		            </div>
+		          </div>
 
 
 					<div class="form-group {{ $errors->has('nombres')?'has-error':'' }}">

@@ -148,6 +148,28 @@ class ProfesoresController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $profesores = Profesores::findOrFail($id);
+        $cursos = $profesores->cursos()->count();
+        //dd($cursos);
+        if($cursos > 0)
+        {
+            $with = [
+            'flash_message' => 'Este profesor tiene cursos asociados , no se puede eliminar!',
+            'flash_class' => 'alert-danger'];
+        }else{
+
+            if($profesores->destroy($id))
+            {
+                $with = [
+                'flash_message' => 'Se Elimino correctamente!',
+                'flash_class' => 'alert-danger'];
+            }else{
+                $with = [
+                'flash_message' => 'Ocurrio un error inesperado!',
+                'flash_class' => 'alert-danger'];
+            }
+            
+        }
+        return redirect()->route('profesores.index')->with($with);
     }
 }

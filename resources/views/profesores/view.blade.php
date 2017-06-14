@@ -13,9 +13,9 @@
 		<section>
 	    <a class="btn btn-flat btn-default" href="{{ url('admin/users') }}"><i class="fa fa-reply" aria-hidden="true"></i> Volver</a>
 	    <a class="btn btn-flat btn-success" href="{{ url('admin/users/'.$profesor->id.'/edit') }}"><i class="fa fa-pencil" aria-hidden="true"></i> Editar</a>
-	    <!--
+	    
 	    <button class="btn btn-flat btn-danger" data-toggle="modal" data-target="#delModal"><i class="fa fa-times" aria-hidden="true"></i> Eliminar</button>
-	    -->
+	    
 		</section>
 
 		<section>
@@ -96,10 +96,10 @@
         </div>
         <div class="modal-body">
           <div class="row">
-            <form id="delProduct" class="col-md-8 col-md-offset-2" action="#" method="POST">
+            <form id="delProduct" class="col-md-8 col-md-offset-2" action="{{url('admin/profesores/'.$profesor->id)}}" method="POST">
               <input type="hidden" name="_method" value="DELETE">
               {{ csrf_field() }}
-              <h4 class="text-center">Esta seguro de eliminar este curso?</h4><br>
+              <h4 class="text-center">Esta seguro de eliminar este profesor?</h4><br>
 
               <div class="form-group">
                 <div class="progress" style="display:none">
@@ -109,8 +109,8 @@
                 <div class="alert" style="display:none" role="alert"><span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>&nbsp;<span id="msj"></span></div>
               </div>
               <center>
-                <button class="btn btn-flat btn-danger" type="submit">Save</button>
-                <button type="button" class="btn btn-flat btn-default" data-dismiss="modal">Close</button>
+                <button class="btn btn-flat btn-danger" type="submit">Eliminar</button>
+                <button type="button" class="btn btn-flat btn-default" data-dismiss="modal">Cerrar</button>
               </center>
             </form>
           </div>
