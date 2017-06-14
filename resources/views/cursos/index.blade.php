@@ -28,13 +28,13 @@
   	<div class="col-md-12">
     	<div class="box box-success">
 	      <div class="box-header with-border">
-	        <h3 class="box-title"><i class="fa fa-university"></i> Crusos</h3>
+	        <h3 class="box-title"><i class="fa fa-university"></i> Cursos</h3>
 	        <span class="pull-right">
 						<a href="{{ route('cursos.create') }}" class="btn btn-flat btn-success"><i class="fa fa-plus" aria-hidden="true"></i> Nuevo curso</a>
 					</span>
 	      </div>
       	<div class="box-body">
-					<table class="table data-table table-bordered table-hover table-condensed">
+					<table class="table data-table table-bordered table-hover table-cond}ensed">
 						<thead>
 							<tr>
 								<th class="text-center">#</th>

@@ -16,14 +16,33 @@ class DatabaseSeeder extends Seeder
 
         for($i = 0; $i < 1; $i++) {
             App\User::create([
-                'nombre' => 'Test',
-                'apellido' => 'Developer',
-                'email' => 'admin@admin.com',
-                'cedula' => '20990397',
-                'telefono' => '0416-9658798',
-                'password' => bcrypt('123456'),
-                'nivel' => '1'
-               
+              'nombre' => 'Test',
+              'apellido' => 'Developer',
+              'email' => 'admin@admin.com',
+              'cedula' => '20990397',
+              'telefono' => '0416-9658798',
+              'password' => bcrypt('123456'),
+              'nivel' => '1'
+            ]);
+
+            App\Profesores::create([
+					    'cedula' => '13587532',
+					    'nombre' => 'Carlos',
+					    'apellido' => 'Azaurte',
+					    'email' => 'cazaurte@cfl.com',
+					    'telefono' => '042342342',
+					    'direccion' => 'Maracay',
+					    'profesion' => 'Ingeniero',
+					    'descripcion_perfil' => 'un poco mas aqui.. Para que lean',
+					    'foto' => 'c'
+            ]);
+
+            App\Curso::create([
+				      'titulo' => 'pintura a acuarela',
+				      'descripcion' => 'Curso de pintura al oleo',
+				      'foto' => 'pintar-al-oleo.jpg',
+				      'precio' => 40000,
+				      'id_profesor' => 1
             ]);
 
             App\Representante::create([

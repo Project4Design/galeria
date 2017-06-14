@@ -61,7 +61,7 @@
 
 					<div class="form-group {{ $errors->has('residencia')?'has-error':'' }}">
 						<label class="control-label" for="residencia">Residencia:</label>
-						<input id="residencia" class="form-control" type="text" name="residencia" value="{{ old('residencia')?old('residencia'):$representante->residencia }}" placeholder="TResidencia">
+						<input id="residencia" class="form-control" type="text" name="residencia" value="{{ old('residencia')?old('residencia'):$representante->residencia }}" placeholder="Residencia">
 					</div>
 
 
@@ -76,7 +76,7 @@
         @endif
 
 					<div class="form-group text-right">
-						<a class="btn btn-flat btn-default" href="{{url('admin/users')}}"><i class="fa fa-reply"></i> Atras</a>
+						<a class="btn btn-flat btn-default" href="{{route('representantes.inddex')}}"><i class="fa fa-reply"></i> Atras</a>
 						<button class="btn btn-flat btn-primary" type="submit"><i class="fa fa-send"></i> Guardar</button>
 					</div>
 				</form>

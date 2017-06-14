@@ -1,6 +1,6 @@
 @extends('layouts.app')
-@section('title','Profesor - '.config('app.name'))
-@section('header','Profesor')
+@section('title','Profesores - '.config('app.name'))
+@section('header','Profesores')
 @section('breadcrumb')
 	<ol class="breadcrumb">
 	  <li><a href="{{route('admin_index')}}"><i class="fa fa-dashboard" aria-hidden="true"></i> Escritorio</a></li>
@@ -11,9 +11,15 @@
 @section('content')
 <!-- Formulario -->
 		<section>
+<<<<<<< HEAD
 	    <a class="btn btn-flat btn-default" href="{{ url('admin/users') }}"><i class="fa fa-reply" aria-hidden="true"></i> Volver</a>
 	    <a class="btn btn-flat btn-success" href="{{ url('admin/users/'.$profesor->id.'/edit') }}"><i class="fa fa-pencil" aria-hidden="true"></i> Editar</a>
 	    
+=======
+	    <a class="btn btn-flat btn-default" href="{{ route('profesores.index') }}"><i class="fa fa-reply" aria-hidden="true"></i> Volver</a>
+	    <a class="btn btn-flat btn-success" href="{{ url('admin/profesores/'.$profesor->id.'/edit') }}"><i class="fa fa-pencil" aria-hidden="true"></i> Editar</a>
+	    <!--
+>>>>>>> d96c0b9075f416170d2dabcd80929c08adc98325
 	    <button class="btn btn-flat btn-danger" data-toggle="modal" data-target="#delModal"><i class="fa fa-times" aria-hidden="true"></i> Eliminar</button>
 	    
 		</section>

@@ -38,6 +38,10 @@ class GaleriaController extends Controller
      */
     public function store(Request $request)
     {
+    	$this->validate($request,[
+    		'image'=>'required|image',
+    		'titulo' => 'required'
+    	]);
         $cuadro = new Galeria;
         $cuadro->fill($request->all());
 
@@ -136,7 +140,10 @@ class GaleriaController extends Controller
      */
     public function destroy($id)
     {
-         $cuadro = new Galeria;
+         $cuadro = Galeria::findOrFail($id);
+         
+            unlink(public_path().'/images/cuadros/'.$cuadro->foto);//Borrar imagen de local storage "Public"
+
             if ($cuadro->destroy($id)) {
                 return redirect("admin/galeria")->with([
                     'flash_message' => 'Cuadro se ha eliminado correctamente.',

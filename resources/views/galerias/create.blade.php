@@ -18,7 +18,7 @@
 					<h4>{{ $title }} Cuadro</h4>
 
 					<div class="form-group">
-            <div class="imageUploadWidget">
+            <div class="imageUploadWidget {{ $errors->has('image')?'has-error':'' }}">
               <div class="imageArea">
                 <img id="img" src="{{ asset('/images/cuadros/') }}{{isset($cuadro->foto) ? '/'.$cuadro->foto : '/no-image.png' }}" alt="">
                 <img class="spinner-image" src="{{ asset('images/spinner.gif') }}">
@@ -84,7 +84,7 @@
 	    //Mostar cargando
 	    load.show();
 	    if(file){
-	      if(file.size<2000000){
+	      if(file.size<3500000){
 	        if(type == "image/jpeg" || type == "image/png" || type == "image/jpg"){
 	          var reader = new FileReader();
 	          reader.onload = function (e) {

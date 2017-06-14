@@ -15,13 +15,14 @@ class CreatePagosTable extends Migration
     {
         //
     	Schema::create('pagos', function (Blueprint $table) {
-            $table->increments('pago_id');
-            $table->string('inscripcion_id',11);
-            $table->string('tipo',1);
-            $table->decimal('monto',9,2)->unsigned();
-            $table->string('fecha',10);
-            $table->softDeletes();
-            $table->timestamps();
+          $table->increments('pago_id');
+          $table->integer('inscripcion_id')->unsigned();
+          $table->foreign('inscripcion_id')->references('inscripcion_id')->on('inscripciones')->onDelete('cascade');
+          $table->string('tipo');
+          $table->decimal('monto',11,2)->unsigned();
+          $table->string('fecha',10)->comment('Fecha en que se realizo el pago');
+          $table->softDeletes();
+          $table->timestamps();
         });
     }
 

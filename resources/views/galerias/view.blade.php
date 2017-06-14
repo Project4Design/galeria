@@ -22,7 +22,7 @@
 			<div class="row">
 	    	<div class="col-md-12">
 	    		<h2 class="page-header" style="margin-top:0!important">
-            <i class="fa fa-university" aria-hidden="true"></i>
+            <i class="fa fa-file-image-o" aria-hidden="true"></i>
             {{ $cuadro->titulo }}
             <small class="pull-right">Registrado: {{ $cuadro->created_at }}</small>
             <span class="clearfix"></span>
