@@ -49,7 +49,7 @@ class CursosController extends Controller
         
         
       $this->validate($request, [
-        'titulo' =>'required|min:5',
+        
         'precio' => 'required|numeric',
         'image' => 'required|image',
         'id_profesor'=>'required'
