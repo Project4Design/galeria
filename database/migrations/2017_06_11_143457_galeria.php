@@ -16,6 +16,8 @@ class Galeria extends Migration
         Schema::create('galeria', function (Blueprint $table) {
             $table->increments('id');
             $table->string('titulo',120);
+            $table->string('autor');
+            $table->string('anio');
             $table->string('descripcion',500)->nullable();
             $table->string('foto',100);
             $table->softDeletes();

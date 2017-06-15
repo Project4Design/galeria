@@ -3,7 +3,9 @@
 namespace App\Http\Controllers;
 use Illuminate\Support\Facades\Input;
 use Illuminate\Http\Request;
+use Carbon\Carbon;
 use App\Estudiante;
+use App\Representante;
 
 class EstudiantesController extends Controller
 {
@@ -38,9 +40,30 @@ class EstudiantesController extends Controller
      */
     public function store(Request $request)
     {
-        //dd($request->all());
-        $estudiante = new Estudiante;
-        $estudiante->fill($request->all());
+    	$this->validate($request,[
+    		'foto' => 'required|image',
+    		'nombres' => 'required',
+    		'apellidos' => 'required',
+    		'cedula' => 'required|numeric|unique:estudiantes',
+    		'sexo' => 'required',
+    		'nacimiento' => 'required',
+    		'residencia' => 'required',
+    		'email' => 'required|unique:email',
+    		'alergico' => 'required',
+    		'tld_personal' => 'tlf_personal',
+    	]);
+
+      $hoy = date('d-m-Y');
+      $date = date_diff(date_create($fecha),date_create($hoy));
+    	$edad = $date->format('%a');
+
+    	if($edad<18){
+    		$Representante = new Representante;
+    		dd(true);
+    	}
+
+      $estudiante = new Estudiante;
+      $estudiante->fill($request->all());
 
       if(input::hasFile('foto')){
         $file = Input::file('foto');
@@ -77,7 +100,13 @@ class EstudiantesController extends Controller
       $estudiante = Estudiante::findOrFail($id);
       $cursos = array();
 
-      return view('estudiantes.view',['estudiante'=>$estudiante,'cursos'=>$cursos]);
+      $hoy = date('d-m-Y');
+      $x = explode("/",$estudiante->nacimiento);
+      $fecha = $x[1]."-".$x[0]."-".$x[2];
+      $date = date_diff(date_create(date('d-m-Y',strtotime($fecha))),date_create($hoy));
+      $edad = $date->format('%y');
+
+      return view('estudiantes.view',['estudiante'=>$estudiante,'cursos'=>$cursos,'edad'=>$edad]);
     }
 
     /**

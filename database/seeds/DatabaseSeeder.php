@@ -40,9 +40,10 @@ class DatabaseSeeder extends Seeder
             App\Curso::create([
 				      'titulo' => 'pintura a acuarela',
 				      'descripcion' => 'Curso de pintura al oleo',
+				      'limit' => 10,
 				      'foto' => 'pintar-al-oleo.jpg',
-				      'precio' => 40000,
-				      'id_profesor' => 1
+				      'id_profesor' => 1,
+				      'precio' => 40000
             ]);
 
             App\Representante::create([
@@ -60,14 +61,23 @@ class DatabaseSeeder extends Seeder
 							'representante_id' => 1,
 							'nombres' => 'Ricardo',
 							'apellidos' => 'Carmona',
+							'cedula' => '21031565',
 							'email' => 'RicardoCarmona@gmail.com',
 							'sexo' => 'M',
-							'nacimiento' => '10/06/2003',
+							'nacimiento' => '15-06-2003',
 							'residencia' => 'El rosal',
 							'alergico' => 0,
 							'tlf_personal' => '024124124',
 							'tlf_local' => '0412217751',
 							'foto' => 'C',
+            ]);
+
+            App\Galeria::create([
+            	'titulo' => 'Cuadro #1',
+            	'autor' => 'Admin',
+            	'anio' => '2017',
+            	'descripcion' => 'El primer cuadro agregado.',
+            	'foto' => 'GILBERTO 22-10-2007 087.jpg'
             ]);
         }
     }

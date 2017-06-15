@@ -26,11 +26,14 @@
           <div class="box box-danger">
             <div class="box-body box-profile">
               <img class="profile-user-img img-responsive img-circle" src="{{asset('images/estudiantes/'.$estudiante->foto)}}" alt="Foto de perfil">
-              <h3 class="profile-username text-center">{{$estudiante->nombre." ".$estudiante->apellido}}</h3>
+              <h3 class="profile-username text-center">{{$estudiante->nombres." ".$estudiante->apellidos}}</h3>
 
-              <p class="text-muted text-center">{{$estudiante->edad}}</p>
+              <p class="text-muted text-center">{{$estudiante->nacimiento}} ({{$edad}} años)</p>
 
               <ul class="list-group list-group-unbordered">
+                <li class="list-group-item">
+                  <b>Cedula</b> <span class="pull-right">{{ $estudiante->cedula }}</span>
+                </li>
                 <li class="list-group-item">
                   <b>Email</b> <span class="pull-right">{{ $estudiante->email }}</span>
                 </li>

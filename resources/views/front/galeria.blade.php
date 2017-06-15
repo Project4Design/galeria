@@ -1,5 +1,5 @@
 @extends('layouts.front')
-
+@section('title','Galeria - '.config('app.name'))
 @section('content')
 	<div class="divider"></div>
 		@foreach($cuadro as $cuadros)

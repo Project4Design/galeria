@@ -1,4 +1,5 @@
 @extends('layouts.front')
+@section('title','Contacto - '.config('app.name'))
 
 @section('content')
 	<div class="section_two_three">

@@ -11,8 +11,7 @@ class FrontCrontroller extends Controller
     //
 	public function index(){
 		$cursos = Curso::all();
-
-		return view('front.front',['cursos'=>$cursos]);
+		return view('front.index',['cursos'=>$cursos]);
 	}
 
 	public function galeria()
@@ -20,5 +19,20 @@ class FrontCrontroller extends Controller
 		$cuadro = Galeria::all();
 
 		return view('front.galeria',['cuadro' => $cuadro]);
+	}
+
+	public function about()
+	{
+		return view('front.about');
+	}
+
+	public function contacto()
+	{
+		return view('front.contacto');
+	}
+
+	public function login()
+	{
+		return view('login');
 	}
 }

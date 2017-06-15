@@ -9,6 +9,6 @@ class Galeria extends Model
 
 	protected $table = 'galeria';
 	protected $fillable = [
-      'titulo','descripcion', 'foto'
+      'titulo','autor','anio','descripcion', 'foto'
   ];
 }

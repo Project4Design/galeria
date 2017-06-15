@@ -38,6 +38,7 @@
 						<thead>
 							<tr>
 								<th class="text-center">#</th>
+								<th class="text-center">Cedula</th>
 								<th class="text-center">Nombres</th>
 								<th class="text-center">Apellidos</th>
 								<th class="text-center">Email</th>
@@ -50,6 +51,7 @@
 							@foreach($estudiantes as $d)
 								<tr>
 									<td>{{$i}}</td>
+									<td>{{$d->cedula}}</td>
 									<td>{{$d->nombres}}</td>
 									<td>{{$d->apellidos}}</td>
 									<td>{{$d->email}}</td>

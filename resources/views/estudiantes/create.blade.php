@@ -40,6 +40,11 @@
 						<input id="apellidos" class="form-control" type="text" name="apellidos" value="{{ old('apellidos')?old('apellidos'):$estudiante->apellidos }}" placeholder="Apellidos">
 					</div>
 
+					<div class="form-group {{ $errors->has('cedula')?'has-error':'' }}">
+						<label class="control-label" for="cedula">Cedula:</label>
+						<input id="cedula" class="form-control" type="text" name="cedula" value="{{ old('cedula')?old('cedula'):$estudiante->cedula }}" placeholder="Apellidos">
+					</div>
+
 					<div class="form-group {{ $errors->has('sexo')?'has-error':'' }}">
 						<label class="control-label" for="sexo">Sexo:</label>
 						<select name="sexo" id="sexo" class="form-control">
@@ -68,8 +73,8 @@
 						<label class="control-label" for="alergico">Alergico:</label>
 						<select name="alergico" id="alergico" class="form-control">
 							<option value="">Seleccione...</option>
-							<option value="1"  @if($estudiante->alergico =='1') : selected @endif  >Si</option>
-							<option value="2"  @if($estudiante->alergico =='2') : selected @endif  >No</option>
+							<option value="1" @if($estudiante->alergico =='1') : selected @endif  >Si</option>
+							<option value="2" @if($estudiante->alergico =='2') : selected @endif  >No</option>
 						</select>
 					</div>
 
@@ -82,8 +87,6 @@
 						<label class="control-label" for="tlf_local">Tlf. Local:</label>
 						<input id="tlf_local" class="form-control" type="text" name="tlf_local" value="{{ old('tlf_local')?old('tlf_local'):$estudiante->tlf_local }}" placeholder="Telefono Local">
 					</div>
-
-		
 
 					@if(count($errors)>0)
 						<div class="alert alert-danger">

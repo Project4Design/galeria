@@ -169,4 +169,21 @@ class CursosController extends Controller
                     ]);
             }
     }
+
+
+    //FUNCIONES DEL FRONT
+
+    public function cursos()
+    {
+      $cursos = Curso::all();
+
+      return view('front.cursos',['cursos'=>$cursos]);
+    }
+
+    public function display($id)
+    {
+      $curso = Curso::find($id);
+
+      return view('front.display',['curso'=>$curso]);
+    }
 }

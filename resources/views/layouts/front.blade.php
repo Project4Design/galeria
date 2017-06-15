@@ -11,12 +11,12 @@
 <body>
 	<div id="wrap">
   	<div id="header">
-    	<div class="logo"><a href="{{route('front_index')}}">Galeria<span>D'Alibio</span></a></div>
+    	<div class="logo"><a href="{{route('front_index')}}">Galeria<span>D'Abilio</span></a></div>
 	    <div class="menu">
 	      <ul>
 	        <li class="selected"><a href="{{route('front_index')}}">Inicio</a></li>
 	        <li><a href="{{route('about')}}">Acerca de</a></li>
-	        <li><a href="{{url('/cursos')}}">Cursos</a></li>
+	        <li><a href="{{route('cursos.cursos')}}">Cursos</a></li>
 	        <li><a href="{{route('galeria')}}">Galeria</a></li>
 	        <li><a href="{{route('contacto')}}">Contacto</a></li> 
 	      </ul>
@@ -42,10 +42,11 @@
     <div class="footer_content">
       <div class="footer_left">
         <ul class="footer_menu">
-          <li><a href="{{route('front_index')}}">home</a></li>
-          <li><a href="page.html">page</a></li>
-          <li><a href="#">blog</a></li>
-          <li><a href="{{route('contacto')}}">contacto</a></li> 
+          <li><a href="{{route('front_index')}}">Inicio</a></li>
+	        <li><a href="{{route('about')}}">Acerca de</a></li>
+	        <li><a href="{{route('cursos.cursos')}}">Cursos</a></li>
+	        <li><a href="{{route('galeria')}}">Galeria</a></li>
+	        <li><a href="{{route('contacto')}}">Contacto</a></li> 
         </ul>
       </div>
           

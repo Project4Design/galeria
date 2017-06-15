@@ -42,7 +42,7 @@ class LoginController extends Controller
 	        {
 	        	return redirect()->intended('admin/dashboard');
 	        }else{
-	        	return redirect()->route('index_show_login')->withErrors('An error has occurred, check your credentials');
+	        	return redirect()->route('login')->withErrors('An error has occurred, check your credentials');
 	        }
 	 }
 

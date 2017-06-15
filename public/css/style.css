@@ -6,7 +6,7 @@ html, body, div, span, applet, object, iframe, h1, h2, h3, h4, h5, h6, p, blockq
 .clearfix:after { content: "."; display: block; height: 0; clear: both; visibility: hidden; } .clearfix { display: inline-block; } /* Hide from IE Mac \*/ .clearfix { display: block; } /* End hide from IE Mac */ .none { display: none; } /* End Clearfix */
 
 /* General */
-body{font-family:Arial, Helvetica, sans-serif;padding:0;font-size:12px;margin:0 auto;color:#000000;background-color:#FFFFFF; border-top:10px #4f4f4f solid;}
+body{font-family:"OmnesLight", sans-serif;padding:0;font-size:12px;margin:0 auto;color:#000000;background-color:#FFFFFF; border-top:10px #4f4f4f solid;}
 .clear{clear:both;}
 p{padding:0;margin:0px;text-align:left;line-height:20px;}
 
@@ -25,13 +25,13 @@ h4{font-weight: normal;color: #252525;font-size:16px;margin:0;padding:0 0 25px 0
 h5{font-weight: normal;color: #252525;font-size:14px;margin:0;padding:0 0 25px 0;}
 h6{font-weight: normal;color: #e93139;font-size:12px;margin:0;padding:0 0 25px 0;}
 
-h1, h2, h3, h4{font-family: 'Marmelad', sans-serif;}
+h1, h2, h3, h4{font-family: "OmnesLight", sans-serif}
 
 /* Top */
 #wrap{margin:auto;width:1000px;padding:0 0 40px 0; position:relative; }
 .main_content{ clear:both;}
 #header{width:100%; height:140px;}
-.logo{float:left;margin:40px 0 0 40px; padding:0px;font-family: 'Marmelad', sans-serif; font-size:36px; color:#505050; letter-spacing:-1px;}
+.logo{float:left;margin:40px 0 0 40px; padding:0px;font-family: "OmnesLight", sans-serif; font-size:36px; color:#505050; letter-spacing:-1px;}
 .logo a{color:#4f4f4f;}
 .logo a span{color:#e93139;}
 
@@ -221,6 +221,9 @@ ul.social_icons{ margin-top:20px;}
 .footer_left{ float:left; padding:0 0 0 20px;}
 .sidebar{ margin-top:20px;}
 }
+
+/*=========================================================================================*/
+/*------------------ Galeria --------------------------------*/
 .container-galeria{
 	margin-bottom: 15px;
 	border-bottom: 2px solid #ccc;
@@ -248,4 +251,71 @@ ul.social_icons{ margin-top:20px;}
 }
 .section_full.container-galeria .section_one_three{
 	text-align: center;
+}
+
+/*------------------ Curso --------------------------------*/
+.curso-img-container{
+  height: 300px;
+  line-height: 300px;
+  width: 300px;
+  text-align: center;
+  vertical-align: middle;
+  padding: 10px;
+  margin: 0 auto;
+	border:5px solid #888;
+	border-radius: 2px;
+  position:relative;
+  -webkit-box-shadow: 0 1px 4px rgba(0, 0, 0, 0.3);
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.3);
+}
+.curso-img-container:after{
+  content:"";
+  position:absolute;
+  z-index:-1;
+  top:100%;
+  bottom:0;
+  width:140%;
+  height:60px;
+  left:-20%;
+  right:-20%;
+  background:-webkit-radial-gradient(50% -3%, ellipse cover, rgba(00, 00, 00, 0.5), rgba(97, 97, 97, 0.0) 40%);
+  background:radial-gradient(ellipse at 50% -3%, rgba(00, 00, 00, 0.5), rgba(97, 97, 97, 0.0) 40%);
+}
+.curso-img-container img{
+  max-height: 300px;
+  max-width: 300px;
+  vertical-align: middle;
+  display: inline-block;
+}
+
+.profile_picture_container{
+	height: 150px;
+	width: 150px;
+	line-height: 150px;
+	text-align: center;
+	border-radius: 150px;
+	border: 3px solid #e93139;
+	overflow: hidden;
+	margin: 10px auto;
+}
+.profile_picture_container img{
+	max-height: 150px;
+	max-width: 150px;
+	vertical-align: middle;
+	display: inline-block;
+}
+
+.profile h3,
+.profile p.profesion{
+text-align: center;
+padding-bottom: 0px;
+}
+.profile p.profesion{
+	color: #555;
+	font-weight: bold;
+	margin-bottom:10px;
+}
+.profile_detalles li{
+ padding: 5px;
+ border-bottom: 1px solid #ccc;
 }

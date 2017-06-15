@@ -20,7 +20,7 @@
 					<div class="form-group">
             <div class="imageUploadWidget {{ $errors->has('image')?'has-error':'' }}">
               <div class="imageArea">
-                <img id="img" src="{{ asset('/images/cuadros/') }}{{isset($cuadro->foto) ? '/'.$cuadro->foto : '/no-image.png' }}" alt="">
+                <img id="img" src="{{ asset('/images/') }}{{isset($cuadro->foto) ? 'cuadros/'.$cuadro->foto : '/no-image.png' }}" alt="">
                 <img class="spinner-image" src="{{ asset('images/spinner.gif') }}">
               </div>
               <div class="btnArea">
@@ -32,6 +32,16 @@
 					<div class="form-group {{ $errors->has('titulo')?'has-error':'' }}">
 						<label class="control-label" for="titulo">Titulo:</label>
 						<input id="titulo" class="form-control" type="text" name="titulo" value="{{ old('titulo')?old('titulo'):$cuadro->titulo }}" placeholder="Titulo">
+					</div>
+
+					<div class="form-group {{ $errors->has('autor')?'has-error':'' }}">
+						<label class="control-label" for="autor">Autor:</label>
+						<input id="autor" class="form-control" type="text" name="autor" value="{{ old('autor')?old('autor'):$cuadro->autor }}" placeholder="Autor">
+					</div>
+
+					<div class="form-group {{ $errors->has('anio')?'has-error':'' }}">
+						<label class="control-label" for="anio">Año:</label>
+						<input id="anio" class="form-control" type="text" name="anio" value="{{ old('anio')?old('anio'):$cuadro->anio }}" placeholder="Año">
 					</div>
 
 					<div class="form-group {{ $errors->has('descripcion')?'has-error':'' }}">
@@ -48,7 +58,7 @@
 					@endif
 
 					<div class="form-group text-right">
-						<a class="btn btn-flat btn-default" href="{{route('galeria.index')}}"><i class="fa fa-reply"></i> Atras</a>
+						<a class="btn btn-flat btn-default" href="{{route('galeria.index')}}"><i class="fa fa-reply"></i> Volver</a>
 						<button class="btn btn-flat btn-primary" type="submit"><i class="fa fa-send"></i> Guardar</button>
 					</div>
 				</form>
@@ -84,7 +94,7 @@
 	    //Mostar cargando
 	    load.show();
 	    if(file){
-	      if(file.size<3500000){
+	      if(file.size<4000000){
 	        if(type == "image/jpeg" || type == "image/png" || type == "image/jpg"){
 	          var reader = new FileReader();
 	          reader.onload = function (e) {
@@ -94,7 +104,7 @@
 	          }
 	          reader.readAsDataURL(file);
 	        }else{ $('#msj').html('Archivo no admitido.'); error++; }
-	      }else{ $('#msj').html('La imagen supera el tamaño permitido: 2MB.'); error++; }
+	      }else{ $('#msj').html('La imagen supera el tamaño permitido: 4MB.'); error++; }
 	    }
 
 	    if(error>0){

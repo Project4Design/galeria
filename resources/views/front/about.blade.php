@@ -1,4 +1,5 @@
 @extends('layouts.front')
+@section('title','About - '.config('app.name'))
 @section('content')
   <div class="section_full">
 	  <h1>Acerca de...</h1>

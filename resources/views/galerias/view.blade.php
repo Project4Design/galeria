@@ -31,11 +31,13 @@
 				<div class="col-md-4">
 					<h4>Detalles del curso</h4>
           <p><b>Titulo: </b> {{$cuadro->titulo}}</p>
+          <p><b>Autor: </b> {{$cuadro->autor}}</p>
+          <p><b>Año: </b> {{$cuadro->anio}}</p>
 					<p><b>Descripcion: </b> {{ $cuadro->descripcion }} </p>
 				</div>
 				<div class="col-md-4">
 					<h4>Cuadro: </h4>
-					<img class="img-responsive" src="{{ asset('/images/cuadros/'.$cuadro->foto) }}">
+					<img class="img-responsive admin-galeria" src="{{ asset('/images/cuadros/'.$cuadro->foto) }}">
 				</div>
 			</div>
 		</section>

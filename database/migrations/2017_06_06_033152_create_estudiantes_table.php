@@ -20,6 +20,7 @@ class CreateEstudiantesTable extends Migration
             $table->foreign('representante_id')->references('representante_id')->on('representantes')->onDelete('cascade');
             $table->string('nombres',50);
             $table->string('apellidos',50);
+            $table->string('cedula',12);
             $table->string('email',50);
             $table->string('sexo',1);
             $table->string('nacimiento',11);
