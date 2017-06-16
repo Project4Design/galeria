@@ -79,6 +79,11 @@ class DatabaseSeeder extends Seeder
             	'descripcion' => 'El primer cuadro agregado.',
             	'foto' => 'GILBERTO 22-10-2007 087.jpg'
             ]);
+
+            App\Periodo::create([
+              'periodo' => '2017-1',
+              'status' => 1
+            ]);
         }
     }
 }

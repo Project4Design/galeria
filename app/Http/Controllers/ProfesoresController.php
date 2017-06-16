@@ -129,10 +129,10 @@ class ProfesoresController extends Controller
             ]);
         }else{
         return view("admin/profesores")->with([
-                'title' => 'Editar',
-                'profesor' => $profesor,
-                'url'=> "/admin/profesores/{$id}/",
-                'method' => 'PATCH',
+            'title' => 'Editar',
+            'profesor' => $profesor,
+            'url'=> "/admin/profesores/{$id}/",
+            'method' => 'PATCH',
             'flash_message' => 'Ha ocurrido un error.',
             'flash_class' => 'alert-danger',
             'flash_important' => true

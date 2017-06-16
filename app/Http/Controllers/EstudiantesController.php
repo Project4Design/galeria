@@ -77,10 +77,10 @@ class EstudiantesController extends Controller
               'flash_class' => 'alert-success'
               ]);
       }else{
-          return view("admin/galeria")->with([
+          return view("admin/estudiantes")->with([
                 'title' => 'Agregar',
                 'estudiante' => $estudiante,
-                'url'=> '/galeria',
+                'url'=> 'admin/estudiantes',
                 'method' => 'POST',
               'flash_message' => 'Ha ocurrido un error.',
               'flash_class' => 'alert-danger',
@@ -146,10 +146,10 @@ class EstudiantesController extends Controller
             ]);
         }else{
         return view("admin/estudiantes")->with([
-                'title' => 'Editar',
-                'estudiante' => $estudiante,
-                'url'=> "/admin/estudiantes/{$id}/",
-                'method' => 'PATCH',
+            'title' => 'Editar',
+            'estudiante' => $estudiante,
+            'url'=> "/admin/estudiantes/{$id}/",
+            'method' => 'PATCH',
             'flash_message' => 'Ha ocurrido un error.',
             'flash_class' => 'alert-danger',
             'flash_important' => true

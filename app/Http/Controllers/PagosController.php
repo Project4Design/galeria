@@ -113,7 +113,7 @@ class PagosController extends Controller
         return view("admin/pagos")->with([
         		'title' => 'Editar',
         		'pago' => $pago,
-        		'url'=> "admin/pagos/{$id}/",
+        		'url'=> "admin/pagos/{$pago}/",
         		'method' => 'PATCH',
             'flash_message' => 'Ha ocurrido un error.',
             'flash_class' => 'alert-danger',

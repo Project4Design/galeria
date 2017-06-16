@@ -18,38 +18,38 @@
 					<h4>{{ $title }} Usuario</h4>
 
 					<div class="form-group {{ $errors->has('nombre')?'has-error':'' }}">
-						<label class="control-label" for="nombre">nombre:</label>
+						<label class="control-label" for="nombre">nombre: *</label>
 						<input id="nombre" class="form-control" type="text" name="nombre" value="{{ old('nombre')?old('nombre'):$user->nombre }}" placeholder="Nombre">
 					</div>
 
 					<div class="form-group {{ $errors->has('apellido')?'has-error':'' }}">
-						<label class="control-label" for="apellido">Apellido:</label>
+						<label class="control-label" for="apellido">Apellido: *</label>
 						<input id="apellido" class="form-control" type="text" name="apellido" value="{{ old('apellido')?old('apellido'):$user->apellido }}" placeholder="Apellido">
 					</div>
 					
 					<div class="form-group {{ $errors->has('email')?'has-error':'' }}">
-						<label class="control-label" for="email">Email:</label>
+						<label class="control-label" for="email">Email: *</label>
 						<input id="email" class="form-control" type="mail" name="email" value="{{ old('email')?old('email'):$user->email }}" placeholder="Email">
 					</div>
 
 					<div class="form-group {{ $errors->has('cedula')?'has-error':'' }}">
-						<label class="control-label" for="cedula">Cedula:</label>
+						<label class="control-label" for="cedula">Cedula: *</label>
 						<input id="cedula" class="form-control" type="text" name="cedula" value="{{ old('cedula')?old('cedula'):$user->cedula }}" placeholder="Cedula">
 					</div>
 
 					<div class="form-group {{ $errors->has('telefono')?'has-error':'' }}">
-						<label class="control-label" for="telefono">Telefono:</label>
+						<label class="control-label" for="telefono">Telefono: *</label>
 						<input id="telefono" class="form-control" type="text" name="telefono" value="{{ old('telefono')?old('telefono'):$user->telefono }}" placeholder="Telefono">
 					</div>
 					
 				@if($method!="PATCH")
 					<div class="form-group {{ $errors->has('password')?'has-error':'' }}">
-						<label class="control-label" for="password">Contraseña:</label>
+						<label class="control-label" for="password">Contraseña: *</label>
 						<input id="password" class="form-control" type="password" name="password" value="{{ old('password')?old('password'):$user->password }}">
 					</div>
 
 					<div class="form-group {{ $errors->has('password_confirmation')?'has-error':'' }}">
-						<label class="control-label" for="password_confirmation">Verificar:</label>
+						<label class="control-label" for="password_confirmation">Verificar: *</label>
 						<input id="password_confirmation" class="form-control" type="password" name="password_confirmation" value="{{ old('password_confirmation')?old('password_confirmation'):$user->password_confirmation }}">
 					</div>
 				@endif

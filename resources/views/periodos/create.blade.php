@@ -1,10 +1,10 @@
 @extends('layouts.app')
-@section('title','Galeria - '.config('app.name'))
-@section('header','Galeria')
+@section('title','Periodos - '.config('app.name'))
+@section('header','Periodos')
 @section('breadcrumb')
 	<ol class="breadcrumb">
 	  <li><a href="#"><i class="fa fa-dashboard" aria-hidden="true"></i> Escritorio</a></li>
-	  <li> Galeria </li>
+	  <li> Periodos </li>
 	  <li class="active"> {{$title}} </li>
 	</ol>
 @endsection
@@ -15,40 +15,21 @@
 				<form class="" action="{{ url($url) }}" method="POST" enctype="multipart/form-data">
 					{{ method_field( $method ) }}
 					{{ csrf_field() }}
-					<h4>{{ $title }} Cuadro</h4>
+					<h4>{{ $title }} Periodo</h4>
 
-					<div class="form-group">
-            <div class="imageUploadWidget {{ $errors->has('image')?'has-error':'' }}">
-              <div class="imageArea">
-                <img id="img" src="{{ asset('/images/') }}{{isset($cuadro->foto) ? 'cuadros/'.$cuadro->foto : '/no-image.png' }}" alt="">
-                <img class="spinner-image" src="{{ asset('images/spinner.gif') }}">
-              </div>
-              <div class="btnArea">
-                <input id='file' name='image' accept='image/jpeg,image/png' type='file'>
-              </div>
-            </div>
-          </div>
-
-					<div class="form-group {{ $errors->has('titulo')?'has-error':'' }}">
-						<label class="control-label" for="titulo">Titulo:</label>
-						<input id="titulo" class="form-control" type="text" name="titulo" value="{{ old('titulo')?old('titulo'):$cuadro->titulo }}" placeholder="Titulo">
+         	<div class="form-group {{ $errors->has('periodo')?'has-error':'' }}">
+						<label class="control-label" for="periodo">Periodo:</label>
+						<input id="periodo" class="form-control" type="text" name="periodo" value="{{ old('periodo')?old('periodo'):$periodo->periodo }}" placeholder="Periodo">
 					</div>
 
-					<div class="form-group {{ $errors->has('autor')?'has-error':'' }}">
-						<label class="control-label" for="autor">Autor:</label>
-						<input id="autor" class="form-control" type="text" name="autor" value="{{ old('autor')?old('autor'):$cuadro->autor }}" placeholder="Autor">
+					<div class="form-group {{ $errors->has('status')?'has-error':'' }}">
+						<label class="control-label" for="status">Status:</label>
+						<select id="status" class="form-control" type="text" name="status">
+							<option value="">Seleccione...</option>
+							<option value="1" @if(old('status')) {{old('status')}} @else {{$periodo->status === 1?'selected':''}} @endif>Abierto</option>
+							<option value="0" @if(old('status')) {{old('status')}} @else {{$periodo->status === 0?'selected':''}} @endif>Cerrado</option>
+						</select>
 					</div>
-
-					<div class="form-group {{ $errors->has('anio')?'has-error':'' }}">
-						<label class="control-label" for="anio">Año:</label>
-						<input id="anio" class="form-control" type="text" name="anio" value="{{ old('anio')?old('anio'):$cuadro->anio }}" placeholder="Año">
-					</div>
-
-					<div class="form-group {{ $errors->has('descripcion')?'has-error':'' }}">
-						<label class="control-label" for="descripcion">Descripcion:</label>
-						<input id="descripcion" class="form-control" type="text" name="descripcion" value="{{ old('descripcion')?old('descripcion'):$cuadro->descripcion }}" placeholder="Descripcion">
-					</div>
-
 
 					@if(count($errors)>0)
 						<div class="alert alert-danger">
@@ -58,7 +39,7 @@
 					@endif
 
 					<div class="form-group text-right">
-						<a class="btn btn-flat btn-default" href="{{route('galeria.index')}}"><i class="fa fa-reply"></i> Volver</a>
+						<a class="btn btn-flat btn-default" href="{{route('periodos.index')}}"><i class="fa fa-reply"></i> Atras</a>
 						<button class="btn btn-flat btn-primary" type="submit"><i class="fa fa-send"></i> Guardar</button>
 					</div>
 				</form>
@@ -69,12 +50,8 @@
 @section('script')
 	<script type="text/javascript">
 		$(document).ready(function(){
+			console.log("script cargado");
 			$('#file').change(preview);	
-
-			$('#anio').datepicker({
-				startDate: "today",
-				startView: 2,
-			});
 		});
 		
 		function preview(){
@@ -99,7 +76,7 @@
 	    //Mostar cargando
 	    load.show();
 	    if(file){
-	      if(file.size<4000000){
+	      if(file.size<2000000){
 	        if(type == "image/jpeg" || type == "image/png" || type == "image/jpg"){
 	          var reader = new FileReader();
 	          reader.onload = function (e) {
@@ -109,7 +86,7 @@
 	          }
 	          reader.readAsDataURL(file);
 	        }else{ $('#msj').html('Archivo no admitido.'); error++; }
-	      }else{ $('#msj').html('La imagen supera el tamaño permitido: 4MB.'); error++; }
+	      }else{ $('#msj').html('La imagen supera el tamaño permitido: 2MB.'); error++; }
 	    }
 
 	    if(error>0){

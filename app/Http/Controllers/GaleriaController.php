@@ -40,8 +40,11 @@ class GaleriaController extends Controller
     {
     	$this->validate($request,[
     		'image'=>'required|image',
-    		'titulo' => 'required'
+    		'titulo' => 'required',
+            'autor' => 'required',
+            'anio' => 'required|numeric'
     	]);
+
         $cuadro = new Galeria;
         $cuadro->fill($request->all());
 
@@ -104,7 +107,13 @@ class GaleriaController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $this->validate($request,[
+            'image'=>'required|image',
+            'titulo' => 'required',
+            'autor' => 'required',
+            'anio' => 'required|numeric'
+        ]);
+        
     	$cuadro = Galeria::findOrFail($id);
     	$cuadro->fill($request->all());
 
@@ -122,10 +131,10 @@ class GaleriaController extends Controller
             ]);
     	}else{
         return view("admin/galeria")->with([
-        		'title' => 'Editar',
-        		'cuadro' => $cuadro,
-        		'url'=> "/galeria/{$id}/edit",
-        		'method' => 'PATCH',
+    		'title' => 'Editar',
+    		'cuadro' => $cuadro,
+    		'url'=> "admin/galeria/{$id}",
+    		'method' => 'PATCH',
             'flash_message' => 'Ha ocurrido un error.',
             'flash_class' => 'alert-danger',
             'flash_important' => true
@@ -141,20 +150,20 @@ class GaleriaController extends Controller
      */
     public function destroy($id)
     {
-         $cuadro = Galeria::findOrFail($id);
+        $cuadro = Galeria::findOrFail($id);
 
-            unlink(public_path().'/images/cuadros/'.$cuadro->foto);//Borrar imagen de local storage "Public"
+        unlink(public_path().'/images/cuadros/'.$cuadro->foto);//Borrar imagen de local storage "Public"
 
-            if ($cuadro->destroy($id)) {
-                return redirect("admin/galeria")->with([
-                    'flash_message' => 'Cuadro se ha eliminado correctamente.',
-                    'flash_class' => 'alert-success'
-                    ]);
-            }else{
-                return redirect("admin/galeria")->with([
-                    'flash_message' => '¡Ha ocurrido un error!',
-                    'flash_class' => 'alert-danger'
-                    ]);
-            }
+        if($cuadro->destroy($id)) {
+            return redirect("admin/galeria")->with([
+               'flash_message' => 'Cuadro se ha eliminado correctamente.',
+               'flash_class' => 'alert-success'
+            ]);
+        }else{
+            return redirect("admin/galeria")->with([
+                'flash_message' => '¡Ha ocurrido un error!',
+                'flash_class' => 'alert-danger'
+            ]);
+        }
     }
 }

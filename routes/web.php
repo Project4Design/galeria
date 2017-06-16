@@ -43,5 +43,7 @@ Route::group(['middleware' => 'auth','prefix' => 'admin'],function(){
 	Route::resource('/estudiantes','EstudiantesController');
 	//Representantes
 	Route::resource('/representantes','RepresentantesController');
+	//Periodos
+	Route::resource('/periodos','PeriodosController');
 
 });

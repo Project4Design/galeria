@@ -76,7 +76,7 @@
         @endif
 
 					<div class="form-group text-right">
-						<a class="btn btn-flat btn-default" href="{{route('representantes.inddex')}}"><i class="fa fa-reply"></i> Atras</a>
+						<a class="btn btn-flat btn-default" href="{{route('representantes.index')}}"><i class="fa fa-reply"></i> Volver</a>
 						<button class="btn btn-flat btn-primary" type="submit"><i class="fa fa-send"></i> Guardar</button>
 					</div>
 				</form>

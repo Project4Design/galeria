@@ -109,15 +109,24 @@ class RepresentantesController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        
+        $this->validate($request, [
+          'email' =>'required|email|unique:representantes,email,'.$id.',representante_id',
+          'nombres' => 'required',
+          'apellidos' => 'required',
+          'cedula' => 'required|numeric|unique:representantes,cedula,'.$id.',representante_id',
+          'tlf_personal'=> 'required|numeric',
+          'tlf_local'=> 'required|numeric'
+        ]);
+
     	$representante = Representante::findOrFail($id);
     	$representante->fill($request->all());
 
     	if(input::hasFile('foto')){
-        $file = Input::file('foto');
-        $file->move(public_path().'/images/representantes/',$file->getClientOriginalName());
-        $representante->foto = $file->getClientOriginalName();
-      }
+            $file = Input::file('foto');
+            $file->move(public_path().'/images/representantes/',$file->getClientOriginalName());
+            $representante->foto = $file->getClientOriginalName();
+        }
 
     	if($representante->save()){
         return redirect("admin/representantes")->with([
@@ -126,10 +135,10 @@ class RepresentantesController extends Controller
             ]);
     	}else{
         return view("admin/representantes")->with([
-        		'title' => 'Editar',
-        		'representante' => $representante,
-        		'url'=> "admin/representantes/{$id}/",
-        		'method' => 'PATCH',
+    		'title' => 'Editar',
+    		'representante' => $representante,
+    		'url'=> "admin/representantes/{$id}/",
+    		'method' => 'PATCH',
             'flash_message' => 'Ha ocurrido un error.',
             'flash_class' => 'alert-danger',
             'flash_important' => true
@@ -145,6 +154,30 @@ class RepresentantesController extends Controller
      */
     public function destroy($id)
     {
-        Representante::destroy($id);
+        //Representante::destroy($id);
+
+        $representante = Representante::findOrFail($id);
+
+        if(count($representante->estudiantes) === 0){
+            if($representante->destroy($id)){
+                return redirect("admin/representantes")->with([
+                   'flash_message' => 'El representante se ha eliminado correctamente.',
+                   'flash_class' => 'alert-success'
+                ]);
+            }else{
+                return redirect("admin/representantes")->with([
+                    'flash_message' => '¡Ha ocurrido un error!',
+                    'flash_class' => 'alert-danger',
+                    'flash_important' => true
+                ]);
+            }
+        }else{
+            return redirect("admin/representantes")->with([
+                'flash_message' => '¡Este representante tiene estudiantes registrados!',
+                'flash_class' => 'alert-danger',
+                'flash_important' => true
+            ]);
+
+        }
     }
 }

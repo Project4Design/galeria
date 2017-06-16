@@ -214,6 +214,18 @@
                 <li><a href="{{ route('estudiantes.create') }}"><i class="fa fa-circle-o"></i>Agregar estudiante</a></li>
               </ul>
             </li>
+
+            <li class="treeview">
+              <a href="#">
+                <i class="fa fa-cogs"></i>
+                <span>Configuracion</span>
+                <i class="fa fa-angle-left pull-right"></i>
+              </a>
+              <ul class="treeview-menu">
+                <li><a href="{{ route('periodos.index') }}"><i class="fa fa-circle-o"></i>Periodos</a></li>
+              </ul>
+            </li>
+
           </ul>
         </section>
         <!-- /.sidebar -->

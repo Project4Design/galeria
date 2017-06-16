@@ -1,19 +1,22 @@
 @extends('layouts.app')
-@section('title','Profesores - '.config('app.name'))
-@section('header','Profesores')
+@section('title','Periodos - '.config('app.name'))
+@section('header','Periodos')
 @section('breadcrumb')
 	<ol class="breadcrumb">
 	  <li><a href="{{route('admin_index')}}"><i class="fa fa-dashboard" aria-hidden="true"></i> Escritorio</a></li>
-	  <li> Profesores </li>
+	  <li> Periodos </li>
 	  <li class="active">Ver </li>
 	</ol>
 @endsection
 @section('content')
 <!-- Formulario -->
 		<section>
-	    <a class="btn btn-flat btn-default" href="{{ route('profesores.index') }}"><i class="fa fa-reply" aria-hidden="true"></i> Volver</a>
-	    <a class="btn btn-flat btn-success" href="{{ url('admin/profesores/'.$profesor->id.'/edit') }}"><i class="fa fa-pencil" aria-hidden="true"></i> Editar</a>
+	    <a class="btn btn-flat btn-default" href="{{ route('periodos.index') }}"><i class="fa fa-reply" aria-hidden="true"></i> Volver</a>
+	    <a class="btn btn-flat btn-success" href="{{ url('admin/periodos/'.$periodo->periodo_id.'/edit') }}"><i class="fa fa-pencil" aria-hidden="true"></i> Editar</a>
 	    <button class="btn btn-flat btn-danger" data-toggle="modal" data-target="#delModal"><i class="fa fa-times" aria-hidden="true"></i> Eliminar</button>
+      @if($periodo->status===1)
+      <button class="btn btn-flat btn-primary" data-toggle="modal" data-target="#periodoModal"><i class="fa fa-sign-out" aria-hidden="true"></i> Cerrar periodo</button>
+      @endif
 		</section>
 
 		<section>
@@ -23,23 +26,21 @@
           <!-- Profile Image -->
           <div class="box box-danger">
             <div class="box-body box-profile">
-              <img class="profile-user-img img-responsive img-circle" src="{{asset('images/profesores/'.$profesor->foto)}}" alt="Foto de perfil">
-              <h3 class="profile-username text-center">{{$profesor->nombre." ".$profesor->apellido}}</h3>
-
-              <p class="text-muted text-center">{{$profesor->profesion}}</p>
+              <p class="text-muted text-center">Periodo</p>
+              <h3 class="profile-username text-center">{{$periodo->periodo}}</h3>
 
               <ul class="list-group list-group-unbordered">
-                <li class="list-group-item">
-                  <b>Cedula</b> <span class="pull-right">{{number_format($profesor->cedula,0,",",".")}}</span>
+                <li class="list-group-item text-muted">
+                  <b>Registrado</b> <span class="pull-right">{{ $periodo->created_at }}</span>
                 </li>
                 <li class="list-group-item">
-                  <b>Email</b> <span class="pull-right">{{ $profesor->email }}</span>
+                  <b>Estado</b> <span class="pull-right">{!! $periodo->status===1?'<span class="label label-success">Abierto</span>':'<span class="label label-danger">Cerrado</span>' !!}</span>
                 </li>
                 <li class="list-group-item">
-                  <b>Telefono</b> <span class="pull-right">{{$profesor->telefono}}</span>
+                  <b>Cursos</b> <span class="pull-right">{{count($cursos)}}</span>
                 </li>
                 <li class="list-group-item">
-                  <b>Direccion</b> <span class="pull-right">{{$profesor->direccion}}</span>
+                  <b>Estudiantes</b> <span class="pull-right">{{count($estudiantes)}}</span>
                 </li>
               </ul>
             </div>
@@ -51,7 +52,7 @@
         <div class="col-md-9">
         	<div class="box box-success">
 			      <div class="box-header with-border">
-			        <h3 class="box-title"><i class="fa fa-university"></i> Cursos bajo su cargo</h3>
+			        <h3 class="box-title"><i class="fa fa-university"></i> Cursos en este periodo</h3>
 			      </div>
 		      	<div class="box-body">
 							<table class="table data-table table-bordered table-hover table-condensed">
@@ -71,7 +72,7 @@
 											<td>{{$d->titulo}}</td>
 											<td>{{$d->created_at}}</td>
 											<td>
-												<a class="btn btn-primary btn-flat btn-sm" href="{{ url('admin/cursos/'.$d->curso_id) }}"><i class="fa fa-search"></i></a>
+												<a class="btn btn-primary btn-flat btn-sm" href="{{ url('admin/cursos/'.$d->id) }}"><i class="fa fa-search"></i></a>
 											</td>
 										</tr>
 										@php $i++; @endphp
@@ -81,6 +82,42 @@
 						</div>
 					</div>
         </div>
+
+        <div class="col-md-9 col-md-offset-3">
+          <div class="box box-success">
+            <div class="box-header with-border">
+              <h3 class="box-title"><i class="fa fa-address-book-o"></i> Estudiantes inscritos</h3>
+            </div>
+            <div class="box-body">
+              <table class="table data-table table-bordered table-hover table-condensed">
+                <thead>
+                  <tr>
+                    <th class="text-center">#</th>
+                    <th class="text-center">Cedula</th>
+                    <th class="text-center">Nombres</th>
+                    <th class="text-center">Apellidos</th>
+                    <th class="text-center">Accion</th>
+                  </tr>
+                </thead>
+                <tbody class="text-center">
+                  @php $i=1; @endphp
+                  @foreach($estudiantes as $d) 
+                    <tr>
+                      <td>{{$d->cedula}}</td>
+                      <td>{{$d->nombres}}</td>
+                      <td>{{$d->apellidos}}</td>
+                      <td>
+                        <a class="btn btn-primary btn-flat btn-sm" href="{{ url('admin/estudiantes/'.$d->estudiante_id) }}"><i class="fa fa-search"></i></a>
+                      </td>
+                    </tr>
+                    @php $i++; @endphp
+                  @endforeach
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+
 			</div>
 		</section>
 	</div>
@@ -90,14 +127,14 @@
       <div class="modal-content">
         <div class="modal-header">
           <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-          <h4 class="modal-title" id="delModalLabel">Eliminar Profesor</h4>
+          <h4 class="modal-title" id="delModalLabel">Eliminar periodo</h4>
         </div>
         <div class="modal-body">
           <div class="row">
-            <form id="delProduct" class="col-md-8 col-md-offset-2" action="{{url('admin/profesores/'.$profesor->id)}}" method="POST">
+            <form id="delProduct" class="col-md-8 col-md-offset-2" action="{{url('admin/periodos/'.$periodo->periodo_id)}}" method="POST">
               <input type="hidden" name="_method" value="DELETE">
               {{ csrf_field() }}
-              <h4 class="text-center">Esta seguro de eliminar este profesor?</h4><br>
+              <h4 class="text-center">Esta seguro de eliminar este periodo?</h4><br>
 
               <div class="form-group">
                 <div class="progress" style="display:none">
