@@ -5,29 +5,36 @@ namespace App;
 use Illuminate\Database\Eloquent\Model;
 
 class Estudiante extends Model
-{
-    //
-    //
-    
-    public $table = "estudiantes";
+{  
+  public $table = "estudiantes";
 
 	protected $primaryKey = 'estudiante_id';
 
 	protected $fillable = [
 		'representante_id',
-		'nombres',
-		'apellidos',
-		'email',
 		'sexo',
 		'nacimiento',
 		'residencia',
-		'alergico',
-		'tlf_personal',
-		'tlf_local',
-		'foto',
+		'alergico'
 	];
+
+  public function user()
+  {
+    return $this->belongsTo('App\User','user_id','id');
+  }
 
 	public function representantes(){
 		return $this->belongsTo('App\Representantes','representantes_id');
+	}
+
+	public function edad()
+	{
+    $hoy = date('d-m-Y');
+    $x = explode("-",$this->nacimiento);
+    $fecha = $x[1]."-".$x[0]."-".$x[2];
+    $date = date_diff(date_create(date('d-m-Y',strtotime($fecha))),date_create($hoy));
+    $edad = $date->format('%y');
+
+    return $edad;
 	}
 }

@@ -15,15 +15,12 @@ class Profesores extends Migration
     {
         Schema::create('profesores', function (Blueprint $table) {
             $table->increments('id');
-            $table->string('cedula');
-            $table->string('nombre');
-            $table->string('apellido');
-            $table->string('email');
-            $table->string('telefono');
+            $table->integer('user_id')->unsigned();
+            $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
             $table->string('direccion');
             $table->string('profesion');
             $table->string('descripcion_perfil');
-            $table->string('foto');
+            $table->softDeletes();
             $table->timestamps();
         });
     }

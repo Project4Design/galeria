@@ -23,23 +23,29 @@
           <!-- Profile Image -->
           <div class="box box-danger">
             <div class="box-body box-profile">
-              <img class="profile-user-img img-responsive img-circle" src="{{asset('images/profesores/'.$profesor->foto)}}" alt="Foto de perfil">
-              <h3 class="profile-username text-center">{{$profesor->nombre." ".$profesor->apellido}}</h3>
+              <img class="profile-user-img img-responsive img-circle" src="{{asset('images/profesores/'.$profesor->user->detalles->foto)}}" alt="Foto de perfil">
+              <h3 class="profile-username text-center">{{$profesor->user->detalles->nombres." ".$profesor->user->detalles->apellidos}}</h3>
 
               <p class="text-muted text-center">{{$profesor->profesion}}</p>
 
               <ul class="list-group list-group-unbordered">
                 <li class="list-group-item">
-                  <b>Cedula</b> <span class="pull-right">{{number_format($profesor->cedula,0,",",".")}}</span>
+                  <b>Cedula</b> <span class="pull-right">{{number_format($profesor->user->detalles->cedula,0,",",".")}}</span>
                 </li>
                 <li class="list-group-item">
-                  <b>Email</b> <span class="pull-right">{{ $profesor->email }}</span>
+                  <b>Email</b> <span class="pull-right">{{ $profesor->user->email }}</span>
                 </li>
                 <li class="list-group-item">
-                  <b>Telefono</b> <span class="pull-right">{{$profesor->telefono}}</span>
+                  <b>Telefono personal</b> <span class="pull-right">{{$profesor->user->detalles->tlf_personal}}</span>
+                </li>
+                <li class="list-group-item">
+                  <b>Telefono local</b> <span class="pull-right">{{$profesor->user->detalles->tlf_local}}</span>
                 </li>
                 <li class="list-group-item">
                   <b>Direccion</b> <span class="pull-right">{{$profesor->direccion}}</span>
+                </li>
+                <li class="list-group-item">
+                  <b>Perfil</b> <span class="pull-right">{{$profesor->descripcion_perfil}}</span>
                 </li>
               </ul>
             </div>

@@ -6,20 +6,18 @@ use Illuminate\Database\Eloquent\Model;
 
 class Profesores extends Model
 {
-    protected $table = 'profesores';
+  protected $table = 'profesores';
 
 	protected $fillable = [
-     'cedula',
-     'nombre',
-     'apellido',
-     'email',
-     'telefono',
      'direccion',
      'profesion',
-     'descripcion_perfil',
-     'foto'
+     'descripcion_perfil'
   ];
 
+  public function user()
+  {
+    return $this->belongsTo('App\User','user_id');
+  }
 
  	public function cursos()
   {

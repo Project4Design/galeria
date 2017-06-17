@@ -51,11 +51,11 @@
 							@foreach($estudiantes as $d)
 								<tr>
 									<td>{{$i}}</td>
-									<td>{{$d->cedula}}</td>
-									<td>{{$d->nombres}}</td>
-									<td>{{$d->apellidos}}</td>
-									<td>{{$d->email}}</td>
-									<td>{{$d->tlf_personal}}</td>
+									<td>{{$d->user->detalles->cedula}}</td>
+									<td>{{$d->user->detalles->nombres}}</td>
+									<td>{{$d->user->detalles->apellidos}}</td>
+									<td>{{$d->user->email}}</td>
+									<td>{{$d->user->detalles->tlf_personal}}</td>
 									<td>
 										<a class="btn btn-primary btn-flat btn-sm" href="{{ route('estudiantes.index').'/'.$d->estudiante_id }}"><i class="fa fa-search"></i></a>
 										<a href="{{ url('admin/estudiantes/'.$d->estudiante_id.'/edit') }}" class="btn btn-flat btn-success btn-sm" title="Editar"><i class="fa fa-edit"></i></a>

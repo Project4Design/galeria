@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use Illuminate\Support\Facades\Input;
 use Illuminate\Http\Request;
 use App\Profesores;
+use App\Detalles;
+use App\User;
 
 class ProfesoresController extends Controller
 {
@@ -28,7 +30,7 @@ class ProfesoresController extends Controller
     public function create()
     {
         $profesor = new Profesores;
-      return view("profesores.create", ["title" => "Agregar","profesor" => $profesor,"url" => "admin/profesores", "method" => "POST"]);
+      return view("profesores.create", ["profesor" => $profesor]);
     }
 
     /**
@@ -39,43 +41,60 @@ class ProfesoresController extends Controller
      */
     public function store(Request $request)
     {
-        //dd($request->all());
-        
         $this->validate($request, [
-            'nombre' =>'required',
-            'apellido' => 'required',
-            'email' => 'required|email|unique:users',
-            'telefono' => 'required',
-            'cedula' => 'numeric|required|unique:profesores',
-            'foto' => 'required', 
-            'profesion' => 'required',
-            ]);
-        
-        $profesor = new Profesores;
-        $profesor->fill($request->all());
+          'nombres' => 'required',
+          'apellidos' => 'required',
+          'email' =>'required|email|unique:users',
+          'cedula' => 'required|numeric|unique:detalles',
+          'tlf_personal' => 'required|numeric',
+          'tlf_local' => 'numeric',
+          'direccion' => 'required',
+          'profesion' => 'required',
+          'descripcion_perfil' => 'required',
+          'password' => 'required|min:6|max:15|confirmed',
+          'password_confirmation' => 'required|min:6|max:15|same:password',
+          'foto' => 'required|image'
+          ]);
 
-      if(input::hasFile('foto')){
-        $file = Input::file('foto');
-        $file->move(public_path().'/images/profesores/',$file->getClientOriginalName());
-        $profesor->foto = $file->getClientOriginalName();
-      }
+        $det = new Detalles;
+        $det->fill($request->all());
 
-      if($profesor->save()){
+        if(input::hasFile('foto')){
+          $file = Input::file('foto');
+          $file->move(public_path().'/images/profesores/',$file->getClientOriginalName());
+          $det->foto = $file->getClientOriginalName();
+        }
+
+        if($det->save()){
+          $user = new User;
+          $user->fill($request->all());
+          $user->password = bcrypt($request->input('password'));
+          $user->nivel = '2';
+
+          if($det->users()->save($user)){
+            $profesor = new Profesores;
+            $profesor->fill($request->all());
+
+            if($user->profesor()->save($profesor)){
+                return redirect("admin/profesores")->with([
+                    'flash_message' => 'Profesor agregado correctamente.',
+                    'flash_class' => 'alert-success'
+                    ]);
+            }else{
+                return redirect("admin/profesores")->with([
+                    'flash_message' => 'Ha ocurrido un error.',
+                    'flash_class' => 'alert-danger',
+                    'flash_important' => true
+                    ]);
+            }
+          }
+        }else{
           return redirect("admin/profesores")->with([
-              'flash_message' => 'Profesor agregado correctamente.',
-              'flash_class' => 'alert-success'
-              ]);
-      }else{
-          return view("admin/profesores")->with([
-                'title' => 'Agregar',
-                'profesor' => $profesor,
-                'url'=> '/admin/profesores',
-                'method' => 'POST',
               'flash_message' => 'Ha ocurrido un error.',
               'flash_class' => 'alert-danger',
               'flash_important' => true
               ]);
-      }
+        }
     }
 
     /**
@@ -101,7 +120,7 @@ class ProfesoresController extends Controller
     public function edit($id)
     {
         $profesor = Profesores::findOrFail($id);
-      return view("profesores.create", ["title" => "Edit","profesor" => $profesor,"url"=> "admin/profesores/{$id}/","method" => 'PATCH']);
+      return view("profesores.edit", ["profesor" => $profesor]);
     }
 
     /**
@@ -114,29 +133,46 @@ class ProfesoresController extends Controller
     public function update(Request $request, $id)
     {
         $profesor = Profesores::findOrFail($id);
-        $profesor->fill($request->all());
+
+        $this->validate($request, [
+          'nombres' => 'required',
+          'apellidos' => 'required',
+          'email' =>'required|email|unique:users',
+          'cedula' => 'required|numeric|unique:detalles',
+          'tlf_personal' => 'required|numeric',
+          'tlf_local' => 'numeric',
+          'direccion' => 'required',
+          'profesion' => 'required',
+          'descripcion_perfil' => 'required',
+          'foto' => 'required|image'
+          ]);
+
+        $det = Detalles::find($profesor->user->detalle_id);
+        $det->fill($request->all());
 
         if(input::hasFile('foto')){
-        $file = Input::file('foto');
-        $file->move(public_path().'/images/profesores/',$file->getClientOriginalName());
-        $profesor->foto = $file->getClientOriginalName();
-      }
+          $file = Input::file('foto');
+          $file->move(public_path().'/images/profesores/',$file->getClientOriginalName());
+          $det->foto = $file->getClientOriginalName();
+        }
 
-        if($profesor->save()){
-        return redirect("admin/profesores")->with([
-            'flash_message' => 'Profesor editado correctamente.',
-            'flash_class' => 'alert-success'
-            ]);
-        }else{
-        return view("admin/profesores")->with([
-            'title' => 'Editar',
-            'profesor' => $profesor,
-            'url'=> "/admin/profesores/{$id}/",
-            'method' => 'PATCH',
-            'flash_message' => 'Ha ocurrido un error.',
-            'flash_class' => 'alert-danger',
-            'flash_important' => true
-            ]);
+        if($det->save()){
+          $user = User::find($profesor->user_id);
+          $user->fill($request->all());
+          $profesor->fill($request->all());
+
+          if($det->users()->save($user) && $user->profesor()->save($profesor)){
+                return redirect("admin/profesores")->with([
+                    'flash_message' => 'Profesor editado correctamente.',
+                    'flash_class' => 'alert-success'
+                    ]);
+          }else{
+              return redirect("admin/profesores")->with([
+                  'flash_message' => 'Ha ocurrido un error.',
+                  'flash_class' => 'alert-danger',
+                  'flash_important' => true
+                  ]);
+          }
         }
     }
 

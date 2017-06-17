@@ -42,6 +42,7 @@
 								<th class="text-center">Apellidos</th>
 								<th class="text-center">Email</th>
 								<th class="text-center">Telefono</th>
+								<th class="text-center">Nivel</th>
 								<th class="text-center">Accion</th>
 							</tr>
 						</thead>
@@ -50,10 +51,11 @@
 							@foreach($users as $d)
 								<tr>
 									<td>{{$i}}</td>
-									<td>{{$d->nombre}}</td>
-									<td>{{$d->apellido}}</td>
+									<td>{{$d->detalles->nombres}}</td>
+									<td>{{$d->detalles->apellidos}}</td>
 									<td>{{$d->email}}</td>
-									<td>{{$d->telefono}}</td>
+									<td>{{$d->detalles->tlf_personal}}</td>
+									<td>{{$d->nivel()}}</td>
 									<td>
 										<a class="btn btn-primary btn-flat btn-sm" href="{{ url('admin/users/'.$d->id) }}"><i class="fa fa-search"></i></a>
 										<a  href="{{ url('admin/users/'.$d->id.'/edit') }}" class="btn btn-flat btn-success btn-sm" title="Editar"><i class="fa fa-edit"></i></a>

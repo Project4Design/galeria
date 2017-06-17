@@ -5,17 +5,17 @@
 	<ol class="breadcrumb">
 	  <li><a href="#"><i class="fa fa-dashboard" aria-hidden="true"></i> Escritorio</a></li>
 	  <li> Estudiantes </li>
-	  <li class="active">Agregar</li>
+	  <li class="active">Editar</li>
 	</ol>
 @endsection
 @section('content')
 		<!-- Formulario -->
 		<div class="row">
 			<div class="col-md-6 col-md-offset-3">
-				<form class="" action="{{ url('admin/estudiantes') }}" method="POST" enctype="multipart/form-data">
-					{{ method_field('POST') }}
+				<form class="" action="{{ url('admin/estudiantes/'.$estudiante->estudiante_id) }}" method="POST" enctype="multipart/form-data">
+					{{ method_field('PATCH') }}
 					{{ csrf_field() }}
-					<h4>Agregar estudiante</h4>
+					<h4>Editar estudiante</h4>
 
 							<div class="form-group">
 		            <div class="imageUploadWidget">
@@ -31,61 +31,61 @@
 
 
 					<div class="form-group {{ $errors->has('nombres')?'has-error':'' }}">
-						<label class="control-label" for="nombres">Nombres:</label>
-						<input id="nombres" class="form-control" type="text" name="nombres" value="{{ old('nombres')?old('nombres'):''}}" placeholder="Nombres">
+						<label class="control-label" for="nombres">Nombres: *</label>
+						<input id="nombres" class="form-control" type="text" name="nombres" value="{{ old('nombres')?old('nombres'):$estudiante->user->detalles->nombres }}" placeholder="Nombres">
 					</div>
 					
 					<div class="form-group {{ $errors->has('apellidos')?'has-error':'' }}">
-						<label class="control-label" for="apellidos">Apellidos:</label>
-						<input id="apellidos" class="form-control" type="text" name="apellidos" value="{{ old('apellidos')?old('apellidos'):''}}" placeholder="Apellidos">
+						<label class="control-label" for="apellidos">Apellidos: *</label>
+						<input id="apellidos" class="form-control" type="text" name="apellidos" value="{{ old('apellidos')?old('apellidos'):$estudiante->user->detalles->apellidos }}" placeholder="Apellidos">
 					</div>
 
 					<div class="form-group {{ $errors->has('cedula')?'has-error':'' }}">
-						<label class="control-label" for="cedula">Cedula:</label>
-						<input id="cedula" class="form-control" type="text" name="cedula" value="{{ old('cedula')?old('cedula'):''}}" placeholder="Apellidos">
+						<label class="control-label" for="cedula">Cedula: *</label>
+						<input id="cedula" class="form-control" type="text" name="cedula" value="{{ old('cedula')?old('cedula'):$estudiante->user->detalles->cedula }}" placeholder="Apellidos">
+					</div>
+
+					<div class="form-group {{ $errors->has('email')?'has-error':'' }}">
+						<label class="control-label" for="email">Email: *</label>
+						<input id="email" class="form-control" type="text" name="email" value="{{ old('email')?old('email'):$estudiante->user->email }}" placeholder="Email">
 					</div>
 
 					<div class="form-group {{ $errors->has('sexo')?'has-error':'' }}">
-						<label class="control-label" for="sexo">Sexo:</label>
+						<label class="control-label" for="sexo">Sexo: *</label>
 						<select name="sexo" id="sexo" class="form-control">
 							<option value="">Seleccione...</option>
-							<option value="M">Masculino</option>
-							<option value="F">Femenino</option>
+							<option value="M" {{ ($estudiante->sexo=='M')?'selected':''}}>Masculino</option>
+							<option value="F" {{ ($estudiante->sexo=='F')?'selected':''}}>Femenino</option>
 						</select>
 					</div>
 					
 					<div class="form-group {{ $errors->has('nacimiento')?'has-error':'' }}">
-						<label class="control-label" for="nacimiento">Nacimiento:</label>
-						<input id="nacimiento" class="form-control datepicker" type="text" name="nacimiento" value="{{ old('nacimiento')?old('nacimiento'):'' }}" placeholder="Nacimiento">
+						<label class="control-label" for="nacimiento">Nacimiento: *</label>
+						<input id="nacimiento" class="form-control datepicker" type="text" name="nacimiento" value="{{ old('nacimiento')?old('nacimiento'):$estudiante->nacimiento }}" placeholder="Nacimiento">
 					</div>
 
 					<div class="form-group {{ $errors->has('residencia')?'has-error':'' }}">
-						<label class="control-label" for="residencia">Residencia:</label>
-						<input id="residencia" class="form-control" type="text" name="residencia" value="{{ old('residencia')?old('residencia'):'' }}" placeholder="Residencia">
-					</div>
-
-					<div class="form-group {{ $errors->has('email')?'has-error':'' }}">
-						<label class="control-label" for="email">Email:</label>
-						<input id="email" class="form-control" type="text" name="email" value="{{ old('email')?old('email'):'' }}" placeholder="Email">
+						<label class="control-label" for="residencia">Residencia: *</label>
+						<input id="residencia" class="form-control" type="text" name="residencia" value="{{ old('residencia')?old('residencia'):$estudiante->residencia }}" placeholder="Residencia">
 					</div>
 					
 					<div class="form-group {{ $errors->has('alergico')?'has-error':'' }}">
-						<label class="control-label" for="alergico">Alergico:</label>
+						<label class="control-label" for="alergico">Alergico: *</label>
 						<select name="alergico" id="alergico" class="form-control">
 							<option value="">Seleccione...</option>
-							<option value="1">Si</option>
-							<option value="0">No</option>
+							<option value="1" {{($estudiante->alergico === 1)?'selected':''}}>Si</option>
+							<option value="0" {{($estudiante->alergico === 0)?'selected':''}}>No</option>
 						</select>
 					</div>
 
 					<div class="form-group {{ $errors->has('tlf_personal')?'has-error':'' }}">
-						<label class="control-label" for="tlf_personal">Tlf. Personal:</label>
-						<input id="tlf_personal" class="form-control" type="text" name="tlf_personal" value="{{ old('tlf_personal')?old('tlf_personal'):'' }}" placeholder="Telefono personal">
+						<label class="control-label" for="tlf_personal">Tlf. Personal: *</label>
+						<input id="tlf_personal" class="form-control" type="text" name="tlf_personal" value="{{ old('tlf_personal')?old('tlf_personal'):$estudiante->user->detalles->tlf_personal }}" placeholder="Telefono personal">
 					</div>
 
 					<div class="form-group {{ $errors->has('tlf_local')?'has-error':'' }}">
 						<label class="control-label" for="tlf_local">Tlf. Local:</label>
-						<input id="tlf_local" class="form-control" type="text" name="tlf_local" value="{{ old('tlf_local')?old('tlf_local'):'' }}" placeholder="Telefono Local">
+						<input id="tlf_local" class="form-control" type="text" name="tlf_local" value="{{ old('tlf_local')?old('tlf_local'):$estudiante->user->detalles->tlf_local }}" placeholder="Telefono Local">
 					</div>
 
 					@if (count($errors) > 0)

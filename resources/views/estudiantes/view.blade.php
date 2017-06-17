@@ -25,26 +25,26 @@
           <!-- Profile Image -->
           <div class="box box-danger">
             <div class="box-body box-profile">
-              <img class="profile-user-img img-responsive img-circle" src="{{asset('images/estudiantes/'.$estudiante->foto)}}" alt="Foto de perfil">
-              <h3 class="profile-username text-center">{{$estudiante->nombres." ".$estudiante->apellidos}}</h3>
+              <img class="profile-user-img img-responsive img-circle" src="{{asset('images/estudiantes/'.$estudiante->user->detalles->foto)}}" alt="Foto de perfil">
+              <h3 class="profile-username text-center">{{$estudiante->user->detalles->nombres." ".$estudiante->user->detalles->apellidos}}</h3>
 
-              <p class="text-muted text-center">{{$estudiante->nacimiento}} ({{$edad}} años)</p>
+              <p class="text-muted text-center">{{$estudiante->nacimiento}} ({{$estudiante->edad()}} años)</p>
 
               <ul class="list-group list-group-unbordered">
                 <li class="list-group-item">
-                  <b>Cedula</b> <span class="pull-right">{{ $estudiante->cedula }}</span>
+                  <b>Cedula</b> <span class="pull-right">{{ $estudiante->user->detalles->cedula }}</span>
                 </li>
                 <li class="list-group-item">
-                  <b>Email</b> <span class="pull-right">{{ $estudiante->email }}</span>
+                  <b>Email</b> <span class="pull-right">{{ $estudiante->user->email }}</span>
                 </li>
                 <li class="list-group-item">
                   <b>Sexo</b> <span class="pull-right">{{($estudiante->sexo=='M')?'Masculino':'Femenino'}}</span>
                 </li>
                 <li class="list-group-item">
-                  <b>Telefono personal</b> <span class="pull-right">{{$estudiante->tlf_personal}}</span>
+                  <b>Telefono personal</b> <span class="pull-right">{{$estudiante->user->detalles->tlf_personal}}</span>
                 </li>
                 <li class="list-group-item">
-                  <b>Telefono local</b> <span class="pull-right">{{$estudiante->tlf_local?$estudiante->tlf_local:'N/A'}}</span>
+                  <b>Telefono local</b> <span class="pull-right">{{$estudiante->user->detalles->tlf_local?$estudiante->user->detalles->tlf_local:'N/A'}}</span>
                 </li>
                 <li class="list-group-item">
                   <b>Direccion</b> <span class="pull-right">{{$estudiante->residencia}}</span>

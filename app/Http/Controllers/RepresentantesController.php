@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Input;
 use App\Representante;
+use App\User;
+use App\Detalles;
 
 class RepresentantesController extends Controller
 {
@@ -29,7 +31,7 @@ class RepresentantesController extends Controller
     public function create()
     {
     	$representante = new Representante;
-      return view("representantes.create", ["title" => "Agregar","representante" => $representante,"url" => "admin/representantes", "method" => "POST"]);
+      return view("representantes.create", ["representante" => $representante]);
     }
 
     /**
@@ -38,40 +40,59 @@ class RepresentantesController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
+
     public function store(Request $request)
     {
       $this->validate($request, [
-          'email' =>'required|email|unique:representantes',
-          'nombres' => 'required',
-          'apellidos' => 'required',
-          'cedula' => 'required|max:10|unique:representantes',
-          'tlf_personal'=> 'required|numeric',
-          'tlf_local'=> 'required|numeric',
-          'foto' => 'required|image'
-        ]);
+        'email' =>'required|email|unique:users',
+        'nombres' => 'required',
+        'apellidos' => 'required',
+        'cedula' => 'required|numeric|unique:detalles',
+        'tlf_personal'=> 'required|numeric',
+        'tlf_local'=> 'required|numeric',
+        'residencia' => 'required',
+        'foto' => 'required|image'
+      ]);
 
-    	$representante = new Representante;
-    	$representante->fill($request->all());
+    		$det = new Detalles;
+        $det->fill($request->all());
 
-    	if(input::hasFile('foto')){
-        $file = Input::file('foto');
-        $file->move(public_path().'/images/representantes/',$file->getClientOriginalName());
-        $representante->foto = $file->getClientOriginalName();
-      }
+        if(input::hasFile('foto')){
+          $file = Input::file('foto');
+          $file->move(public_path().'/images/representantes/',$file->getClientOriginalName());
+          $det->foto = $file->getClientOriginalName();
+        }
 
-    	if($representante->save()){
-        return redirect("admin/representantes")->with([
-            'flash_message' => 'Representante agregado correctamente.',
-            'flash_class' => 'alert-success'
-            ]);
-    	}else{
-        return view("admin/representantes")->with([
-        		'title' => "Agregar",
-            'flash_message' => 'Ha ocurrido un error.',
-            'flash_class' => 'alert-danger',
-            'flash_important' => true
-            ]);
-    	}
+        if($det->save()){
+          $user = new User;
+          $user->fill($request->all());
+          $user->password = bcrypt($request->input('password'));
+          $user->nivel = '3';
+
+          if($det->users()->save($user)){
+            $representante = new Representante;
+            $representante->fill($request->all());
+
+            if($user->representante()->save($representante)){
+                return redirect("admin/representantes")->with([
+                    'flash_message' => 'Profesor agregado correctamente.',
+                    'flash_class' => 'alert-success'
+                    ]);
+            }else{
+                return redirect("admin/representantes")->with([
+                    'flash_message' => 'Ha ocurrido un error.',
+                    'flash_class' => 'alert-danger',
+                    'flash_important' => true
+                    ]);
+            }
+          }
+        }else{
+          return redirect("admin/representantes")->with([
+              'flash_message' => 'Ha ocurrido un error.',
+              'flash_class' => 'alert-danger',
+              'flash_important' => true
+              ]);
+        }
     }
 
     /**
@@ -95,9 +116,8 @@ class RepresentantesController extends Controller
      */
     public function edit($id)
     {
-        //
     	$representante = representante::findOrFail($id);
-      return view("representantes.create", ["title" => "Editar","representante" => $representante,"url"=> "admin/representantes/{$id}/","method" => 'PATCH']);
+      return view("representantes.edit", ["representante" => $representante]);
     }
 
     /**
@@ -109,40 +129,51 @@ class RepresentantesController extends Controller
      */
     public function update(Request $request, $id)
     {
-        
-        $this->validate($request, [
-          'email' =>'required|email|unique:representantes,email,'.$id.',representante_id',
-          'nombres' => 'required',
-          'apellidos' => 'required',
-          'cedula' => 'required|numeric|unique:representantes,cedula,'.$id.',representante_id',
-          'tlf_personal'=> 'required|numeric',
-          'tlf_local'=> 'required|numeric'
-        ]);
-
     	$representante = Representante::findOrFail($id);
-    	$representante->fill($request->all());
+        
+      $this->validate($request, [
+        'email' =>'required|email|unique:users,email,'.$representante->user->id.',id',
+        'nombres' => 'required',
+        'apellidos' => 'required',
+        'cedula' => 'required|numeric|unique:detalles,cedula,'.$representante->user->detalle_id.',detalle_id',
+        'tlf_personal'=> 'required|numeric',
+        'tlf_local'=> 'required|numeric',
+        'residencia' => 'required',
+        'foto' => 'image'
+      ]);
+
+      $det = Detalles::find($representante->user->detalle_id);
+      $det->fill($request->all());
 
     	if(input::hasFile('foto')){
-            $file = Input::file('foto');
-            $file->move(public_path().'/images/representantes/',$file->getClientOriginalName());
-            $representante->foto = $file->getClientOriginalName();
-        }
+        $file = Input::file('foto');
+        $file->move(public_path().'/images/representantes/',$file->getClientOriginalName());
+        $det->foto = $file->getClientOriginalName();
+      }
 
-    	if($representante->save()){
-        return redirect("admin/representantes")->with([
-            'flash_message' => 'Representante editado correctamente.',
-            'flash_class' => 'alert-success'
-            ]);
-    	}else{
-        return view("admin/representantes")->with([
-    		'title' => 'Editar',
-    		'representante' => $representante,
-    		'url'=> "admin/representantes/{$id}/",
-    		'method' => 'PATCH',
+    	if($det->save()){
+        $user = User::find($representante->user_id);
+        $user->fill($request->all());
+    		$representante->fill($request->all());
+
+    		if($det->users()->save($user) && $user->representante()->save($representante)){
+	        return redirect("admin/representantes")->with([
+	            'flash_message' => 'Representante editado correctamente.',
+	            'flash_class' => 'alert-success'
+	          ]);
+    		}else{
+    			return view("admin/representantes")->with([
             'flash_message' => 'Ha ocurrido un error.',
             'flash_class' => 'alert-danger',
             'flash_important' => true
-            ]);
+          ]);
+    		}
+    	}else{
+        return view("admin/representantes")->with([
+            'flash_message' => 'Ha ocurrido un error.',
+            'flash_class' => 'alert-danger',
+            'flash_important' => true
+          ]);
     	}
     }
 

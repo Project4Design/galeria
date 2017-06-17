@@ -6,6 +6,8 @@ use Illuminate\Http\Request;
 use Carbon\Carbon;
 use App\Estudiante;
 use App\Representante;
+use App\Detalles;
+use App\User;
 
 class EstudiantesController extends Controller
 {
@@ -29,7 +31,7 @@ class EstudiantesController extends Controller
     public function create()
     {
          $estudiante = new Estudiante;
-      return view("estudiantes.create", ["title" => "Agregar","estudiante" => $estudiante,"url" => "admin/estudiantes", "method" => "POST"]);
+      return view("estudiantes.create", ["estudiante" => $estudiante]);
     }
 
     /**
@@ -44,15 +46,16 @@ class EstudiantesController extends Controller
     		'foto' => 'required|image',
     		'nombres' => 'required',
     		'apellidos' => 'required',
-    		'cedula' => 'required|numeric|unique:estudiantes',
+    		'cedula' => 'required|numeric|unique:detalles',
     		'sexo' => 'required',
     		'nacimiento' => 'required',
     		'residencia' => 'required',
-    		'email' => 'required|unique:email',
+    		'email' =>'required|email|unique:users',
     		'alergico' => 'required',
-    		'tld_personal' => 'tlf_personal',
+    		'tlf_personal' => 'required|numeric',
+    		'tlf_local' => 'numeric'
     	]);
-
+/*
       $hoy = date('d-m-Y');
       $date = date_diff(date_create($fecha),date_create($hoy));
     	$edad = $date->format('%a');
@@ -61,32 +64,46 @@ class EstudiantesController extends Controller
     		$Representante = new Representante;
     		dd(true);
     	}
-
-      $estudiante = new Estudiante;
-      $estudiante->fill($request->all());
+    	*/
+    	$det = new Detalles;
+      $det->fill($request->all());
 
       if(input::hasFile('foto')){
         $file = Input::file('foto');
         $file->move(public_path().'/images/estudiantes/',$file->getClientOriginalName());
-        $estudiante->foto = $file->getClientOriginalName();
+        $det->foto = $file->getClientOriginalName();
       }
 
-      if($estudiante->save()){
-          return redirect("admin/estudiantes")->with([
-              'flash_message' => 'Estudiante agregado correctamente.',
-              'flash_class' => 'alert-success'
-              ]);
-      }else{
-          return view("admin/estudiantes")->with([
-                'title' => 'Agregar',
-                'estudiante' => $estudiante,
-                'url'=> 'admin/estudiantes',
-                'method' => 'POST',
+      if($det->save()){
+        $user = new User;
+        $user->fill($request->all());
+        $user->password = bcrypt($request->input('123456'));
+        $user->nivel = '4';
+	      $estudiante = new Estudiante;
+	      $estudiante->fill($request->all());
+
+        if($det->users()->save($user)){
+
+        	if($user->estudiante()->save($estudiante)){
+	        	return redirect("admin/estudiantes")->with([
+	              'flash_message' => 'Estudiante agregado correctamente.',
+	              'flash_class' => 'alert-success'
+	            ]);
+	        }else{
+	        	return view("admin/estudiantes")->with([
               'flash_message' => 'Ha ocurrido un error.',
               'flash_class' => 'alert-danger',
               'flash_important' => true
-              ]);
-      }
+       	  	]);
+	        }
+	      }else{
+          return view("admin/estudiantes")->with([
+              'flash_message' => 'Ha ocurrido un error.',
+              'flash_class' => 'alert-danger',
+              'flash_important' => true
+       	  	]);
+	      }
+		  }
     }
 
     /**
@@ -100,13 +117,7 @@ class EstudiantesController extends Controller
       $estudiante = Estudiante::findOrFail($id);
       $cursos = array();
 
-      $hoy = date('d-m-Y');
-      $x = explode("/",$estudiante->nacimiento);
-      $fecha = $x[1]."-".$x[0]."-".$x[2];
-      $date = date_diff(date_create(date('d-m-Y',strtotime($fecha))),date_create($hoy));
-      $edad = $date->format('%y');
-
-      return view('estudiantes.view',['estudiante'=>$estudiante,'cursos'=>$cursos,'edad'=>$edad]);
+      return view('estudiantes.view',['estudiante'=>$estudiante,'cursos'=>$cursos]);
     }
 
     /**
@@ -118,7 +129,7 @@ class EstudiantesController extends Controller
     public function edit($id)
     {
         $estudiante = Estudiante::findOrFail($id);
-      return view("estudiantes.create", ["title" => "Editar","estudiante" => $estudiante,"url"=> "admin/estudiantes/{$id}/","method" => 'PATCH']);
+      return view("estudiantes.edit", ["estudiante" => $estudiante]);
     }
 
     /**
@@ -131,29 +142,47 @@ class EstudiantesController extends Controller
     public function update(Request $request, $id)
     {
         $estudiante = Estudiante::findOrFail($id);
-        $estudiante->fill($request->all());
+
+        $this->validate($request, [
+	    		'foto' => 'image',
+	    		'nombres' => 'required',
+	    		'apellidos' => 'required',
+	    		'cedula' => 'required|numeric|unique:detalles,cedula,'.$estudiante->user->detalle_id.',detalle_id',
+	    		'sexo' => 'required',
+	    		'nacimiento' => 'required',
+	    		'residencia' => 'required',
+	    		'email' =>'required|email|unique:users,email,'.$estudiante->user_id.',id',
+	    		'alergico' => 'required',
+	    		'tlf_personal' => 'required|numeric',
+	    		'tlf_local' => 'numeric'
+        ]);
+
+        $det = Detalles::find($estudiante->user->detalle_id);
+        $det->fill($request->all());
 
         if(input::hasFile('foto')){
-        $file = Input::file('foto');
-        $file->move(public_path().'/images/estudiantes/',$file->getClientOriginalName());
-        $estudiante->foto = $file->getClientOriginalName();
-      }
+          $file = Input::file('foto');
+          $file->move(public_path().'/images/estudiantes/',$file->getClientOriginalName());
+          $det->foto = $file->getClientOriginalName();
+        }
 
-        if($estudiante->save()){
-        return redirect("admin/estudiantes")->with([
-            'flash_message' => 'Estudiante editado correctamente.',
-            'flash_class' => 'alert-success'
-            ]);
-        }else{
-        return view("admin/estudiantes")->with([
-            'title' => 'Editar',
-            'estudiante' => $estudiante,
-            'url'=> "/admin/estudiantes/{$id}/",
-            'method' => 'PATCH',
-            'flash_message' => 'Ha ocurrido un error.',
-            'flash_class' => 'alert-danger',
-            'flash_important' => true
-            ]);
+        if($det->save()){
+          $user = User::find($estudiante->user_id);
+          $user->fill($request->all());
+          $estudiante->fill($request->all());
+
+          if($det->users()->save($user) && $user->estudiante()->save($estudiante)){
+                return redirect("admin/estudiantes")->with([
+                    'flash_message' => 'Profesor editado correctamente.',
+                    'flash_class' => 'alert-success'
+                    ]);
+          }else{
+              return redirect("admin/estudiantes")->with([
+                  'flash_message' => 'Ha ocurrido un error.',
+                  'flash_class' => 'alert-danger',
+                  'flash_important' => true
+                  ]);
+          }
         }
     }
 

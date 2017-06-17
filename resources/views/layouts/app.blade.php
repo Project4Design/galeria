@@ -83,7 +83,7 @@
               <!-- User Account: style can be found in dropdown.less -->
               <li class="dropdown user user-menu">
                 <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-                  <span class="hidden-xs">{{ Auth::user()->nombre }}</span>
+                  <span class="hidden-xs">{{ Auth::user()->detalles->nombres }}</span>
                 </a>
                 <ul class="dropdown-menu">
                   <!-- User image -->

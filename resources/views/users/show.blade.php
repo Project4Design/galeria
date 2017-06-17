@@ -13,9 +13,7 @@
 		<section>
 	    <a class="btn btn-flat btn-default" href="{{ url('admin/users') }}"><i class="fa fa-reply" aria-hidden="true"></i> Volver</a>
 	    <a class="btn btn-flat btn-success" href="{{ url('admin/users/'.$user->id.'/edit') }}"><i class="fa fa-pencil" aria-hidden="true"></i> Editar</a>
-	    <!--
 	    <button class="btn btn-flat btn-danger" data-toggle="modal" data-target="#delModal"><i class="fa fa-times" aria-hidden="true"></i> Eliminar</button>
-	    -->
 		</section>
 
 		<section class="perfil">
@@ -23,18 +21,18 @@
 	    	<div class="col-md-12">
 	    		<h2 class="page-header" style="margin-top:0!important">
             <i class="fa fa-user" aria-hidden="true"></i>
-            {{ $user->nombre.'  '.$user->apellido }}
+            {{ $user->detalles->nombres.'  '.$user->detalles->apellidos }}
             <small class="pull-right">Registrado: {{ $user->created_at }}</small>
             <span class="clearfix"></span>
           </h2>
 	    	</div>
 				<div class="col-md-4">
 					<h4>Detalles del Usuario</h4>
-          <p><b>Cedula: </b> {{ $user->cedula }} </p>
-					<p><b>Nombre: </b> {{ $user->nombre }} </p>
-					<p><b>Apellido: </b> {{ $user->apellido }} </p>
+          <p><b>Cedula: </b> {{ $user->detalles->cedula }} </p>
+					<p><b>Nombre: </b> {{ $user->detalles->nombres }} </p>
+					<p><b>Apellido: </b> {{ $user->detalles->apellidos }} </p>
           <p><b>Email: </b> {{ $user->email }} </p>
-          <p><b>Telefono: </b> {{ $user->cedula }} </p>
+          <p><b>Telefono: </b> {{ $user->detalles->tlf_personal }} </p>
 				</div>
 			
 			</div>
@@ -46,14 +44,14 @@
       <div class="modal-content">
         <div class="modal-header">
           <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-          <h4 class="modal-title" id="delModalLabel">Eliminar curso</h4>
+          <h4 class="modal-title" id="delModalLabel">Eliminar usuario</h4>
         </div>
         <div class="modal-body">
           <div class="row">
-            <form id="delProduct" class="col-md-8 col-md-offset-2" action="#" method="POST">
+            <form id="delProduct" class="col-md-8 col-md-offset-2" action="{{ url('admin/users/'.$user->id) }}" method="POST">
               <input type="hidden" name="_method" value="DELETE">
               {{ csrf_field() }}
-              <h4 class="text-center">Esta seguro de eliminar este curso?</h4><br>
+              <h4 class="text-center">¿Esta seguro de eliminar este usuario?</h4><br>
 
               <div class="form-group">
                 <div class="progress" style="display:none">
@@ -63,8 +61,8 @@
                 <div class="alert" style="display:none" role="alert"><span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>&nbsp;<span id="msj"></span></div>
               </div>
               <center>
-                <button class="btn btn-flat btn-danger" type="submit">Save</button>
-                <button type="button" class="btn btn-flat btn-default" data-dismiss="modal">Close</button>
+                <button class="btn btn-flat btn-danger" type="submit">Eliminar</button>
+                <button type="button" class="btn btn-flat btn-default" data-dismiss="modal">Cerrar</button>
               </center>
             </form>
           </div>

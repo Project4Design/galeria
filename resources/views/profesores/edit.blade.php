@@ -5,22 +5,22 @@
 	<ol class="breadcrumb">
 	  <li><a href="#"><i class="fa fa-dashboard" aria-hidden="true"></i> Escritorio</a></li>
 	  <li> Profesores </li>
-	  <li class="active"> Agregar </li>
+	  <li class="active"> Editar </li>
 	</ol>
 @endsection
 @section('content')
 		<!-- Formulario -->
 		<div class="row">
 			<div class="col-md-6 col-md-offset-3">
-				<form class="" action="{{ url('admin/profesores') }}" method="POST" enctype="multipart/form-data">
-					{{ method_field('POST') }}
+				<form class="" action="{{ url('admin/profesores/'.$profesor->id) }}" method="POST" enctype="multipart/form-data">
+					{{ method_field('PATCH') }}
 					{{ csrf_field() }}
-					<h4>Agregar Profesor</h4>
+					<h4>Editar Profesor</h4>
 
 					<div class="form-group">
             <div class="imageUploadWidget {{ $errors->has('foto')?'has-error':'' }}">
               <div class="imageArea">
-                <img id="img" src="{{ asset('/images/no-image.png') }}" alt="">
+                <img id="img" src="{{ asset('/images/profesores/'.$profesor->user->detalles->foto) }}" alt="">
                 <img class="spinner-image" src="{{ asset('images/spinner.gif') }}">
               </div>
               <div class="btnArea">
@@ -31,57 +31,47 @@
 
          	<div class="form-group {{ $errors->has('cedula')?'has-error':'' }}">
 						<label class="control-label" for="cedula">Cedula: *</label>
-						<input id="cedula" class="form-control" type="text" name="cedula" value="{{ old('cedula')?old('cedula'):'' }}" placeholder="Cedula">
+						<input id="cedula" class="form-control" type="text" name="cedula" value="{{ old('cedula')?old('cedula'):$profesor->user->detalles->cedula }}" placeholder="Cedula">
 					</div>
 
 					<div class="form-group {{ $errors->has('nombres')?'has-error':'' }}">
 						<label class="control-label" for="nombres">Nombres: *</label>
-						<input id="nombres" class="form-control" type="text" name="nombres" value="{{ old('nombres')?old('nombres'):'' }}" placeholder="Nombre">
+						<input id="nombres" class="form-control" type="text" name="nombres" value="{{ old('nombres')?old('nombres'):$profesor->user->detalles->nombres }}" placeholder="Nombre">
 					</div>
 					
 					<div class="form-group {{ $errors->has('apellidos')?'has-error':'' }}">
 						<label class="control-label" for="apellidos">Apellidos: *</label>
-						<input id="apellidos" class="form-control" type="text" name="apellidos" value="{{ old('apellidos')?old('apellidos'):'' }}" placeholder="Apellido">
+						<input id="apellidos" class="form-control" type="text" name="apellidos" value="{{ old('apellidos')?old('apellidos'):$profesor->user->detalles->apellidos }}" placeholder="Apellido">
 					</div>
 
 					<div class="form-group {{ $errors->has('email')?'has-error':'' }}">
 						<label class="control-label" for="email">Email: *</label>
-						<input id="email" class="form-control" type="text" name="email" value="{{ old('email')?old('email'):'' }}" placeholder="Email">
+						<input id="email" class="form-control" type="text" name="email" value="{{ old('email')?old('email'):$profesor->user->email }}" placeholder="Email">
 					</div>
 
 					<div class="form-group {{ $errors->has('tlf_personal')?'has-error':'' }}">
 						<label class="control-label" for="tlf_personal">telefono personal: *</label>
-						<input id="tlf_personal" class="form-control" type="text" name="tlf_personal" value="{{ old('tlf_personal')?old('tlf_personal'):'' }}" placeholder="Telefono personal">
+						<input id="tlf_personal" class="form-control" type="text" name="tlf_personal" value="{{ old('tlf_personal')?old('tlf_personal'):$profesor->user->detalles->tlf_personal }}" placeholder="Telefono personal">
 					</div>
 
 					<div class="form-group {{ $errors->has('tlf_local')?'has-error':'' }}">
 						<label class="control-label" for="tlf_local">Telefono local: </label>
-						<input id="tlf_local" class="form-control" type="text" name="tlf_local" value="{{ old('tlf_local')?old('tlf_local'):'' }}" placeholder="Telefono local">
+						<input id="tlf_local" class="form-control" type="text" name="tlf_local" value="{{ old('tlf_local')?old('tlf_local'):$profesor->user->detalles->tlf_local }}" placeholder="Telefono local">
 					</div>
 
 					<div class="form-group {{ $errors->has('direccion')?'has-error':'' }}">
 						<label class="control-label" for="nombre">Direccion: *</label>
-						<input id="direccion" class="form-control" type="text" name="direccion" value="{{ old('direccion')?old('direccion'):'' }}" placeholder="Direccion">
+						<input id="direccion" class="form-control" type="text" name="direccion" value="{{ old('direccion')?old('direccion'):$profesor->direccion }}" placeholder="Direccion">
 					</div>
 
 					<div class="form-group {{ $errors->has('profesion')?'has-error':'' }}">
 						<label class="control-label" for="nombre">Profesion: *</label>
-						<input id="profesion" class="form-control" type="text" name="profesion" value="{{ old('profesion')?old('profesion'):'' }}" placeholder="Profesion">
+						<input id="profesion" class="form-control" type="text" name="profesion" value="{{ old('profesion')?old('profesion'):$profesor->profesion }}" placeholder="Profesion">
 					</div>
 
 					<div class="form-group {{ $errors->has('descripcion_perfil')?'has-error':'' }}">
 						<label class="control-label" for="descripcion_perfil">Descripcion de perfil: *</label>
-						<textarea id="descripcion_perfil" class="form-control" type="text" name="descripcion_perfil"  placeholder="Descripcion del perfil">{{ old('descripcion_perfil')?old('descripcion_perfil'):'' }}</textarea>
-					</div>
-					
-					<div class="form-group {{ $errors->has('password')?'has-error':'' }}">
-						<label class="control-label" for="password">Contraseña: *</label>
-						<input id="password" class="form-control" type="password" name="password" value="{{ old('password')?old('password'):'' }}">
-					</div>
-
-					<div class="form-group {{ $errors->has('password_confirmation')?'has-error':'' }}">
-						<label class="control-label" for="password_confirmation">Verificar: *</label>
-						<input id="password_confirmation" class="form-control" type="password" name="password_confirmation" value="{{ old('password_confirmation')?old('password_confirmation'):'' }}">
+						<textarea id="descripcion_perfil" class="form-control" type="text" name="descripcion_perfil"  placeholder="Descripcion del perfil">{{ old('descripcion_perfil')?old('descripcion_perfil'):$profesor->descripcion_perfil }}</textarea>
 					</div>
 
 					@if(count($errors)>0)

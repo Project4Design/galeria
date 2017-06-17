@@ -24,20 +24,20 @@
           <div class="box box-danger">
             <div class="box-body box-profile">
               <img class="profile-user-img img-responsive img-circle" src="{{asset('images/representantes/'.$representante->foto)}}" alt="Foto de perfil">
-              <h3 class="profile-username text-center">{{$representante->nombres." ".$representante->apellidos}}</h3>
+              <h3 class="profile-username text-center">{{$representante->user->detalles->nombres." ".$representante->user->detalles->apellidos}}</h3>
 
               <ul class="list-group list-group-unbordered">
                 <li class="list-group-item">
-                  <b>Cedula</b> <span class="pull-right">{{number_format($representante->cedula,0,",",".")}}</span>
+                  <b>Cedula</b> <span class="pull-right">{{number_format($representante->user->detalles->cedula,0,",",".")}}</span>
                 </li>
                 <li class="list-group-item">
-                  <b>Email</b> <span class="pull-right">{{ $representante->email }}</span>
+                  <b>Email</b> <span class="pull-right">{{ $representante->user->email }}</span>
                 </li>
                 <li class="list-group-item">
-                  <b>Telefono personal</b> <span class="pull-right">{{$representante->tlf_personal}}</span>
+                  <b>Telefono personal</b> <span class="pull-right">{{$representante->user->detalles->tlf_personal}}</span>
                 </li>
                 <li class="list-group-item">
-                  <b>Telefono local</b> <span class="pull-right">{{$representante->tlf_local}}</span>
+                  <b>Telefono local</b> <span class="pull-right">{{$representante->user->detalles->tlf_local}}</span>
                 </li>
                 <li class="list-group-item">
                   <b>Residencia</b> <span class="pull-right">{{$representante->residencia}}</span>
@@ -66,11 +66,11 @@
 								</thead>
 								<tbody class="text-center">
 									@php $i=1; @endphp
-									@foreach($estudiantes as $d)	
+									@foreach($estudiantes as $d)
 										<tr>
 											<td>{{$i}}</td>
-											<td>{{$d->nombres}}</td>
-											<td>{{$d->apellidos}}</td>
+											<td>{{$d->user->detalles->nombres}}</td>
+											<td>{{$d->user->detalles->apellidos}}</td>
 											<td>
 												<a class="btn btn-primary btn-flat btn-sm" href="{{ url('admin/estudiantes/'.$d->estudiante_id) }}"><i class="fa fa-search"></i></a>
 											</td>
@@ -98,7 +98,7 @@
             <form id="delProduct" class="col-md-8 col-md-offset-2" action="#" method="POST">
               <input type="hidden" name="_method" value="DELETE">
               {{ csrf_field() }}
-              <h4 class="text-center">Esta seguro de eliminar este Representante?</h4><br>
+              <h4 class="text-center">¿Esta seguro de eliminar este Representante?</h4><br>
 
               <div class="form-group">
                 <div class="progress" style="display:none">

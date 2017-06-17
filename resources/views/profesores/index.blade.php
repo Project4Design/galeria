@@ -49,13 +49,13 @@
 						</thead>
 						<tbody class="text-center">
 							@php $i=1; @endphp
-							@foreach($profesores as $d)	
+							@foreach($profesores as $d)
 								<tr>
 									<td>{{$i}}</td>
-									<td>{{$d->cedula}}</td>
-									<td>{{$d->nombre}}</td>
-									<td>{{$d->apellido}}</td>
-									<td>{{$d->email}}</td>
+									<td>{{$d->user->detalles->cedula}}</td>
+									<td>{{$d->user->detalles->nombres}}</td>
+									<td>{{$d->user->detalles->apellidos}}</td>
+									<td>{{$d->user->email}}</td>
 									<td>{{$d->created_at}}</td>
 									<td>
 										<a class="btn btn-primary btn-flat btn-sm" href="{{ url('admin/profesores/'.$d->id) }}"><i class="fa fa-search"></i></a>

@@ -16,14 +16,9 @@ class CreateRepresentantesTable extends Migration
         //
     	Schema::create('representantes', function (Blueprint $table) {
         $table->increments('representante_id');
-        $table->string('nombres',50);
-        $table->string('apellidos',50);
-        $table->string('cedula',12);
-        $table->string('email',30);
+        $table->integer('user_id')->unsigned();
+        $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
         $table->string('residencia',150);
-        $table->string('tlf_personal',150)->nullable();
-        $table->string('tlf_local',150)->nullable();
-        $table->string('foto',55);
         $table->softDeletes();
         $table->timestamps();
       });
