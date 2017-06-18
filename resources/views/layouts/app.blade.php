@@ -199,7 +199,9 @@
               </a>
               <ul class="treeview-menu">
                 <li><a href="{{ route('representantes.index') }}"><i class="fa fa-circle-o"></i>Ver representantes</a></li>
+                <!--
                 <li><a href="{{ route('representantes.create') }}"><i class="fa fa-circle-o"></i>Agregar representante</a></li>
+                -->
               </ul>
             </li>
 
@@ -265,7 +267,7 @@
     <script type="text/javascript" src="{{asset('js/bootstrap-datepicker.min.js')}}"></script>
     <script type="text/javascript">
       $(document).ready(function(){
-      	$('div.alert').not('.alert-important').delay(5000).slideUp(300);
+      	$('div.alert').not('.alert-important').delay(7000).slideUp(300);
 
         $('.data-table').DataTable({
           responsive: true,
@@ -273,13 +275,6 @@
           	url:'{{asset("js/spanish.json")}}'
           }
         });
-
-        $('.datepicker').datepicker({
-        autoclose: true,
-        format: "dd-mm-yyyy",
-        endDate: "today",
-        enableOnReadonly: false
-      });
       })
      
     </script>

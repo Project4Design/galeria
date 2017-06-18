@@ -12,14 +12,14 @@
 	<div class="section_one_three profile">
 		<h2>Profesor</h2>
 		<div class="profile_picture_container">
-			<img class="profile_picture" src="{{asset('images/profesores/'.$curso->profesor->foto)}}">
+			<img class="profile_picture" src="{{asset('images/profesores/'.$curso->profesor->user->detalles->foto)}}">
 		</div>
-		<h3>{{$curso->profesor->nombre." ".$curso->profesor->apellido}}</h3>
-		<p class="profesion">{{$curso->profesor->profesion}}</p>
+		<h3>{{$curso->profesor->user->detalles->nombres." ".$curso->profesor->user->detalles->apellidos}}</h3>
+		<p class="profesion">{{$curso->profesor->user->detalles->profesion}}</p>
 		<ul class="profile_detalles">
-			<li><b>Correo:</b> <span class="pull-right">{{ $curso->profesor->email }}</span></li>
-			<li><b>Telefono: </b><span class="pull-right">{{ $curso->profesor->telefono }}</span></li>
-			<li><b>Correo: </b><span class="pull-right">{{ $curso->profesor->email }}</span></li>
+			<li><b>Correo:</b> <span class="pull-right">{{ $curso->profesor->user->email }}</span></li>
+			<li><b>Telefono: </b><span class="pull-right">{{ $curso->profesor->user->detalles->tlf_personal }}</span></li>
+			<li>{{ $curso->profesor->descripcion_perfil }}</li>
 		</ul>
 	</div>
 	<div class="section_two_three">

@@ -57,12 +57,40 @@
             <!-- /.box-body -->
           </div>
           <!-- /.box -->
+          <div class="box box-primary">
+            <div class="box-body box-profile">
+            	<h2 class="text-center">Representante</h2>
+              <img class="profile-user-img img-responsive img-circle" src="{{asset('images/representantes/'.$estudiante->representante->user->detalles->foto)}}" alt="Foto de perfil">
+              <h3 class="profile-username text-center">{{$estudiante->representante->user->detalles->nombres." ".$estudiante->representante->user->detalles->apellidos}}</h3>
+              <p class="text-center text-muted">	<a href="{{ url('admin/representantes/'.$estudiante->representante->representante_id) }}">Ver detalles</a> </p>
+
+              <ul class="list-group list-group-unbordered">
+                <li class="list-group-item">
+                  <b>Cedula</b> <span class="pull-right">{{ number_format($estudiante->representante->user->detalles->cedula,2,",",".") }}</span>
+                </li>
+                <li class="list-group-item">
+                  <b>Email</b> <span class="pull-right">{{ $estudiante->representante->user->email }}</span>
+                </li>
+                <li class="list-group-item">
+                  <b>Telefono personal</b> <span class="pull-right">{{$estudiante->representante->user->detalles->tlf_personal}}</span>
+                </li>
+                <li class="list-group-item">
+                  <b>Telefono local</b> <span class="pull-right">{{$estudiante->representante->user->detalles->tlf_local?$estudiante->representante->user->detalles->tlf_local:'N/A'}}</span>
+                </li>
+                <li class="list-group-item">
+                  <b>Direccion</b> <span class="pull-right">{{$estudiante->representante->residencia}}</span>
+                </li>
+              </ul>
+            </div>
+            <!-- /.box-body -->
+          </div>
+          <!-- /.box -->
         </div>
 
         <div class="col-md-9">
 		    	<div class="box box-success">
 			      <div class="box-header with-border">
-			        <h3 class="box-title"><i class="fa fa-university"></i> Cursos inscriptos</h3>
+			        <h3 class="box-title"><i class="fa fa-university"></i> Cursos inscritos</h3>
 			      </div>
 		      	<div class="box-body">
 							<table class="table data-table table-bordered table-hover table-cond}ensed">

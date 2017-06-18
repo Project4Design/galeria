@@ -49,8 +49,8 @@ class CursosController extends Controller
         
         
       $this->validate($request, [
-        
         'precio' => 'required|numeric',
+        'limit' => 'required',
         'image' => 'required|image',
         'id_profesor'=>'required'
       ]);
@@ -136,11 +136,7 @@ class CursosController extends Controller
             'flash_class' => 'alert-success'
             ]);
     	}else{
-        return view("admin/cursos")->with([
-        		'title' => 'Editar',
-        		'curso' => $curso,
-        		'url'=> "admin/cursos/{$id}/",
-        		'method' => 'PATCH',
+        return redirect("admin/cursos")->with([
             'flash_message' => 'Ha ocurrido un error.',
             'flash_class' => 'alert-danger',
             'flash_important' => true

@@ -11,7 +11,9 @@
 <body>
 	<div id="wrap">
   	<div id="header">
-    	<div class="logo"><a href="{{route('front_index')}}">Galeria<span>D'Abilio</span></a></div>
+    	<div class="logo">
+    		<a href="{{route('front_index')}}">Galeria<span>D'Abilio</span></a>
+    	</div>
 	    <div class="menu">
 	      <ul>
 	        <li class="selected"><a href="{{route('front_index')}}">Inicio</a></li>

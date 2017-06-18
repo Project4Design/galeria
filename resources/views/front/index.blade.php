@@ -1,5 +1,12 @@
 @extends('layouts.front')
 @section('content')
+	<div class="section_full">
+		<h1 class="welcome" style="text-align:center">¡BIENVIENIDOS!</h1>
+		<center><img src="{{ asset('img/logo.png') }}" height="150px"></center>
+	</div>
+
+	<div class="section_full no_padding">
+		<h2 class="subtitulos">Nuestros cursos</h2>
 	@foreach($cursos as $d)
 		<div class="section_one_three image-border">
 		  <h2>{{$d->titulo}}</h2>
@@ -11,25 +18,30 @@
 		  <a id="open" href="{{url('cursos/'.$d->curso_id)}}" class="more">Ver mas</a>
 		</div>
 	@endforeach
-
-		<div class="divider"></div>
-		<div class="section_two_three">
-			<h2>Latest Blog Entries</h2>
-			<div class="post">
-				<div class="post_left">
-          <a href="#" class="post_image"><img src="images/post-thumb1.jpg" alt="" title="" /></a>
-          <div class="post_date"><span>08</span><span>mar</span></div>
-          <div class="post_comments"><a href="#">03</a></div>
-        </div>
-        <div class="post_right">
-        	<h3><a href="blog-single.html">Adisnim adipisicing elit, sed do eiusmod</a></h3>
-          <p>
-              Lorem ipsum dolor sit amet, consectetur <strong>adipisicin</strong>gelit, sed do eiusmod tempor incididunt <a href="#">consectetur</a> adipisicing elit, sed do eiusmod <strong>tempor incididunt</strong> ut labore et dolore magna aliqua. 
-          </p>
-          <a href="#" class="more">read more</a>
-        </div>
-      </div>
-    </div>
-
-    @include('partials.front_sidebar')
+	</div>
+	
+	<div class="section_full no_padding">
+		<h2 class="subtitulos">Nuestro profesores</h2>
+		@foreach($profesores as $d)
+			<div class="section_two_three">
+				<div class="post">
+					<div class="post_left">
+		        <a href="#" class="post_image">
+		        	<img src="{{ asset('images/profesores/'.$d->user->detalles->foto) }}" alt="" title="" />
+		        </a>
+		        <!--
+		        <div class="post_date"><span>08</span><span>mar</span></div>
+		        <div class="post_comments"><a href="#">03</a></div>
+		        -->
+		      </div>
+		      <div class="post_right">
+		      	<h3>{{$d->user->detalles->nombres.' '.$d->user->detalles->nombres}}</h3>
+		        <p>
+		          {{$d->descripcion_perfil}}
+		        </p>
+		      </div>
+		    </div>
+		  </div>
+		@endforeach
+	</div>
 @endsection

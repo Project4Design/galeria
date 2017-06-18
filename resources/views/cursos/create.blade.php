@@ -30,26 +30,35 @@
           </div>
 
 					<div class="form-group {{ $errors->has('titulo')?'has-error':'' }}">
-						<label class="control-label" for="titulo">Titulo:</label>
+						<label class="control-label" for="titulo">Titulo: *</label>
 						<input id="titulo" class="form-control" type="text" name="titulo" value="{{ old('titulo')?old('titulo'):$curso->titulo }}" placeholder="Titulo">
 					</div>
 
 					<div class="form-group {{ $errors->has('descripcion')?'has-error':'' }}">
-						<label class="control-label" for="descripcion">Descripcion:</label>
+						<label class="control-label" for="descripcion">Descripcion: *</label>
 						<input id="descripcion" class="form-control" type="text" name="descripcion" value="{{ old('descripcion')?old('descripcion'):$curso->descripcion }}" placeholder="Descripcion">
 					</div>
 					
 					<div class="form-group {{ $errors->has('precio')?'has-error':'' }}">
-						<label class="control-label" for="precio">Precio:</label>
+						<label class="control-label" for="precio">Precio: *</label>
 						<input id="precio" class="form-control" type="number" name="precio" value="{{ old('precio')?old('precio'):$curso->precio }}" placeholder="precio">
 					</div>
 
+					<div class="form-group {{ $errors->has('limite')?'has-error':'' }}">
+						<label class="control-label" for="limite">Limite: *</label>
+						<select id="limite" class="form-control" type="number" name="limit">
+							<option value="">Seleccione</option>
+							<option value="10">10</option>
+							<option value="20">20</option>
+						</select>
+					</div>
+
 					<div class="form-group {{ $errors->has('id_profesor')?'has-error':'' }}">
-						<label class="control-label" for="id_profesor">Profesor:</label>
+						<label class="control-label" for="id_profesor">Profesor: *</label>
 						<select id="id_profesor" name="id_profesor" class="form-control">
 							<option value="">Seleccione...</option>
 							@foreach($profesor as $p)
-								<option value="{{ old('id_profesor')?old('id_profesor'):$p->id}}" {{$curso->id_profesor?'selected':''}}>{{$p->nombre.' '.$p->apellido}}</option>
+								<option value="{{ old('id_profesor')?old('id_profesor'):$p->id}}" {{$curso->id_profesor?'selected':''}}>{{$p->user->detalles->nombres.' '.$p->user->detalles->apellidos}}</option>
 							@endforeach
 						</select>
 					</div>
@@ -101,7 +110,7 @@
 	    //Mostar cargando
 	    load.show();
 	    if(file){
-	      if(file.size<2000000){
+	      if(file.size<4000000){
 	        if(type == "image/jpeg" || type == "image/png" || type == "image/jpg"){
 	          var reader = new FileReader();
 	          reader.onload = function (e) {

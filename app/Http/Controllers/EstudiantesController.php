@@ -30,7 +30,7 @@ class EstudiantesController extends Controller
      */
     public function create()
     {
-         $estudiante = new Estudiante;
+      $estudiante = new Estudiante;
       return view("estudiantes.create", ["estudiante" => $estudiante]);
     }
 
@@ -51,20 +51,56 @@ class EstudiantesController extends Controller
     		'nacimiento' => 'required',
     		'residencia' => 'required',
     		'email' =>'required|email|unique:users',
-    		'alergico' => 'required',
+    		'alergico' => 'required|numeric',
     		'tlf_personal' => 'required|numeric',
     		'tlf_local' => 'numeric'
     	]);
-/*
-      $hoy = date('d-m-Y');
-      $date = date_diff(date_create($fecha),date_create($hoy));
-    	$edad = $date->format('%a');
 
-    	if($edad<18){
-    		$Representante = new Representante;
-    		dd(true);
-    	}
-    	*/
+    	//Calculamos si el estudiante es menor de edad
+      $hoy = date('d-m-Y'); $xhoy = explode('-',$hoy);
+      $dob = $request->input('nacimiento'); $xdob = explode('-',$dob);
+      $edad = $xhoy[2] - $xdob[2]; $mes  = $xhoy[1] - $xdob[1];
+	    if ($mes < 0 || ($mes === 0 && $xhoy[0] < $xdob[0])) {
+	    	$edad--;
+	    }
+
+	    if($edad<18){
+	    	$this->validate($request,[
+	    		'representante_foto' => 'required|image',
+	    		'representante_nombres' => 'required',
+	    		'representante_apellidos' => 'required',
+	    		'representante_cedula' => 'required|numeric|unique:detalles,cedula',
+	    		'representante_residencia' => 'required',
+	    		'representante_email' =>'required|email|unique:users,email',
+	    		'representante_tlf_personal' => 'required|numeric',
+	    		'representante_tlf_local' => 'numeric'
+	    		]);
+
+	    	$rep = new Detalles;
+	    	$rep->nombres = $request->input('representante_nombres');
+	    	$rep->apellidos = $request->input('representante_apellidos');
+	    	$rep->cedula = $request->input('representante_cedula');
+	    	$rep->tlf_personal = $request->input('representante_tlf_personal');
+	    	$rep->tlf_local = $request->input('representante_tlf_local');
+	    	//Foto
+	    	$file = Input::file('representante_foto');
+        $file->move(public_path().'/images/representantes/',$file->getClientOriginalName());
+        $rep->foto = $file->getClientOriginalName();
+
+        if($rep->save()){
+        	$r_user = new User;
+        	$r_user->email = $request->input('representante_email');
+	        $r_user->password = bcrypt($request->input('123456'));
+	        $r_user->nivel = '3';
+		      $representante = new Representante;
+		      $representante->residencia = $request->input('representante_residencia');
+
+		      $rep->users()->save($r_user);
+		      $rep_id = $r_user->representante()->save($representante);
+		      $rep_id = $rep_id->representante_id;
+        }
+	    }
+
     	$det = new Detalles;
       $det->fill($request->all());
 
@@ -81,6 +117,8 @@ class EstudiantesController extends Controller
         $user->nivel = '4';
 	      $estudiante = new Estudiante;
 	      $estudiante->fill($request->all());
+
+	      if($edad<18){ $estudiante->representante_id = $rep_id; }
 
         if($det->users()->save($user)){
 

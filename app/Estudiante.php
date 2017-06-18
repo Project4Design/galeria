@@ -23,8 +23,8 @@ class Estudiante extends Model
     return $this->belongsTo('App\User','user_id','id');
   }
 
-	public function representantes(){
-		return $this->belongsTo('App\Representantes','representantes_id');
+	public function representante(){
+		return $this->belongsTo('App\Representante','representante_id','representante_id');
 	}
 
 	public function edad()

@@ -41,12 +41,12 @@ class GaleriaController extends Controller
     	$this->validate($request,[
     		'image'=>'required|image',
     		'titulo' => 'required',
-            'autor' => 'required',
-            'anio' => 'required|numeric'
+        'autor' => 'required',
+        'anio' => 'required|numeric'
     	]);
 
-        $cuadro = new Galeria;
-        $cuadro->fill($request->all());
+      $cuadro = new Galeria;
+      $cuadro->fill($request->all());
 
       if(input::hasFile('image')){
         $file = Input::file('image');
@@ -61,10 +61,6 @@ class GaleriaController extends Controller
               ]);
       }else{
           return view("admin/galeria")->with([
-                'title' => 'Agregar',
-                'cuadro' => $cuadro,
-                'url'=> '/galeria',
-                'method' => 'POST',
               'flash_message' => 'Ha ocurrido un error.',
               'flash_class' => 'alert-danger',
               'flash_important' => true
@@ -107,12 +103,12 @@ class GaleriaController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $this->validate($request,[
-            'image'=>'required|image',
-            'titulo' => 'required',
-            'autor' => 'required',
-            'anio' => 'required|numeric'
-        ]);
+      $this->validate($request,[
+        'image'=>'required|image',
+        'titulo' => 'required',
+        'autor' => 'required',
+        'anio' => 'required|numeric'
+      ]);
         
     	$cuadro = Galeria::findOrFail($id);
     	$cuadro->fill($request->all());
@@ -131,10 +127,6 @@ class GaleriaController extends Controller
             ]);
     	}else{
         return view("admin/galeria")->with([
-    		'title' => 'Editar',
-    		'cuadro' => $cuadro,
-    		'url'=> "admin/galeria/{$id}",
-    		'method' => 'PATCH',
             'flash_message' => 'Ha ocurrido un error.',
             'flash_class' => 'alert-danger',
             'flash_important' => true
@@ -152,9 +144,8 @@ class GaleriaController extends Controller
     {
         $cuadro = Galeria::findOrFail($id);
 
-        unlink(public_path().'/images/cuadros/'.$cuadro->foto);//Borrar imagen de local storage "Public"
-
-        if($cuadro->destroy($id)) {
+        if($cuadro->destroy($id)){
+        		unlink(public_path().'/images/cuadros/'.$cuadro->foto);//Borrar imagen de local storage "Public"
             return redirect("admin/galeria")->with([
                'flash_message' => 'Cuadro se ha eliminado correctamente.',
                'flash_class' => 'alert-success'

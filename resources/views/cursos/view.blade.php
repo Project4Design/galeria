@@ -40,9 +40,9 @@
 
         <div class="col-md-4 col-md-offset-1">
           <h4>Profesor - <a href="{{url('admin/profesores/'.$curso->profesor->id)}}">Ver perfil</a></h4>
-          <p><b>Nombre y Apellido:</b> {{$curso->profesor->nombre.' '.$curso->profesor->apellido}}</p>
+          <p><b>Nombre y Apellido:</b> {{$curso->profesor->user->detalles->nombres.' '.$curso->profesor->user->detalles->apellidos}}</p>
           <p><b>Profesion: </b> {{$curso->profesor->profesion}}</p>
-          <p><b>Foto: </b> <img style="max-height: 150px" class="img-responsive" src="{{ asset('/images/profesores/'.$curso->profesor->foto) }}"></p>
+          <p><b>Foto: </b> <img style="max-height: 150px" class="img-responsive" src="{{ asset('/images/profesores/'.$curso->profesor->user->detalles->foto) }}"></p>
         </div>
 
 			</div>

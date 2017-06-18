@@ -4,7 +4,7 @@
 @section('breadcrumb')
 	<ol class="breadcrumb">
 	  <li><a href="{{route('admin_index')}}"><i class="fa fa-dashboard" aria-hidden="true"></i> Escritorio</a></li>
-	  <li> Representantees </li>
+	  <li> Representantes </li>
 	  <li class="active">Ver </li>
 	</ol>
 @endsection
@@ -13,7 +13,9 @@
 		<section>
 	    <a class="btn btn-flat btn-default" href="{{ route('representantes.index') }}"><i class="fa fa-reply" aria-hidden="true"></i> Volver</a>
 	    <a class="btn btn-flat btn-success" href="{{ url('admin/representantes/'.$representante->representante_id.'/edit') }}"><i class="fa fa-pencil" aria-hidden="true"></i> Editar</a>
+	    <!--
 	    <button class="btn btn-flat btn-danger" data-toggle="modal" data-target="#delModal"><i class="fa fa-times" aria-hidden="true"></i> Eliminar</button>
+	    -->
 		</section>
 
 		<section>
@@ -23,7 +25,7 @@
           <!-- Profile Image -->
           <div class="box box-danger">
             <div class="box-body box-profile">
-              <img class="profile-user-img img-responsive img-circle" src="{{asset('images/representantes/'.$representante->foto)}}" alt="Foto de perfil">
+              <img class="profile-user-img img-responsive img-circle" src="{{asset('images/representantes/'.$representante->user->detalles->foto)}}" alt="Foto de perfil">
               <h3 class="profile-username text-center">{{$representante->user->detalles->nombres." ".$representante->user->detalles->apellidos}}</h3>
 
               <ul class="list-group list-group-unbordered">

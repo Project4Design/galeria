@@ -30,7 +30,9 @@
 	      <div class="box-header with-border">
 	        <h3 class="box-title"><i class="fa fa-address-card-o"></i> Representantes</h3>
 	        <span class="pull-right">
+	        <!--
 						<a href="{{ route('representantes.create') }}" class="btn btn-flat btn-success"><i class="fa fa-plus" aria-hidden="true"></i> Nuevo representante</a>
+					-->
 					</span>
 	      </div>
       	<div class="box-body">

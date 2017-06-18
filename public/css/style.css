@@ -223,6 +223,23 @@ ul.social_icons{ margin-top:20px;}
 }
 
 /*=========================================================================================*/
+.welcome{
+	font-family: "OmnesLight",sans-serif;
+	font-size:36px;
+	color:#505050;
+	letter-spacing:-1px;
+}
+.subtitulos{
+	font-family: "OmnesLight",sans-serif;
+	font-size:24px;
+	letter-spacing:-1px;
+	color: #505050;
+	border-bottom: 2px solid #e93139;
+	padding-bottom: 15px;
+}
+.section_full.no_padding .section_one_three{
+	padding-left: 0px;
+}
 /*------------------ Galeria --------------------------------*/
 .container-galeria{
 	margin-bottom: 15px;

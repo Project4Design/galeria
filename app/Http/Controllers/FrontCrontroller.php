@@ -5,13 +5,16 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Curso;
 use App\Galeria;
+use App\Profesores;
 
 class FrontCrontroller extends Controller
 {
     //
-	public function index(){
+	public function index()
+	{
 		$cursos = Curso::all();
-		return view('front.index',['cursos'=>$cursos]);
+		$profesores = Profesores::all();
+		return view('front.index',['cursos'=>$cursos,'profesores'=>$profesores]);
 	}
 
 	public function galeria()

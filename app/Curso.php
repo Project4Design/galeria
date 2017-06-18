@@ -17,6 +17,7 @@ class Curso extends Model
       'descripcion',
       'foto',
       'precio',
+      'limit',
       'id_profesor'
   ];
 

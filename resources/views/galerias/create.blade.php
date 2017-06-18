@@ -20,7 +20,7 @@
 					<div class="form-group">
             <div class="imageUploadWidget {{ $errors->has('image')?'has-error':'' }}">
               <div class="imageArea">
-                <img id="img" src="{{ asset('/images/') }}{{isset($cuadro->foto) ? 'cuadros/'.$cuadro->foto : '/no-image.png' }}" alt="">
+                <img id="img" src="{{ asset('/images') }}{{isset($cuadro->foto) ? '/cuadros/'.$cuadro->foto : '/no-image.png' }}" alt="">
                 <img class="spinner-image" src="{{ asset('images/spinner.gif') }}">
               </div>
               <div class="btnArea">
@@ -72,8 +72,11 @@
 			$('#file').change(preview);	
 
 			$('#anio').datepicker({
-				startDate: "today",
-				startView: 2,
+				autoclose: true,
+  			format: "yyyy",
+  			startView: "years", 
+  			minViewMode: "years",
+  			endDate: 'today'
 			});
 		});
 		

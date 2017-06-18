@@ -39,7 +39,7 @@
                   <b>Telefono personal</b> <span class="pull-right">{{$profesor->user->detalles->tlf_personal}}</span>
                 </li>
                 <li class="list-group-item">
-                  <b>Telefono local</b> <span class="pull-right">{{$profesor->user->detalles->tlf_local}}</span>
+                  <b>Telefono local</b> <span class="pull-right">{{isset($profesor->user->detalles->tlf_local)?$profesor->user->detalles->tlf_local:'N/A'}}</span>
                 </li>
                 <li class="list-group-item">
                   <b>Direccion</b> <span class="pull-right">{{$profesor->direccion}}</span>

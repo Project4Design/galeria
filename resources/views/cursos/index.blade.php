@@ -52,7 +52,7 @@
 									<td>{{$i}}</td>
 									<td>{{$d->titulo}}</td>
 									<td class="text-right">{{number_format($d->precio,2,",",".")}}</td>
-									<td>{{$d->profesor->nombre." ".$d->profesor->apellido}}</td>
+									<td>{{$d->profesor->user->detalles->nombres." ".$d->profesor->user->detalles->apellidos}}</td>
 									<td>{{$d->created_at}}</td>
 									<td>
 										<a class="btn btn-primary btn-flat btn-sm" href="{{ url('admin/cursos/'.$d->curso_id) }}"><i class="fa fa-search"></i></a>
