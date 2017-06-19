@@ -6,6 +6,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
 use App\User;
 use App\Detalles;
+use App\Bitacora;
 
 class UsersController extends Controller
 {
@@ -61,6 +62,14 @@ class UsersController extends Controller
           $user->nivel = '1';
 
         	if($det->users()->save($user)){
+                //Registro en la bitaora
+                $bitacora = New Bitacora;
+                $bitacora->usuario = Auth::user()->email;
+                $bitacora->modulo = 'Usuarios';
+                $bitacora->accion = 'Registro de usuario '.$user->email;
+                $bitacora->save();
+                // fin bitacora
+                
             return redirect("admin/users")->with([
                 'flash_message' => 'Usuario agregado correctamente.',
                 'flash_class' => 'alert-success'
@@ -131,6 +140,13 @@ class UsersController extends Controller
     	$user->fill($request->all());
 
     	if($det->save() && $user->save()){
+             //Registro en la bitaora
+                $bitacora = New Bitacora;
+                $bitacora->usuario = Auth::user()->email;
+                $bitacora->modulo = 'Usuarios';
+                $bitacora->accion = 'Modifico el usuario '.$user->email;
+                $bitacora->save();
+                // fin bitacora
         return redirect("admin/users")->with([
             'flash_message' => 'Usuario editado correctamente.',
             'flash_class' => 'alert-success'
@@ -152,7 +168,17 @@ class UsersController extends Controller
      */
     public function destroy($id)
     {
-        if(User::destroy($id)){
+
+        $user = User::findOrFail($id);
+
+             //Registro en la bitaora
+                $bitacora = New Bitacora;
+                $bitacora->usuario = Auth::user()->email;
+                $bitacora->modulo = 'Usuarios';
+                $bitacora->accion = 'Se elemino el usuario '.$user->email;
+                $bitacora->save();
+                // fin bitacora
+        if($user->delete()){
         return redirect("admin/users")->with([
             'flash_message' => 'Usuario eliminado correctamente.',
             'flash_class' => 'alert-success'

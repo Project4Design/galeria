@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Galeria;
 use Illuminate\Support\Facades\Input;
+use Illuminate\Support\Facades\Auth;
+use App\Bitacora;
 
 class GaleriaController extends Controller
 {
@@ -55,6 +57,13 @@ class GaleriaController extends Controller
       }
 
       if($cuadro->save()){
+        //Registro en la bitacora
+                $bitacora = New Bitacora;
+                $bitacora->usuario = Auth::user()->email;
+                $bitacora->modulo = 'Galeria';
+                $bitacora->accion = 'Se registro el cuadro '.$cuadro->titulo;
+                $bitacora->save();
+                // fin bitacora
           return redirect("admin/galeria")->with([
               'flash_message' => 'Cuadro agregado correctamente.',
               'flash_class' => 'alert-success'
@@ -121,6 +130,13 @@ class GaleriaController extends Controller
       }
 
     	if($cuadro->save()){
+            //Registro en la bitacora
+                $bitacora = New Bitacora;
+                $bitacora->usuario = Auth::user()->email;
+                $bitacora->modulo = 'Galeria';
+                $bitacora->accion = 'Se modifico el cuadro '.$cuadro->titulo;
+                $bitacora->save();
+                // fin bitacora
         return redirect("admin/galeria")->with([
             'flash_message' => 'Cuadro editado correctamente.',
             'flash_class' => 'alert-success'
@@ -143,8 +159,14 @@ class GaleriaController extends Controller
     public function destroy($id)
     {
         $cuadro = Galeria::findOrFail($id);
-
-        if($cuadro->destroy($id)){
+        //Registro en la bitacora
+                $bitacora = New Bitacora;
+                $bitacora->usuario = Auth::user()->email;
+                $bitacora->modulo = 'Galeria';
+                $bitacora->accion = 'Se elimino el cuadro '.$cuadro->titulo;
+                $bitacora->save();
+                // fin bitacora
+        if($cuadro->delete()){
         		unlink(public_path().'/images/cuadros/'.$cuadro->foto);//Borrar imagen de local storage "Public"
             return redirect("admin/galeria")->with([
                'flash_message' => 'Cuadro se ha eliminado correctamente.',
