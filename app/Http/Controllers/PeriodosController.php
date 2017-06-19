@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Periodo;
+use App\Inscripcion;
 use Illuminate\Http\Request;
 
 class PeriodosController extends Controller
@@ -70,11 +71,11 @@ class PeriodosController extends Controller
      * @param  \App\Periodo  $periodo
      * @return \Illuminate\Http\Response
      */
-    public function show($periodo)
+    public function show($id)
     {
-      $periodo = Periodo::findOrFail($periodo);
-      $cursos = array();
-      $estudiantes = array();
+      $periodo = Periodo::findOrFail($id);
+      $cursos = $periodo->cursosPeriodo();
+      $estudiantes = $periodo->estudiantesPeriodo();
       return view('periodos.view',['periodo'=>$periodo,'cursos'=>$cursos,'estudiantes'=>$estudiantes]);
     }
 
@@ -114,10 +115,6 @@ class PeriodosController extends Controller
             ]);
         }else{
           return view("admin/periodos")->with([
-            'title' => 'Editar',
-            'periodo' => $periodo,
-            'url'=> "/admin/periodos/{$periodo}/",
-            'method' => 'PATCH',
             'flash_message' => 'Ha ocurrido un error.',
             'flash_class' => 'alert-danger',
             'flash_important' => true
@@ -146,5 +143,24 @@ class PeriodosController extends Controller
                 'flash_class' => 'alert-danger'
             ]);
         }
+    }
+
+    public function cerrar($id)
+    {
+      $periodo = Periodo::findOrFail($id);
+      $periodo->status = 0;
+
+      if($periodo->save()){
+        return redirect("admin/periodos")->with([
+          'flash_message' => 'El periodo ha sido cerrado.',
+          'flash_class' => 'alert-success'
+          ]);
+      }else{
+        return view("admin/periodos")->with([
+          'flash_message' => 'Ha ocurrido un error.',
+          'flash_class' => 'alert-danger',
+          'flash_important' => true
+          ]);
+      }
     }
 }

@@ -44,6 +44,9 @@ Route::group(['middleware' => 'auth','prefix' => 'admin'],function(){
 	//Representantes
 	Route::resource('/representantes','RepresentantesController');
 	//Periodos
+	Route::patch('/periodos/{id}/cerrar','PeriodosController@cerrar');
 	Route::resource('/periodos','PeriodosController');
+	//Inscripciones
+	Route::resource('/inscripciones','InscripcionesController');
 
 });

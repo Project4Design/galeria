@@ -4,7 +4,7 @@
 @section('header','Profile')
 @section('breadcrumb')
 	<ol class="breadcrumb">
-	  <li><a href="{{ route('index') }}"><i class="fa fa-dashboard" aria-hidden="true"></i> Dashboard</a></li>
+	  <li><a href="{{ route('admin_index') }}"><i class="fa fa-dashboard" aria-hidden="true"></i> Dashboard</a></li>
 	  <li class="active"> Profile </li>
 	</ol>
 @endsection
@@ -12,15 +12,14 @@
 
 <div class="content">
 	<section>
-		<a class="btn btn-flat btn-default" href="{{ route('index') }}"><i class="fa fa-reply"></i> Back</a>
+		<a class="btn btn-flat btn-default" href="{{ route('admin_index') }}"><i class="fa fa-reply"></i> Volver</a>
 	</section>
 	<section class="perfil">
 		<div class="row">
 			<div class="col-md-12">
 	          <h2 class="page-header" style="margin-top:0!important">
 	            <i class="fa fa-user" aria-hidden="true"></i>
-	            {{$perfil->name}}
-	            <small class="pull-right">Role: Admistrator</small>
+	            {{$perfil->detalles->nombres}}
 	          </h2>
 			  <form action="{{url('perfil/'.$perfil->id.'/edit')}}" method="POST" id="editar">
 					  {{csrf_field()}}
@@ -30,10 +29,9 @@
 						 <div class="alert alert-danger" style="display:none;" id="message">
 						      <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
 						      <strong class="text-center">Passwords must be the same</strong> 
-	  				     </div>
-
+  				    d</div>
 				    <label for="name">Name</label>
-				    <input type="text" class="form-control" name="name"  value="{{$perfil->name}}" required>
+				    <input type="text" class="form-control" name="name"  value="{{$perfil->detalles->nombres}}" required>
 				  </div>
 				  <div class="form-group col-md-4 col-md-offset-4">
 				    <label for="email">Email</label>
@@ -42,7 +40,7 @@
 				  <div class="col-md-4 col-md-offset-4">
 				  	<div class="checkbox">
 					    <label>
-					      <input type="checkbox" id="pp" name="checkbox" value="Yes"> Do you want to change the password?
+					      <input type="checkbox" id="pp" name="checkbox" value="Yes"> Cambiar contraseña?
 					    </label>
 				    </div>
 				  </div>
@@ -58,7 +56,7 @@
 				  </section>
 
 				  <div class="col-md-4 col-md-offset-4">
-				     <button type="submit" id="send" class="btn btn-flat btn-success">Update</button>
+				     <button type="submit" id="send" class="btn btn-flat btn-success">Actualizar</button>
 				  </div>
 			  </form>
             </div>

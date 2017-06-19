@@ -92,7 +92,8 @@ class CursosController extends Controller
     {
         //
     	$curso = Curso::findOrFail($id);
-      return view("cursos.view", ["curso" => $curso]);
+    	$estudiantes = $curso->estudiantes();
+      return view("cursos.view", ["curso" => $curso,'estudiantes' => $estudiantes]);
     }
 
     /**

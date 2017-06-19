@@ -1,6 +1,7 @@
 <?php
 
 namespace App\Http\Controllers;
+use Illuminate\Support\Facades\Auth;
 
 use Illuminate\Http\Request;
 use App\User;
@@ -163,5 +164,10 @@ class UsersController extends Controller
             'flash_important' => true
           ]);
       }
+    }
+
+    public function perfil(){
+    	$perfil = User::findOrFail(Auth::user()->id);
+    	return view('perfil',['perfil'=>$perfil]);
     }
 }

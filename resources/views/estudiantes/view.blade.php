@@ -56,6 +56,7 @@
             </div>
             <!-- /.box-body -->
           </div>
+          @if(isset($estudiante->representante->user))
           <!-- /.box -->
           <div class="box box-primary">
             <div class="box-body box-profile">
@@ -85,6 +86,7 @@
             <!-- /.box-body -->
           </div>
           <!-- /.box -->
+        	@endif
         </div>
 
         <div class="col-md-9">
@@ -108,10 +110,9 @@
 									@foreach($cursos as $d)	
 										<tr>
 											<td>{{$i}}</td>
-											<td>{{$d->titulo}}</td>
-											<td class="text-right">{{number_format($d->precio,2,",",".")}}</td>
-											<td>{{$d->profesor->nombre." ".$d->profesor->apellido}}</td>
-											<td>{{$d->created_at}}</td>
+											<td>{{$d->curso->titulo}}</td>
+											<td class="text-right">{{number_format($d->curso->precio,2,",",".")}}</td>
+											<td>{{$d->curso->profesor->user->detalles->nombres." ".$d->curso->profesor->user->detalles->apellidos}}</td>
 											<td>
 												<a class="btn btn-primary btn-flat btn-sm" href="{{ url('admin/cursos/'.$d->curso_id) }}"><i class="fa fa-search"></i></a>
 											</td>

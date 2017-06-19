@@ -26,6 +26,7 @@
     <link rel="stylesheet" type="text/css" href="{{asset('css/glyphicons.css')}}">
     <link rel="stylesheet" type="text/css" href="{{asset('plugins/datatables/dataTables.bootstrap.css')}}">
     <link rel="stylesheet" type="text/css" href="{{asset('css/bootstrap-datepicker3.min.css')}}">
+    <link rel="stylesheet" type="text/css" href="{{asset('plugins/select2/select2.min.css')}}">
     <!-- AdminLTE Skins. Choose a skin from the css/skins
     	folder instead of downloading all of them to reduce the load. -->
     <link rel="stylesheet" href="{{asset('css/_all-skins.min.css')}}">
@@ -78,6 +79,7 @@
           <!-- Navbar Right Menu -->
           <div class="navbar-custom-menu">
             <ul class="nav navbar-nav">
+            <li><a href="{{route('inscripciones.create')}}"><i class="fa fa-plus" aria-hidden="true"></i> Nueva Inscripcion</a></li>
               <!-- Messages: style can be found in dropdown.less-->
               
               <!-- User Account: style can be found in dropdown.less -->
@@ -127,7 +129,13 @@
 
             <li>
               <a href="{{route('admin_index')}}">
-                <i class="fa fa-dashboard" aria-hidden="true"></i> <span>Escritorio</span>
+              	<i class="fa fa-dashboard" aria-hidden="true"></i> <span>Escritorio</span>
+              </a>
+            </li>
+
+            <li>
+              <a href="{{route('inscripciones.index')}}">
+                <i class="fa fa-check-square-o" aria-hidden="true"></i> <span>Inscripciones</span>
               </a>
             </li>
 
@@ -265,6 +273,7 @@
     <script type="text/javascript" src="{{asset('plugins/datatables/jquery.dataTables.min.js')}}"></script>
     <script src="{{asset('plugins/datatables/dataTables.bootstrap.js')}}"></script>
     <script type="text/javascript" src="{{asset('js/bootstrap-datepicker.min.js')}}"></script>
+    <script type="text/javascript" src="{{asset('plugins/select2/select2.min.js')}}"></script>
     <script type="text/javascript">
       $(document).ready(function(){
       	$('div.alert').not('.alert-important').delay(7000).slideUp(300);
@@ -276,7 +285,6 @@
           }
         });
       })
-     
     </script>
 
     @yield('script')

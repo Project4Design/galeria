@@ -41,6 +41,7 @@
 								<th class="text-center">#</th>
 								<th class="text-center">Periodo</th>
 								<th class="text-center">Estado</th>
+								<th class="text-center">Cursos</th>
 								<th class="text-center">Inscripciones</th>
 								<th class="text-center">Accion</th>
 							</tr>
@@ -51,8 +52,9 @@
 								<tr>
 									<td>{{$i}}</td>
 									<td>{{$d->periodo}}</td>
-									<td>{{$d->status?'Abierto':'Cerrado'}}</td>
-									<td>0</td>
+									<td>{!! $d->status===1?'<span class="label label-success">Abierto</span>':'<span class="label label-danger">Cerrado</span>' !!}</td>
+									<td>{{count($d->cursosPeriodo())}}</td>
+									<td>{{count($d->estudiantesPeriodo())}}</td>
 									<td>
 										<a class="btn btn-primary btn-flat btn-sm" href="{{ url('admin/periodos/'.$d->periodo_id) }}"><i class="fa fa-search"></i></a>
 										<a href="{{ url('admin/periodos/'.$d->periodo_id.'/edit') }}" class="btn btn-flat btn-success btn-sm" title="Editar"><i class="fa fa-edit"></i></a>

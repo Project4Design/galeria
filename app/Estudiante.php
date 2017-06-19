@@ -37,4 +37,9 @@ class Estudiante extends Model
 
     return $edad;
 	}
+
+	public function cursos()
+	{
+		return $this->hasMany('App\Inscripcion','estudiante_id')->groupBy('curso_id')->get();
+	}
 }

@@ -23,6 +23,16 @@ class Curso extends Model
 
   public function profesor()
   {
-      return $this->belongsTo('App\Profesores','id_profesor');
+    return $this->belongsTo('App\Profesores','id_profesor');
+  }
+
+  public function inscritos()
+  {
+  	return $this->hasMany('App\Inscripcion','curso_id')->count();
+  }
+
+  public function estudiantes()
+  {
+  	return $this->hasMany('App\Inscripcion','curso_id')->groupBy('estudiante_id')->get();
   }
 }
