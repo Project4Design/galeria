@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Pago;
 use App\Bitacora;
+use App\Inscripcion;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
 
@@ -18,7 +19,7 @@ class PagosController extends Controller
     {
       //
       $pagos = Pago::all();
-      return view('pago.index',['pagos'=>$pagos]);
+      return view('pagos.index',['pagos'=>$pagos]);
     }
 
     /**
@@ -29,7 +30,10 @@ class PagosController extends Controller
     public function create()
     {
     	$pagos = new Pago;
-      return view("pagos.create", ["title" => "Agregar","pago" => $pago,"url" => "admin/pagos", "method" => "POST"]);
+
+        $pagados = Pago::select('inscripcion_id')->pluck('inscripcion_id')->toArray();
+        $inscripciones = Inscripcion::all()->whereNotIn('inscripcion_id',$pagados);
+      return view("pagos.create", ['inscripciones' => $inscripciones]);
     }
 
     /**
@@ -41,19 +45,24 @@ class PagosController extends Controller
     public function store(Request $request)
     {
 
+        //dd($request->all());
+
       $this->validate($request, [
           'inscripcion_id' => 'required',
-          'metodo' =>'required',
           'fecha' => 'required',
-          'banco' => 'required',
-          'referencia' => 'required|numeric',
           'monto' => 'required|numeric',
+          'tipo' => 'required',
         ]);
 
     	$pago = new Pago;
     	$pago->fill($request->all());
 
-    	if($representante->save()){
+        if ($request->input('banco') != '' && $request->input('referencia') != '' ) {
+            $pago->banco = $request->input('banco');
+            $pago->referencia = $request->input('referencia');
+        }
+
+    	if($pago->save()){
             //Registro en la bitacora
                 $bitacora = New Bitacora;
                 $bitacora->usuario = Auth::user()->email;
@@ -82,10 +91,11 @@ class PagosController extends Controller
      * @param  \App\Pago  $pago
      * @return \Illuminate\Http\Response
      */
-    public function show(Pago $pago)
+    public function show($id)
     {
       $pago = Pago::findOrFail($id);
-      return view("pagos.view", ["pago" => $pago]);
+      
+      return view("pagos.show", ["pago" => $pago]);
     }
 
     /**
@@ -94,10 +104,11 @@ class PagosController extends Controller
      * @param  \App\Pago  $pago
      * @return \Illuminate\Http\Response
      */
-    public function edit(Pago $pago)
+    public function edit($id)
     {
     	$pago = Pago::findOrFail($id);
-      return view("pagos.create", ["title" => "Editar","pago" => $pago,"url"=> "admin/pagos/{$id}/","method" => 'PATCH']);
+        $inscripciones = Inscripcion::all();
+      return view("pagos.modificar", ['pago' => $pago,'inscripciones' => $inscripciones]);
     }
 
     /**
@@ -107,11 +118,15 @@ class PagosController extends Controller
      * @param  \App\Pago  $pago
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Pago $pago)
+    public function update(Request $request,$id)
     {
       //
     	$pago = Pago::findOrFail($id);
     	$pago->fill($request->all());
+        if ($request->input('banco') != '' && $request->input('referencia') != '' ) {
+            $pago->banco = $request->input('banco');
+            $pago->referencia = $request->input('referencia');
+        }
 
     	if($pago->save()){
             //Registro en la bitacora

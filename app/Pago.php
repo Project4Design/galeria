@@ -10,7 +10,7 @@ class Pago extends Model
 
   protected $fillable = [
     'inscripcion_id',
-    'metodo',
+    'tipo',
     'fecha',
     'banco',
     'referencia',
@@ -18,6 +18,6 @@ class Pago extends Model
   ];
 
   public function inscripcion(){
-  	return $this->belongsTo('App\inscripcion');
+  	return $this->belongsTo('App\Inscripcion','inscripcion_id');
   }
 }

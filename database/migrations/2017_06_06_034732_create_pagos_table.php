@@ -19,6 +19,8 @@ class CreatePagosTable extends Migration
           $table->integer('inscripcion_id')->unsigned();
           $table->foreign('inscripcion_id')->references('inscripcion_id')->on('inscripciones')->onDelete('cascade');
           $table->string('tipo');
+          $table->string('banco')->nullable();
+          $table->string('referencia')->nullable();
           $table->decimal('monto',11,2)->unsigned();
           $table->string('fecha',10)->comment('Fecha en que se realizo el pago');
           $table->softDeletes();
