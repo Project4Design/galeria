@@ -4,7 +4,9 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Input;
+use Illuminate\Support\Facades\Auth;
 use App\Curso;
+use App\Bitacora;
 use App\Profesores;
 
 class CursosController extends Controller
@@ -65,6 +67,13 @@ class CursosController extends Controller
       }
 
       if($curso->save()){
+        //Registro en la bitacora
+                $bitacora = New Bitacora;
+                $bitacora->usuario = Auth::user()->email;
+                $bitacora->modulo = 'Cursos';
+                $bitacora->accion = 'Registro de curso '.$curso->titulo;
+                $bitacora->save();
+                // fin bitacora
           return redirect("admin/cursos")->with([
               'flash_message' => 'Curso agregado correctamente.',
               'flash_class' => 'alert-success'
@@ -132,6 +141,13 @@ class CursosController extends Controller
       }
 
     	if($curso->save()){
+            //Registro en la bitacora
+                $bitacora = New Bitacora;
+                $bitacora->usuario = Auth::user()->email;
+                $bitacora->modulo = 'Cursos';
+                $bitacora->accion = 'Se modifico el curso '.$curso->titulo;
+                $bitacora->save();
+                // fin bitacora
         return redirect("admin/cursos")->with([
             'flash_message' => 'Curso editado correctamente.',
             'flash_class' => 'alert-success'
@@ -153,8 +169,15 @@ class CursosController extends Controller
      */
     public function destroy($id)
     {
-        $curso = new Curso;
-            if ($curso->destroy($id)) {
+        $curso = Curso::findOrFail($id);
+        //Registro en la bitacora
+                $bitacora = New Bitacora;
+                $bitacora->usuario = Auth::user()->email;
+                $bitacora->modulo = 'Cursos';
+                $bitacora->accion = 'Se elimino el curso '.$curso->titulo;
+                $bitacora->save();
+                // fin bitacora
+            if ($curso->selete()) {
                 return redirect("admin/cursos")->with([
                     'flash_message' => 'Cuadro se ha eliminado correctamente.',
                     'flash_class' => 'alert-success'

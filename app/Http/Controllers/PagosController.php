@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Pago;
+use App\Bitacora;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
 
 class PagosController extends Controller
@@ -52,6 +54,13 @@ class PagosController extends Controller
     	$pago->fill($request->all());
 
     	if($representante->save()){
+            //Registro en la bitacora
+                $bitacora = New Bitacora;
+                $bitacora->usuario = Auth::user()->email;
+                $bitacora->modulo = 'Pagos';
+                $bitacora->accion = 'Registro de pago monto '.$pago->monto;
+                $bitacora->save();
+                // fin bitacora
         return redirect("admin/pagos")->with([
             'flash_message' => 'Pago agregado correctamente.',
             'flash_class' => 'alert-success'
@@ -105,6 +114,13 @@ class PagosController extends Controller
     	$pago->fill($request->all());
 
     	if($pago->save()){
+            //Registro en la bitacora
+                $bitacora = New Bitacora;
+                $bitacora->usuario = Auth::user()->email;
+                $bitacora->modulo = 'Pagos';
+                $bitacora->accion = 'Se edito un pago de monto '.$pago->monto.' tipo: '.$pago->tipo;
+                $bitacora->save();
+                // fin bitacora
         return redirect("admin/pagos")->with([
             'flash_message' => 'Pago editado correctamente.',
             'flash_class' => 'alert-success'
