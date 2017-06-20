@@ -19,7 +19,7 @@
 			<div class="col-md-12">
         <h2 class="page-header" style="margin-top:0!important">
           <i class="fa fa-user" aria-hidden="true"></i>
-          {{$perfil->detalles->nombres}}
+          {{$perfil->detalles->nombres." ".$perfil->detalles->apellidos}}
         </h2>
 
 			  <form action="{{route('update_perfil')}}" method="POST" id="editar">
@@ -57,6 +57,7 @@
 					    </label>
 				    </div>
 				  </div>
+				  
 				  <section id="pass" style="display:none">
 					  <div class="form-group col-md-4 col-md-offset-4">
 					  	<label>Contraseña nueva</label>
@@ -64,7 +65,7 @@
 					  </div>
 					  <div class=" form-group col-md-4 col-md-offset-4">
 					  	<label>Verificar</label>
-					  	<input type="password" class="form-control" name="password_verify" id="pass_rep">
+					  	<input type="password" class="form-control" name="password_confirmation" id="pass_rep">
 
 						 	<div class="alert alert-danger" style="display:none;" id="message">
 					      <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>

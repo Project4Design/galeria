@@ -49,5 +49,7 @@ Route::group(['middleware' => 'auth','prefix' => 'admin'],function(){
 	Route::resource('/periodos','PeriodosController');
 	//Inscripciones
 	Route::resource('/inscripciones','InscripcionesController');
+	//Bitacora
+	Route::get('/bitacora','BitacoraController@index')->name('bitacora.index');
 
 });

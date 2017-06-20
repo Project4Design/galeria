@@ -76,7 +76,7 @@
 										<tr>
 											<td>{{$i}}</td>
 											<td>{{$d->periodo->periodo}}</td>
-											<td>{{$d->estudiante->user->detalles->cedula}}</td>
+											<td>{{number_format($d->estudiante->user->detalles->cedula,0,",",".")}}</td>
 											<td>{{$d->estudiante->user->detalles->nombres}}</td>
 											<td>{{$d->estudiante->user->detalles->apellidos}}</td>
 											<td>{{$d->estudiante->user->email}}</td>

@@ -17,9 +17,7 @@ class UsersController extends Controller
      */
     public function index()
     {
-        //
     	$users = User::all();
-
     	return view('users/index',['users'=>$users]);
     }
 
@@ -204,7 +202,7 @@ class UsersController extends Controller
       $this->validate($request, [
         'nombres' => 'required',
         'apellidos' => 'required',
-        'email' =>'required|email|unique:users,email,'.$user->email.',email',
+        'email' =>'required|email|unique:users,email,'.$user->id.',id',
         'cedula' => 'required|numeric|unique:detalles,cedula,'.$user->detalle_id.',detalle_id',
         'tlf_personal' => 'required|numeric'
         ]);
@@ -213,13 +211,12 @@ class UsersController extends Controller
           'password' => 'required|min:6|max:15|confirmed',
           'password_confirmation' => 'required|min:6|max:15|same:password'
     		]);
-
-    		$user->password = bcrypt($request->input('password'));
       }
 
       $det = Detalles::find($user->detalle_id);
       $det->fill($request->all());
     	$user->fill($request->all());
+  		$user->password = bcrypt($request->input('password'));
 
     	if($det->save() && $user->save()){
         return redirect("admin/perfil")->with([
@@ -233,7 +230,5 @@ class UsersController extends Controller
             'flash_important' => true
           ]);
     	}
-
-
     }
 }
