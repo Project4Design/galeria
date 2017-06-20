@@ -30,6 +30,7 @@ Route::group(['middleware' => 'auth','prefix' => 'admin'],function(){
 	Route::get('dashboard', 'LoginController@index')->name('admin_index');
 	//Usuarios
 	Route::get('perfil','UsersController@perfil')->name('perfil');
+	Route::patch('perfil','UsersController@update_perfil')->name('update_perfil');
 	Route::resource('/users','UsersController');
 	//Pagos
 	Route::resource('/pagos','PagosController');
@@ -48,5 +49,7 @@ Route::group(['middleware' => 'auth','prefix' => 'admin'],function(){
 	Route::resource('/periodos','PeriodosController');
 	//Inscripciones
 	Route::resource('/inscripciones','InscripcionesController');
+	//Bitacora
+	Route::get('/bitacora','BitacoraController@index')->name('bitacora.index');
 
 });

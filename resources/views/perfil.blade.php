@@ -1,11 +1,11 @@
 @extends('layouts.app')
 
-@section('title','Proflie - '.config('app.name'))
-@section('header','Profile')
+@section('title','Perfil - '.config('app.name'))
+@section('header','Perfil')
 @section('breadcrumb')
 	<ol class="breadcrumb">
-	  <li><a href="{{ route('admin_index') }}"><i class="fa fa-dashboard" aria-hidden="true"></i> Dashboard</a></li>
-	  <li class="active"> Profile </li>
+	  <li><a href="{{ route('admin_index') }}"><i class="fa fa-dashboard" aria-hidden="true"></i> Escritorio</a></li>
+	  <li class="active"> Perfil </li>
 	</ol>
 @endsection
 @section('content')
@@ -17,25 +17,38 @@
 	<section class="perfil">
 		<div class="row">
 			<div class="col-md-12">
-	          <h2 class="page-header" style="margin-top:0!important">
-	            <i class="fa fa-user" aria-hidden="true"></i>
-	            {{$perfil->detalles->nombres}}
-	          </h2>
-			  <form action="{{url('perfil/'.$perfil->id.'/edit')}}" method="POST" id="editar">
-					  {{csrf_field()}}
-					  {{method_field('PUT')}}
+        <h2 class="page-header" style="margin-top:0!important">
+          <i class="fa fa-user" aria-hidden="true"></i>
+          {{$perfil->detalles->nombres." ".$perfil->detalles->apellidos}}
+        </h2>
+
+			  <form action="{{route('update_perfil')}}" method="POST" id="editar">
+				  {{method_field('PATCH')}}
+				  {{csrf_field()}}
 					@include('partials.flash')
 				  <div class="form-group col-md-4 col-md-offset-4">
-						 <div class="alert alert-danger" style="display:none;" id="message">
-						      <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
-						      <strong class="text-center">Passwords must be the same</strong> 
-  				    d</div>
-				    <label for="name">Name</label>
-				    <input type="text" class="form-control" name="name"  value="{{$perfil->detalles->nombres}}" required>
+				    <label for="nombres">Nombres: *</label>
+				    <input type="text" class="form-control" name="nombres"  value="{{$perfil->detalles->nombres}}" required>
 				  </div>
 				  <div class="form-group col-md-4 col-md-offset-4">
-				    <label for="email">Email</label>
-				    <input type="email" class="form-control" name="email" value="{{$perfil->email}}" required >
+				    <label for="apellidos">Apellidos: *</label>
+				    <input type="text" class="form-control" name="apellidos" value="{{$perfil->detalles->apellidos}}" required>
+				  </div>
+				  <div class="form-group col-md-4 col-md-offset-4">
+				    <label for="cedula">Cedula: *</label>
+				    <input type="text" class="form-control" name="cedula" value="{{$perfil->detalles->cedula}}" required>
+				  </div>
+				  <div class="form-group col-md-4 col-md-offset-4">
+				    <label for="email">Email: *</label>
+				    <input type="email" class="form-control" name="email" value="{{$perfil->email}}" required>
+				  </div>
+				  <div class="form-group col-md-4 col-md-offset-4">
+				    <label for="tlf_personal">Telefono personal: *</label>
+				    <input type="tlf_personal" class="form-control" name="tlf_personal" value="{{$perfil->detalles->tlf_personal}}" required>
+				  </div>
+				  <div class="form-group col-md-4 col-md-offset-4">
+				    <label for="tlf_local">Telefono local: </label>
+				    <input type="tlf_local" class="form-control" name="tlf_local" value="{{$perfil->detalles->tlf_local}}" required>
 				  </div>
 				  <div class="col-md-4 col-md-offset-4">
 				  	<div class="checkbox">
@@ -44,16 +57,36 @@
 					    </label>
 				    </div>
 				  </div>
+				  
 				  <section id="pass" style="display:none">
-					  <div class="form-group col-md-4 col-md-offset-5">
-					  	<label>Password new</label>
-					  	<input type="password" class="form-control" name="password_new" id="pass_new">
+					  <div class="form-group col-md-4 col-md-offset-4">
+					  	<label>Contraseña nueva</label>
+					  	<input type="password" class="form-control" name="password" id="pass_new">
 					  </div>
-					  <div class=" form-group col-md-4 col-md-offset-5">
-					  	<label>Password repeat</label>
-					  	<input type="password" class="form-control" name="password_rep" id="pass_rep">
+					  <div class=" form-group col-md-4 col-md-offset-4">
+					  	<label>Verificar</label>
+					  	<input type="password" class="form-control" name="password_confirmation" id="pass_rep">
+
+						 	<div class="alert alert-danger" style="display:none;" id="message">
+					      <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+					      <strong class="text-center">Las contraseñas deben ser iguales</strong> 
+  				    </div>
 					  </div>
 				  </section>
+
+					@if (count($errors) > 0)
+					<div class="col-md-12">
+					<div class="col-md-4 col-md-offset-4">
+          <div class="alert alert-danger">
+	          <ul>
+	            @foreach($errors->all() as $error)
+	               <li>{{$error}}</li>
+	             @endforeach
+	           </ul>  
+          </div>
+          </div>
+          </div>
+        	@endif
 
 				  <div class="col-md-4 col-md-offset-4">
 				     <button type="submit" id="send" class="btn btn-flat btn-success">Actualizar</button>
@@ -71,11 +104,10 @@
  			$("#pp").click(function(event) {
 	 		var bool = this.checked;
 	 		if(bool === true){
-	 			$("#pass").show('slow/400/fast');
+	 			$("#pass").show('fast');
 	 			$("#pass_new,pass_rep").prop('required',true);
 	 		}else{
-
-	 			$("#pass").hide('slow/400/fast');
+	 			$("#pass").hide('fast');
 	 			$("#pass_new,pass_rep").prop('required',false).val('');
 	 		}
 	 	});

@@ -52,7 +52,7 @@
 							@foreach($profesores as $d)
 								<tr>
 									<td>{{$i}}</td>
-									<td>{{$d->user->detalles->cedula}}</td>
+									<td>{{number_format($d->user->detalles->cedula,0,",",".")}}</td>
 									<td>{{$d->user->detalles->nombres}}</td>
 									<td>{{$d->user->detalles->apellidos}}</td>
 									<td>{{$d->user->email}}</td>

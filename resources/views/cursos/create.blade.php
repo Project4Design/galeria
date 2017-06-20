@@ -63,14 +63,15 @@
 						</select>
 					</div>
 
-		
-
-					@if(count($errors)>0)
-						<div class="alert alert-danger">
-			        <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
-			        <strong class="text-center">Debe completar todos los campos requireridos</strong> 
-			    	</div>
-					@endif
+					@if (count($errors) > 0)
+          <div class="alert alert-danger">
+	          <ul>
+	            @foreach($errors->all() as $error)
+	               <li>{{$error}}</li>
+	             @endforeach
+	           </ul>  
+          </div>
+        	@endif
 
 					<div class="form-group text-right">
 						<a class="btn btn-flat btn-default" href="{{route('cursos.index')}}"><i class="fa fa-reply"></i> Atras</a>

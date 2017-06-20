@@ -22,21 +22,15 @@
 						<input id="periodo" class="form-control" type="text" name="periodo" value="{{ old('periodo')?old('periodo'):$periodo->periodo }}" placeholder="Periodo">
 					</div>
 
-					<div class="form-group {{ $errors->has('status')?'has-error':'' }}">
-						<label class="control-label" for="status">Status:</label>
-						<select id="status" class="form-control" type="text" name="status">
-							<option value="">Seleccione...</option>
-							<option value="1" @if(old('status')) {{old('status')}} @else {{$periodo->status === 1?'selected':''}} @endif>Abierto</option>
-							<option value="0" @if(old('status')) {{old('status')}} @else {{$periodo->status === 0?'selected':''}} @endif>Cerrado</option>
-						</select>
-					</div>
-
-					@if(count($errors)>0)
-						<div class="alert alert-danger">
-			        <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
-			        <strong class="text-center">Debe completar todos los campos requireridos</strong> 
-			    	</div>
-					@endif
+					@if (count($errors) > 0)
+          <div class="alert alert-danger">
+	          <ul>
+	            @foreach($errors->all() as $error)
+	               <li>{{$error}}</li>
+	             @endforeach
+	           </ul>  
+          </div>
+        	@endif
 
 					<div class="form-group text-right">
 						<a class="btn btn-flat btn-default" href="{{route('periodos.index')}}"><i class="fa fa-reply"></i> Atras</a>

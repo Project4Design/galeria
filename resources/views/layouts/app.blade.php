@@ -65,7 +65,7 @@
           <!-- logo for regular state and mobile devices -->
           <span class="logo-lg">
             <b style="font-size: 18px">
-              <!--<img src="{{ asset('img/logo.png') }}" alt="logo" height="25px">-->&nbsp;{{ config('app.name') }}
+              <img src="{{ asset('img/logo.png') }}" alt="logo" height="25px">&nbsp;{{ config('app.name') }}
             </b>
           </span>
         </a>
@@ -89,10 +89,9 @@
                 </a>
                 <ul class="dropdown-menu">
                   <!-- User image -->
-                  <li class="user-header">
-                    <h4>{{ Auth::user()->email }}</h4>
-                    <h4>Administrator</h4>
-                    
+                  <li class="user-header" style="s">
+                    <p>{{ Auth::user()->email }}</p>
+                    <p>{{Auth::user()->nivel()}}</p>
                   </li>
                   
                   <!-- Menu Footer-->
@@ -233,6 +232,7 @@
               </a>
               <ul class="treeview-menu">
                 <li><a href="{{ route('periodos.index') }}"><i class="fa fa-circle-o"></i>Periodos</a></li>
+                <li><a href="{{ route('bitacora.index') }}"><i class="fa fa-circle-o"></i>Bitacora</a></li>
               </ul>
             </li>
 

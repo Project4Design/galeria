@@ -32,7 +32,7 @@
 
               <ul class="list-group list-group-unbordered">
                 <li class="list-group-item">
-                  <b>Cedula</b> <span class="pull-right">{{ $estudiante->user->detalles->cedula }}</span>
+                  <b>Cedula</b> <span class="pull-right">{{ number_format($estudiante->user->detalles->cedula,0,",",".") }}</span>
                 </li>
                 <li class="list-group-item">
                   <b>Email</b> <span class="pull-right">{{ $estudiante->user->email }}</span>
@@ -67,7 +67,7 @@
 
               <ul class="list-group list-group-unbordered">
                 <li class="list-group-item">
-                  <b>Cedula</b> <span class="pull-right">{{ number_format($estudiante->representante->user->detalles->cedula,2,",",".") }}</span>
+                  <b>Cedula</b> <span class="pull-right">{{ number_format($estudiante->representante->user->detalles->cedula,0,",",".") }}</span>
                 </li>
                 <li class="list-group-item">
                   <b>Email</b> <span class="pull-right">{{ $estudiante->representante->user->email }}</span>
@@ -99,6 +99,7 @@
 								<thead>
 									<tr>
 										<th class="text-center">#</th>
+										<th class="text-center">Periodo</th>
 										<th class="text-center">Titulo</th>
 										<th class="text-center">Precio</th>
 										<th class="text-center">Profesor</th>
@@ -110,6 +111,7 @@
 									@foreach($cursos as $d)	
 										<tr>
 											<td>{{$i}}</td>
+											<td>{{$d->periodo->periodo}}</td>
 											<td>{{$d->curso->titulo}}</td>
 											<td class="text-right">{{number_format($d->curso->precio,2,",",".")}}</td>
 											<td>{{$d->curso->profesor->user->detalles->nombres." ".$d->curso->profesor->user->detalles->apellidos}}</td>

@@ -39,7 +39,7 @@
 				</div>
 
         <div class="col-md-4 col-md-offset-1">
-          <h4>Profesor - <a href="{{url('admin/profesores/'.$curso->profesor->id)}}">Ver perfil</a></h4>
+          <h4>Profesor <small><a href="{{url('admin/profesores/'.$curso->profesor->id)}}">(Ver perfil)</a></small></h4>
           <p><b>Nombre y Apellido:</b> {{$curso->profesor->user->detalles->nombres.' '.$curso->profesor->user->detalles->apellidos}}</p>
           <p><b>Profesion: </b> {{$curso->profesor->profesion}}</p>
           <p><b>Foto: </b> <img style="max-height: 150px" class="img-responsive" src="{{ asset('/images/profesores/'.$curso->profesor->user->detalles->foto) }}"></p>
@@ -61,6 +61,7 @@
 								<thead>
 									<tr>
 										<th class="text-center">#</th>
+										<th class="text-center">Periodo</th>
 										<th class="text-center">Cedula</th>
 										<th class="text-center">Nombres</th>
 										<th class="text-center">Apellidos</th>
@@ -74,7 +75,8 @@
 									@foreach($estudiantes as $d)
 										<tr>
 											<td>{{$i}}</td>
-											<td>{{$d->estudiante->user->detalles->cedula}}</td>
+											<td>{{$d->periodo->periodo}}</td>
+											<td>{{number_format($d->estudiante->user->detalles->cedula,0,",",".")}}</td>
 											<td>{{$d->estudiante->user->detalles->nombres}}</td>
 											<td>{{$d->estudiante->user->detalles->apellidos}}</td>
 											<td>{{$d->estudiante->user->email}}</td>

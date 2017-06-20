@@ -13,7 +13,9 @@
 		<section>
 	    <a class="btn btn-flat btn-default" href="{{ route('profesores.index') }}"><i class="fa fa-reply" aria-hidden="true"></i> Volver</a>
 	    <a class="btn btn-flat btn-success" href="{{ url('admin/profesores/'.$profesor->id.'/edit') }}"><i class="fa fa-pencil" aria-hidden="true"></i> Editar</a>
+	    <!--
 	    <button class="btn btn-flat btn-danger" data-toggle="modal" data-target="#delModal"><i class="fa fa-times" aria-hidden="true"></i> Eliminar</button>
+	    -->
 		</section>
 
 		<section>
@@ -65,7 +67,7 @@
 									<tr>
 										<th class="text-center">#</th>
 										<th class="text-center">Titulo</th>
-										<th class="text-center">Precio</th>
+										<th class="text-center">Inscritos</th>
 										<th class="text-center">Accion</th>
 									</tr>
 								</thead>
@@ -75,7 +77,7 @@
 										<tr>
 											<td>{{$i}}</td>
 											<td>{{$d->titulo}}</td>
-											<td>{{$d->created_at}}</td>
+											<td>{{$d->inscritos()}}</td>
 											<td>
 												<a class="btn btn-primary btn-flat btn-sm" href="{{ url('admin/cursos/'.$d->curso_id) }}"><i class="fa fa-search"></i></a>
 											</td>

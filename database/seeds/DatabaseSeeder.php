@@ -166,6 +166,11 @@ class DatabaseSeeder extends Seeder
           'status' => 1
         ]);
 
+        App\Periodo::create([
+          'periodo' => '2017-2',
+          'status' => 1
+        ]);
+
         App\Inscripcion::create([
         	'periodo_id' => 1,
         	'curso_id' => 1,

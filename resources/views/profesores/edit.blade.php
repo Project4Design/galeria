@@ -74,12 +74,15 @@
 						<textarea id="descripcion_perfil" class="form-control" type="text" name="descripcion_perfil"  placeholder="Descripcion del perfil">{{ old('descripcion_perfil')?old('descripcion_perfil'):$profesor->descripcion_perfil }}</textarea>
 					</div>
 
-					@if(count($errors)>0)
-						<div class="alert alert-danger">
-			        <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
-			        <strong class="text-center">Debe completar todos los campos requireridos</strong> 
-			    	</div>
-					@endif
+					@if (count($errors) > 0)
+          <div class="alert alert-danger">
+	          <ul>
+	            @foreach($errors->all() as $error)
+	               <li>{{$error}}</li>
+	             @endforeach
+	           </ul>  
+          </div>
+        	@endif
 
 					<div class="form-group text-right">
 						<a class="btn btn-flat btn-default" href="{{route('profesores.index')}}"><i class="fa fa-reply"></i> Atras</a>
