@@ -56,16 +56,15 @@
 						<input id="password_confirmation" class="form-control" type="password" name="password_confirmation" value="{{ old('password_confirmation')?old('password_confirmation'):'' }}">
 					</div>
 
-
 					@if (count($errors) > 0)
-          <div class="alert alert-danger">
-          <ul>
-            @foreach($errors->all() as $error)
-               <li>{{$error}}</li>
-             @endforeach
-           </ul>  
-          </div>
-        @endif
+	          <div class="alert alert-danger">
+	          <ul>
+	            @foreach($errors->all() as $error)
+	               <li>{{$error}}</li>
+	             @endforeach
+	           </ul>  
+	          </div>
+	        @endif
 
 					<div class="form-group text-right">
 						<a class="btn btn-flat btn-default" href="{{url('admin/users')}}"><i class="fa fa-reply"></i> Atras</a>

@@ -12,8 +12,12 @@
 <!-- Formulario -->
 		<section>
 	    <a class="btn btn-flat btn-default" href="{{ route('periodos.index') }}"><i class="fa fa-reply" aria-hidden="true"></i> Volver</a>
+	    @if($periodo->status===1)
 	    <a class="btn btn-flat btn-success" href="{{ url('admin/periodos/'.$periodo->periodo_id.'/edit') }}"><i class="fa fa-pencil" aria-hidden="true"></i> Editar</a>
+	    @endif
+	    @if(count($periodo->estudiantesPeriodo()) === 0)
 	    <button class="btn btn-flat btn-danger" data-toggle="modal" data-target="#delModal"><i class="fa fa-times" aria-hidden="true"></i> Eliminar</button>
+	    @endif
       @if($periodo->status===1)
       <button class="btn btn-flat btn-primary" data-toggle="modal" data-target="#periodoModal"><i class="fa fa-sign-out" aria-hidden="true"></i> Cerrar periodo</button>
       @endif

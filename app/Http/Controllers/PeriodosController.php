@@ -40,8 +40,7 @@ class PeriodosController extends Controller
     public function store(Request $request)
     {
       $this->validate($request,[
-        'periodo' => 'required',
-        'status' => 'required'
+        'periodo' => 'required|unique:periodos'
       ]);
 
       $periodo = new Periodo;
@@ -54,10 +53,6 @@ class PeriodosController extends Controller
               ]);
       }else{
           return view("admin/periodos")->with([
-              'title' => 'Agregar',
-              'periodo' => $periodo,
-              'url'=> 'admin/periodos',
-              'method' => 'POST',
               'flash_message' => 'Ha ocurrido un error.',
               'flash_class' => 'alert-danger',
               'flash_important' => true
@@ -101,8 +96,7 @@ class PeriodosController extends Controller
     public function update(Request $request, $periodo)
     {
       $this->validate($request,[
-        'periodo' => 'required',
-        'status' => 'required'
+        'periodo' => 'required'
       ]);
       
         $periodo = Periodo::findOrFail($periodo);
@@ -132,17 +126,25 @@ class PeriodosController extends Controller
     {
         $periodo = Periodo::findOrFail($id);
 
-        if($periodo->destroy($id)){
+
+        if(count($periodo->estudiantesPeriodo()) === 0){
+	        if($periodo->destroy($id)){
+	            return redirect("admin/periodos")->with([
+	               'flash_message' => 'El periodo se ha eliminado correctamente.',
+	               'flash_class' => 'alert-success'
+	            ]);
+	        }else{
+	            return redirect("admin/periodos")->with([
+	                'flash_message' => '¡Ha ocurrido un error!',
+	                'flash_class' => 'alert-danger'
+	            ]);
+	        }
+	      }else{
             return redirect("admin/periodos")->with([
-               'flash_message' => 'El periodo se ha eliminado correctamente.',
-               'flash_class' => 'alert-success'
-            ]);
-        }else{
-            return redirect("admin/periodos/{$id}")->with([
-                'flash_message' => '¡Ha ocurrido un error!',
+                'flash_message' => '¡No se puede eliminar. Este periodo esta en uso!',
                 'flash_class' => 'alert-danger'
             ]);
-        }
+	      }
     }
 
     public function cerrar($id)

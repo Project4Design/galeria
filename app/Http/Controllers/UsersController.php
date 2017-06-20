@@ -120,7 +120,7 @@ class UsersController extends Controller
       $this->validate($request, [
         'nombres' => 'required',
         'apellidos' => 'required',
-        'email' =>'required|email|unique:users',
+        'email' =>'required|email|unique:users,email,'.$user->email.',email',
         'cedula' => 'required|numeric|unique:detalles,cedula,'.$user->detalle_id.',detalle_id',
         'tlf_personal' => 'required|numeric',
         'tlf_local' => 'numeric'
@@ -169,5 +169,45 @@ class UsersController extends Controller
     public function perfil(){
     	$perfil = User::findOrFail(Auth::user()->id);
     	return view('perfil',['perfil'=>$perfil]);
+    }
+
+    public function update_perfil(Request $request)
+    {
+    	$user = User::find(Auth::user()->id);
+
+      $this->validate($request, [
+        'nombres' => 'required',
+        'apellidos' => 'required',
+        'email' =>'required|email|unique:users,email,'.$user->email.',email',
+        'cedula' => 'required|numeric|unique:detalles,cedula,'.$user->detalle_id.',detalle_id',
+        'tlf_personal' => 'required|numeric'
+        ]);
+      if($request->input('checkbox') === "Yes"){
+      	$this->validate($request,[
+          'password' => 'required|min:6|max:15|confirmed',
+          'password_confirmation' => 'required|min:6|max:15|same:password'
+    		]);
+
+    		$user->password = bcrypt($request->input('password'));
+      }
+
+      $det = Detalles::find($user->detalle_id);
+      $det->fill($request->all());
+    	$user->fill($request->all());
+
+    	if($det->save() && $user->save()){
+        return redirect("admin/perfil")->with([
+            'flash_message' => 'Cambios guardados correctamente.',
+            'flash_class' => 'alert-success'
+            ]);
+    	}else{
+        return redirect("admin/perfil")->with([
+            'flash_message' => 'Ha ocurrido un error.',
+            'flash_class' => 'alert-danger',
+            'flash_important' => true
+          ]);
+    	}
+
+
     }
 }
