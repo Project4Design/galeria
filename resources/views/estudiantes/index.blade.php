@@ -30,6 +30,8 @@
 	      <div class="box-header with-border">
 	        <h3 class="box-title"><i class="fa fa-address-book-o"></i> Estudiantes</h3>
 	        <span class="pull-right">
+	        			<a href="{{ route('pdf.estudiantes') }}" class="btn btn-flat btn-danger"><i class="fa fa-print" aria-hidden="true"></i > Imprimir</a>
+	        				&nbsp;&nbsp;
 						<a href="{{ route('estudiantes.create') }}" class="btn btn-flat btn-success"><i class="fa fa-plus" aria-hidden="true"></i> Nuevo estudiantes</a>
 					</span>
 	      </div>

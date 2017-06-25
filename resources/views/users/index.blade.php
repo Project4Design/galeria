@@ -30,6 +30,8 @@
 	      <div class="box-header with-border">
 	        <h3 class="box-title"><i class="fa fa-users"></i> Usuarios</h3>
 	        <span class="pull-right">
+	        			<a href="{{ route('pdf.usuarios') }}" class="btn btn-flat btn-danger"><i class="fa fa-print" aria-hidden="true"></i> Imprimir</a>
+	        				&nbsp;&nbsp;
 						<a href="{{ route('users.create') }}" class="btn btn-flat btn-success"><i class="fa fa-plus" aria-hidden="true"></i> Nuevo usuario</a>
 					</span>
 	      </div>
