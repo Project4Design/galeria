@@ -2,7 +2,7 @@
 <html lang="en">
   <head>
     <meta charset="utf-8">
-    <title>Usuarios</title>
+    <title>Estudiantes</title>
     <link rel="stylesheet" href="css/pdf.css" media="all" />
   </head>
   <body>
@@ -10,30 +10,30 @@
       <div id="logo">
         <img src="IMG/logo.png">
       </div>
-      <h1>LISTADO DE USUARIOS</h1>
+      <h1>LISTADO DE ESTUDIANTES</h1>
     </header>
     <main>
       <table border="1">
         <thead>
           <tr>
-            <th>#</th>
-            <th>NOMBRE</th>
-            <th>APELLIDO</th>
-            <th>EMAIL</th>
-            <th>TELEFONO</th>
-            <th>TIPO</th>
-          </tr>
+                <th>#</th>
+                <th>Cedula</th>
+                <th>Nombres</th>
+                <th>Apellidos</th>
+                <th>Email</th>
+                <th>Telefono personal</th>
+              </tr>
         </thead>
         <tbody>
         @php $i=1; @endphp
-              @foreach($users as $d)
+              @foreach($estudiantes as $d)
                 <tr>
                   <td>{{$i}}</td>
-                  <td>{{$d->detalles->nombres}}</td>
-                  <td>{{$d->detalles->apellidos}}</td>
-                  <td>{{$d->email}}</td>
-                  <td>{{$d->detalles->tlf_personal}}</td>
-                  <td>{{$d->nivel()}}</td>
+                  <td>{{number_format($d->user->detalles->cedula,0,",",".")}}</td>
+                  <td>{{$d->user->detalles->nombres}}</td>
+                  <td>{{$d->user->detalles->apellidos}}</td>
+                  <td>{{$d->user->email}}</td>
+                  <td>{{$d->user->detalles->tlf_personal}}</td>
                 </tr>
                 @php $i++; @endphp
               @endforeach
