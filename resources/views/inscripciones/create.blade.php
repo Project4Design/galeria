@@ -58,7 +58,7 @@
         	@endif
 
 					<div class="form-group text-right">
-						<a class="btn btn-flat btn-default" href="{{route('cursos.index')}}"><i class="fa fa-reply"></i> Atras</a>
+						<a class="btn btn-flat btn-default" href="{{route('inscripciones.index')}}"><i class="fa fa-reply"></i> Volver</a>
 						<button class="btn btn-flat btn-primary" type="submit"><i class="fa fa-send"></i> Guardar</button>
 					</div>
 				</form>

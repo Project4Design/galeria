@@ -74,7 +74,7 @@
 										<tr>
 											<td>{{$i}}</td>
 											<td>{{$d->curso->titulo}}</td>
-											<td>{{$d->curso->inscritos()}}</td>
+											<td>{{$d->curso->inscritos().'/'.$d->curso->limit}}</td>
 											<td>
 												<a class="btn btn-primary btn-flat btn-sm" href="{{ url('admin/cursos/'.$d->curso->curso_id) }}"><i class="fa fa-search"></i></a>
 											</td>

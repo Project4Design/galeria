@@ -11,6 +11,7 @@
 	<section class="content">
 		<!-- Info boxes -->
     <div class="row">
+    <!--
       <div class="col-md-2 col-md-offset-1 col-sm-6 col-xs-12">
         <div class="small-box bg-red">
           <div class="inner">
@@ -87,6 +88,7 @@
           </a>
         </div>
       </div>
+      -->
     </div><!--row-->
   @include('partials.flash')
 	  <div class="row">

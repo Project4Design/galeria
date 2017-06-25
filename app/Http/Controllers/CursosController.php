@@ -20,7 +20,6 @@ class CursosController extends Controller
     {
         //
     	$cursos = Curso::all();
-
     	return view('cursos.index',['cursos'=>$cursos]);
     }
 
@@ -68,17 +67,17 @@ class CursosController extends Controller
 
       if($curso->save()){
         //Registro en la bitacora
-                $bitacora = New Bitacora;
-                $bitacora->usuario = Auth::user()->email;
-                $bitacora->modulo = 'Cursos';
-                $bitacora->accion = 'Registro de curso '.$curso->titulo;
-                $bitacora->save();
-                // fin bitacora
-          return redirect("admin/cursos")->with([
-              'flash_message' => 'Curso agregado correctamente.',
-              'flash_class' => 'alert-success'
-              ]);
-      }else{
+        $bitacora = New Bitacora;
+        $bitacora->usuario = Auth::user()->email;
+        $bitacora->modulo = 'Cursos';
+        $bitacora->accion = 'Registro de curso '.$curso->titulo;
+        $bitacora->save();
+        // fin bitacora
+	      return redirect("admin/cursos")->with([
+	          'flash_message' => 'Curso agregado correctamente.',
+	          'flash_class' => 'alert-success'
+	          ]);
+	    }else{
           return view("admin/cursos")->with([
           		'title' => 'Agregar',
           		'curso' => $curso,
@@ -141,13 +140,13 @@ class CursosController extends Controller
       }
 
     	if($curso->save()){
-            //Registro en la bitacora
-                $bitacora = New Bitacora;
-                $bitacora->usuario = Auth::user()->email;
-                $bitacora->modulo = 'Cursos';
-                $bitacora->accion = 'Se modifico el curso '.$curso->titulo;
-                $bitacora->save();
-                // fin bitacora
+        //Registro en la bitacora
+        $bitacora = New Bitacora;
+        $bitacora->usuario = Auth::user()->email;
+        $bitacora->modulo = 'Cursos';
+        $bitacora->accion = 'Se modifico el curso '.$curso->titulo;
+        $bitacora->save();
+        // fin bitacora
         return redirect("admin/cursos")->with([
             'flash_message' => 'Curso editado correctamente.',
             'flash_class' => 'alert-success'
@@ -170,24 +169,25 @@ class CursosController extends Controller
     public function destroy($id)
     {
         $curso = Curso::findOrFail($id);
-        //Registro en la bitacora
-                $bitacora = New Bitacora;
-                $bitacora->usuario = Auth::user()->email;
-                $bitacora->modulo = 'Cursos';
-                $bitacora->accion = 'Se elimino el curso '.$curso->titulo;
-                $bitacora->save();
-                // fin bitacora
-            if ($curso->selete()) {
-                return redirect("admin/cursos")->with([
-                    'flash_message' => 'Cuadro se ha eliminado correctamente.',
-                    'flash_class' => 'alert-success'
-                    ]);
-            }else{
-                return redirect("admin/cursos")->with([
-                    'flash_message' => '¡Ha ocurrido un error!',
-                    'flash_class' => 'alert-danger'
-                    ]);
-            }
+        
+        if ($curso->selete()) {
+		        //Registro en la bitacora
+		        $bitacora = New Bitacora;
+		        $bitacora->usuario = Auth::user()->email;
+		        $bitacora->modulo = 'Cursos';
+		        $bitacora->accion = 'Se elimino el curso '.$curso->titulo;
+		        $bitacora->save();
+		        // fin bitacora
+            return redirect("admin/cursos")->with([
+                'flash_message' => 'Cuadro se ha eliminado correctamente.',
+                'flash_class' => 'alert-success'
+                ]);
+        }else{
+            return redirect("admin/cursos")->with([
+                'flash_message' => '¡Ha ocurrido un error!',
+                'flash_class' => 'alert-danger'
+                ]);
+        }
     }
 
 

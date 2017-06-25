@@ -47,6 +47,13 @@ class PeriodosController extends Controller
       $periodo->fill($request->all());
 
       if($periodo->save()){
+	        //Registro en la bitacora
+	        $bitacora = New Bitacora;
+	        $bitacora->usuario = Auth::user()->email;
+	        $bitacora->modulo  = 'Periodos';
+	        $bitacora->accion  = 'Se registro el periodo '.$request->input('periodo');
+	        $bitacora->save();
+	        // fin bitacora
           return redirect("admin/periodos")->with([
               'flash_message' => 'Periodo agregado correctamente.',
               'flash_class' => 'alert-success'
@@ -103,6 +110,14 @@ class PeriodosController extends Controller
         $periodo->fill($request->all());
 
         if($periodo->save()){
+	        //Registro en la bitacora
+	        $bitacora = New Bitacora;
+	        $bitacora->usuario = Auth::user()->email;
+	        $bitacora->modulo  = 'Periodos';
+	        $bitacora->accion  = 'Se modifico el periodo '.$periodo->periodo;
+	        $bitacora->save();
+	        // fin bitacora
+
           return redirect("admin/periodos")->with([
             'flash_message' => 'Periodo editado correctamente.',
             'flash_class' => 'alert-success'
@@ -128,7 +143,16 @@ class PeriodosController extends Controller
 
 
         if(count($periodo->estudiantesPeriodo()) === 0){
+        	$nombre = $periodo->periodo;
 	        if($periodo->destroy($id)){
+		        //Registro en la bitacora
+		        $bitacora = New Bitacora;
+		        $bitacora->usuario = Auth::user()->email;
+		        $bitacora->modulo  = 'Periodos';
+		        $bitacora->accion  = 'Se elimino el periodo '.$nombre;
+		        $bitacora->save();
+		        // fin bitacora
+
 	            return redirect("admin/periodos")->with([
 	               'flash_message' => 'El periodo se ha eliminado correctamente.',
 	               'flash_class' => 'alert-success'
@@ -153,6 +177,15 @@ class PeriodosController extends Controller
       $periodo->status = 0;
 
       if($periodo->save()){
+
+        //Registro en la bitacora
+        $bitacora = New Bitacora;
+        $bitacora->usuario = Auth::user()->email;
+        $bitacora->modulo  = 'Periodos';
+        $bitacora->accion  = 'Se cerro el periodo '.$periodo->periodo;
+        $bitacora->save();
+        // fin bitacora
+
         return redirect("admin/periodos")->with([
           'flash_message' => 'El periodo ha sido cerrado.',
           'flash_class' => 'alert-success'

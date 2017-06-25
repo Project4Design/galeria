@@ -85,7 +85,7 @@ class DatabaseSeeder extends Seeder
 
         App\User::create([
           'detalle_id' => 5,
-          'email' => $faker->email,
+          'email' => 'test@test.com',
           'password' => bcrypt('123456'),
           'nivel' => 4
         ]);
