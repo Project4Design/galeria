@@ -52,4 +52,7 @@ Route::group(['middleware' => 'auth','prefix' => 'admin'],function(){
 	//Bitacora
 	Route::get('/bitacora','BitacoraController@index')->name('bitacora.index');
 
+	/* ----  REPORTES PDF --------*/
+	Route::get('/rep_usuarios','ReportesController@usuarios')->name('pdf.usuarios');
+
 });
