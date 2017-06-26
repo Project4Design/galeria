@@ -132,12 +132,6 @@
               </a>
             </li>
 
-            <li>
-              <a href="{{route('inscripciones.index')}}">
-                <i class="fa fa-check-square-o" aria-hidden="true"></i> <span>Inscripciones</span>
-              </a>
-            </li>
-
             <li class="treeview">
               <a href="#">
                 <i class="fa fa-users"></i>
@@ -148,6 +142,12 @@
                 <li><a href="{{ url('admin/users') }}"><i class="fa fa-circle-o"></i>Ver usuarios</a></li>
                 <li><a href="{{ url('admin/users/create') }}"><i class="fa fa-circle-o"></i>Agregar usuario</a></li>
               </ul>
+            </li>
+
+            <li>
+              <a href="{{route('inscripciones.index')}}">
+                <i class="fa fa-check-square-o" aria-hidden="true"></i> <span>Inscripciones</span>
+              </a>
             </li>
 
              <li class="treeview">

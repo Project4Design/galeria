@@ -31,8 +31,9 @@ class PagosController extends Controller
     {
     	$pagos = new Pago;
 
-        $pagados = Pago::select('inscripcion_id')->pluck('inscripcion_id')->toArray();
-        $inscripciones = Inscripcion::all()->whereNotIn('inscripcion_id',$pagados);
+      $pagados = Pago::select('inscripcion_id')->pluck('inscripcion_id')->toArray();
+      $inscripciones = Inscripcion::all()->whereNotIn('inscripcion_id',$pagados);
+
       return view("pagos.create", ['inscripciones' => $inscripciones]);
     }
 
@@ -44,32 +45,36 @@ class PagosController extends Controller
      */
     public function store(Request $request)
     {
-
-        //dd($request->all());
-
       $this->validate($request, [
-          'inscripcion_id' => 'required',
+          'inscripcion' => 'required',
           'fecha' => 'required',
           'monto' => 'required|numeric',
-          'tipo' => 'required',
+          'tipo'  => 'required',
         ]);
 
     	$pago = new Pago;
+    	$pago->inscripcion_id = $request->inscripcion;
     	$pago->fill($request->all());
 
-        if ($request->input('banco') != '' && $request->input('referencia') != '' ) {
-            $pago->banco = $request->input('banco');
-            $pago->referencia = $request->input('referencia');
-        }
+      if ($request->input('banco') != '' && $request->input('referencia') != '' ){
+      	$this->validate($request,[
+      		'banco' => 'rqeuired',
+      		'referencia' => 'required|numeric'
+      		]);
+
+        $pago->banco = $request->input('banco');
+        $pago->referencia = $request->input('referencia');
+      }
 
     	if($pago->save()){
-            //Registro en la bitacora
-                $bitacora = New Bitacora;
-                $bitacora->usuario = Auth::user()->email;
-                $bitacora->modulo = 'Pagos';
-                $bitacora->accion = 'Registro de pago monto '.$pago->monto;
-                $bitacora->save();
-                // fin bitacora
+        //Registro en la bitacora
+        $bitacora = New Bitacora;
+        $bitacora->usuario = Auth::user()->email;
+        $bitacora->modulo = 'Pagos';
+        $bitacora->accion = 'Registro de pago monto '.$pago->monto;
+        $bitacora->save();
+        // fin bitacora
+
         return redirect("admin/pagos")->with([
             'flash_message' => 'Pago agregado correctamente.',
             'flash_class' => 'alert-success'
@@ -124,18 +129,18 @@ class PagosController extends Controller
     	$pago = Pago::findOrFail($id);
     	$pago->fill($request->all());
         if ($request->input('banco') != '' && $request->input('referencia') != '' ) {
-            $pago->banco = $request->input('banco');
-            $pago->referencia = $request->input('referencia');
+          $pago->banco = $request->input('banco');
+          $pago->referencia = $request->input('referencia');
         }
 
     	if($pago->save()){
-            //Registro en la bitacora
-                $bitacora = New Bitacora;
-                $bitacora->usuario = Auth::user()->email;
-                $bitacora->modulo = 'Pagos';
-                $bitacora->accion = 'Se edito un pago de monto '.$pago->monto.' tipo: '.$pago->tipo;
-                $bitacora->save();
-                // fin bitacora
+        //Registro en la bitacora
+        $bitacora = New Bitacora;
+        $bitacora->usuario = Auth::user()->email;
+        $bitacora->modulo = 'Pagos';
+        $bitacora->accion = 'Se edito un pago de monto '.$pago->monto.' tipo: '.$pago->tipo;
+        $bitacora->save();
+        // fin bitacora
         return redirect("admin/pagos")->with([
             'flash_message' => 'Pago editado correctamente.',
             'flash_class' => 'alert-success'
@@ -161,7 +166,7 @@ class PagosController extends Controller
      */
     public function destroy(Pago $pago)
     {
-      Pago::destroy($id);
+      //Pago::destroy($id);
     }
 
     public function busqueda()

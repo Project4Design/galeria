@@ -73,7 +73,7 @@
 								</thead>
 								<tbody class="text-center">
 									@php $i=1; @endphp
-									@foreach($cursos as $d)	
+									@foreach($cursos as $d)
 										<tr>
 											<td>{{$i}}</td>
 											<td>{{$d->titulo}}</td>

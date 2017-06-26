@@ -2,12 +2,14 @@
 
 namespace App\Http\Controllers;
 use Illuminate\Support\Facades\Input;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
 use Carbon\Carbon;
 use App\Estudiante;
 use App\Representante;
 use App\Detalles;
 use App\User;
+use App\Bitacora;
 
 class EstudiantesController extends Controller
 {
@@ -90,7 +92,7 @@ class EstudiantesController extends Controller
         if($rep->save()){
         	$r_user = new User;
         	$r_user->email = $request->input('representante_email');
-	        $r_user->password = bcrypt($request->input('123456'));
+	        $r_user->password = bcrypt('123456');
 	        $r_user->nivel = '3';
 		      $representante = new Representante;
 		      $representante->residencia = $request->input('representante_residencia');
@@ -98,6 +100,14 @@ class EstudiantesController extends Controller
 		      $rep->users()->save($r_user);
 		      $rep_id = $r_user->representante()->save($representante);
 		      $rep_id = $rep_id->representante_id;
+
+	        //Registro en la bitacora
+	        $bitacora = New Bitacora;
+	        $bitacora->usuario = Auth::user()->email;
+	        $bitacora->modulo  = 'Estudiantes';
+	        $bitacora->accion  = 'Registro de representante '.$request->input('representante_email');
+	        $bitacora->save();
+	        // fin bitacora
         }
 	    }
 
@@ -113,7 +123,7 @@ class EstudiantesController extends Controller
       if($det->save()){
         $user = new User;
         $user->fill($request->all());
-        $user->password = bcrypt($request->input('123456'));
+        $user->password = bcrypt('123456');
         $user->nivel = '4';
 	      $estudiante = new Estudiante;
 	      $estudiante->fill($request->all());
@@ -123,6 +133,14 @@ class EstudiantesController extends Controller
         if($det->users()->save($user)){
 
         	if($user->estudiante()->save($estudiante)){
+		        //Registro en la bitacora
+		        $bitacora = New Bitacora;
+		        $bitacora->usuario = Auth::user()->email;
+		        $bitacora->modulo = 'Estudiantes';
+		        $bitacora->accion = 'Registro de estudiante '.$request->input('email');
+		        $bitacora->save();
+		        // fin bitacora
+
 	        	return redirect("admin/estudiantes")->with([
 	              'flash_message' => 'Estudiante agregado correctamente.',
 	              'flash_class' => 'alert-success'
@@ -210,10 +228,18 @@ class EstudiantesController extends Controller
           $estudiante->fill($request->all());
 
           if($det->users()->save($user) && $user->estudiante()->save($estudiante)){
-                return redirect("admin/estudiantes")->with([
-                    'flash_message' => 'Profesor editado correctamente.',
-                    'flash_class' => 'alert-success'
-                    ]);
+		        //Registro en la bitacora
+		        $bitacora = New Bitacora;
+		        $bitacora->usuario = Auth::user()->email;
+		        $bitacora->modulo  = 'Estudiantes';
+		        $bitacora->accion  = 'Se modifico al usuario '.$request->input('email');
+		        $bitacora->save();
+		        // fin bitacora
+
+            return redirect("admin/estudiantes")->with([
+                'flash_message' => 'Profesor editado correctamente.',
+                'flash_class' => 'alert-success'
+                ]);
           }else{
               return redirect("admin/estudiantes")->with([
                   'flash_message' => 'Ha ocurrido un error.',

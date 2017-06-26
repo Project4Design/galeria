@@ -17,11 +17,11 @@
 					<h4>Registrar Pago</h4>
 
 					<div class="form-group {{ $errors->has('inscripcion_id')?'has-error':'' }}">
-						<label class="control-label" for="nombres">Inscripcion:</label>
-						<select  class="form-control" name="inscripcion_id">
+						<label class="control-label" for="inscripcion">Inscripcion:</label>
+						<select id="inscripcion" class="form-control" name="inscripcion">
 							<option value="">Seleccione...</option>
 							@foreach($inscripciones as $i)
-								<option value="{{$i->inscripcion_id}}">{{$i->curso->titulo.'    ||     '.$i->estudiante->user->detalles->nombres}}</option>
+								<option value="{{$i->inscripcion_id}}">{{$i->curso->titulo.' || '.$i->estudiante->user->detalles->nombres}}</option>
 							@endforeach
 						</select>
 					</div>
@@ -35,23 +35,23 @@
 								<option value="Efectivo">Efectivo</option>
 							</select>
 					</div>
-				<section style="display:none" id="section_pago">
-					<div class="form-group {{ $errors->has('banco')?'has-error':'' }}">
-						<label class="control-label" for="banc">Banco.:</label>
-						<select  id="banco" class="form-control" name="banco">
-							<option value="">Seleccione...</option>
-							<option value="Banco Provincial">Banco Provincial</option>
-							<option value="Banco Bicentenario">Banco Bicentenario</option>
-							<option value="Banco Mercantil">Banco Mercantil</option>
-						</select>
-					</div>
 
-					<div class="form-group {{ $errors->has('referencia')?'has-error':'' }}">
-						<label class="control-label" for="referencia">Referencia:</label>
-						<input id="referencia" class="form-control" type="number" name="referencia"  placeholder="Referencia">
-					</div>
-				</section>
-					
+					<section style="display:none" id="section_pago">
+						<div class="form-group {{ $errors->has('banco')?'has-error':'' }}">
+							<label class="control-label" for="banc">Banco.:</label>
+							<select  id="banco" class="form-control" name="banco">
+								<option value="">Seleccione...</option>
+								<option value="Banco Provincial">Banco Provincial</option>
+								<option value="Banco Bicentenario">Banco Bicentenario</option>
+								<option value="Banco Mercantil">Banco Mercantil</option>
+							</select>
+						</div>
+
+						<div class="form-group {{ $errors->has('referencia')?'has-error':'' }}">
+							<label class="control-label" for="referencia">Referencia:</label>
+							<input id="referencia" class="form-control" type="number" name="referencia"  placeholder="Referencia">
+						</div>
+					</section>
 					
 					<div class="form-group {{ $errors->has('monto')?'has-error':'' }}">
 						<label class="control-label" for="monto">Monto BsF.:</label>
@@ -62,8 +62,6 @@
 						<label class="control-label" for="fecha">Fecha:</label>
 						<input id="fecha" class="form-control fecha" type="text" name="fecha"  placeholder="Fecha">
 					</div>
-
-					
 
 					@if (count($errors) > 0)
           <div class="alert alert-danger">
@@ -87,23 +85,24 @@
 @section('script')
 	<script type="text/javascript">
 		$(document).ready(function(){
-			//$('#inscripcion').select2();
-			$('.fecha').datepicker();
+			$('#inscripcion').select2();
+			
+			$('.fecha').datepicker({
+				endDate: 'today'
+			});
+
 
 			//funcion para campo de tipo_pago
-			var select = $('#tipo_pago');
-			select.change(function(){
+			$('#tipo_pago').change(function(){
 				if (select.val() == 'Transferencia' || select.val() == 'Deposito' ) {
-	               $("#section_pago").fadeIn(1000);
-	               $('#banco,#referencia').attr('required',true);
-
+          $("#section_pago").fadeIn(1000);
+          $('#banco,#referencia').attr('required',true);
 				}else{
 					$("#section_pago").fadeOut('slow/400/fast');
 					$('#banco,#referencia').val('');
 					$('#banco,#referencia').attr('required',false);
-					
 				}
-	       });
+	    });
 		});
 	</script>
 @endsection

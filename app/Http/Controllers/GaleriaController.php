@@ -58,12 +58,13 @@ class GaleriaController extends Controller
 
       if($cuadro->save()){
         //Registro en la bitacora
-                $bitacora = New Bitacora;
-                $bitacora->usuario = Auth::user()->email;
-                $bitacora->modulo = 'Galeria';
-                $bitacora->accion = 'Se registro el cuadro '.$cuadro->titulo;
-                $bitacora->save();
-                // fin bitacora
+        $bitacora = New Bitacora;
+        $bitacora->usuario = Auth::user()->email;
+        $bitacora->modulo = 'Galeria';
+        $bitacora->accion = 'Se registro el cuadro '.$cuadro->titulo;
+        $bitacora->save();
+        // fin bitacora
+        
           return redirect("admin/galeria")->with([
               'flash_message' => 'Cuadro agregado correctamente.',
               'flash_class' => 'alert-success'
@@ -130,13 +131,13 @@ class GaleriaController extends Controller
       }
 
     	if($cuadro->save()){
-            //Registro en la bitacora
-                $bitacora = New Bitacora;
-                $bitacora->usuario = Auth::user()->email;
-                $bitacora->modulo = 'Galeria';
-                $bitacora->accion = 'Se modifico el cuadro '.$cuadro->titulo;
-                $bitacora->save();
-                // fin bitacora
+        //Registro en la bitacora
+        $bitacora = New Bitacora;
+        $bitacora->usuario = Auth::user()->email;
+        $bitacora->modulo = 'Galeria';
+        $bitacora->accion = 'Se modifico el cuadro '.$cuadro->titulo;
+        $bitacora->save();
+        // fin bitacora
         return redirect("admin/galeria")->with([
             'flash_message' => 'Cuadro editado correctamente.',
             'flash_class' => 'alert-success'
@@ -159,14 +160,14 @@ class GaleriaController extends Controller
     public function destroy($id)
     {
         $cuadro = Galeria::findOrFail($id);
-        //Registro en la bitacora
-                $bitacora = New Bitacora;
-                $bitacora->usuario = Auth::user()->email;
-                $bitacora->modulo = 'Galeria';
-                $bitacora->accion = 'Se elimino el cuadro '.$cuadro->titulo;
-                $bitacora->save();
-                // fin bitacora
         if($cuadro->delete()){
+		        //Registro en la bitacora
+		        $bitacora = New Bitacora;
+		        $bitacora->usuario = Auth::user()->email;
+		        $bitacora->modulo = 'Galeria';
+		        $bitacora->accion = 'Se elimino el cuadro '.$cuadro->titulo;
+		        $bitacora->save();
+		        // fin bitacora
         		unlink(public_path().'/images/cuadros/'.$cuadro->foto);//Borrar imagen de local storage "Public"
             return redirect("admin/galeria")->with([
                'flash_message' => 'Cuadro se ha eliminado correctamente.',

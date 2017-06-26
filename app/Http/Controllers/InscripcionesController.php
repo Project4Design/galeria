@@ -6,6 +6,8 @@ use App\Inscripcion;
 use App\Periodo;
 use App\Curso;
 use App\Estudiante;
+use App\Bitacora;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
 
 class InscripcionesController extends Controller
@@ -28,8 +30,8 @@ class InscripcionesController extends Controller
      */
     public function create()
     {
-      $periodos = Periodo::all()->where('status',1);
-      $cursos = Curso::all();
+      $periodos    = Periodo::all()->where('status',1);
+      $cursos      = Curso::all();
       $estudiantes = Estudiante::all();
       return view('inscripciones.create',['periodos'=>$periodos,'cursos'=>$cursos,'estudiantes'=>$estudiantes]);
     }
@@ -43,8 +45,8 @@ class InscripcionesController extends Controller
     public function store(Request $request)
     {
       $this->validate($request,[
-      	'periodo' => 'required',
-      	'curso' => 'required',
+      	'periodo'    => 'required',
+      	'curso'      => 'required',
       	'estudiante' => 'required'
       	]);
 
@@ -56,7 +58,7 @@ class InscripcionesController extends Controller
 
       if($cantidad < $curso->limit){
 
-      	$repetido = $inscripcion->verificarRepetido($request->input('periodo'),$request->input('curso'),$request->input('estudiante_id'));
+      	$repetido = $inscripcion->verificarRepetido($request->input('periodo'),$request->input('curso'),$request->input('estudiante'));
 
       	if($repetido === 0){
 		      $inscripcion->periodo_id = $request->input('periodo');
@@ -64,6 +66,15 @@ class InscripcionesController extends Controller
 		      $inscripcion->estudiante_id = $request->input('estudiante');
 
 		      if($inscripcion->save()){
+		        //Registro en la bitacora
+		        $bitacora = New Bitacora;
+		        $x = Estudiante::find($request->input('estudiante'));
+		        $y = Curso::find($request->input('curso'));
+		        $bitacora->usuario = Auth::user()->email;
+		        $bitacora->modulo = 'Inscripcion';
+		        $bitacora->accion = 'Se inscribio al usuario '.$x->user->email.' en el curso '.$y->titulo;
+		        $bitacora->save();
+		        // fin bitacora
 		      	return redirect('admin/inscripciones/')->with([
 		      			'flash_message'=>'Inscripcion realizada correctamente.',
 		      			'flash_class'=>'alert-success'

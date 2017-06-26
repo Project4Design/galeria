@@ -23,35 +23,25 @@ class LoginController extends Controller
  			return view('dashboard',['users'=>$users,'cursos'=>$cursos,'pagos'=>$pagos,'profesores'=>$profesores,'estudiantes'=>$estudiantes]);
 	 }
 
-
 	 public function login(Request $request)
 	 {
-	 	/*----------- LOGIN MANUAL , MODIFICABLE ----------*/
-
-	 	//attemp suelta un booleano
-    	//dd($request->all());
-
     	$this->validate($request, [
+  		'email' =>'required|email',
+  		'password' => 'required|min:6',
+  		]);
 
-    		'email' =>'required|email',
-    		'password' => 'required|max:8',
-
-    		]);
-
-	        if (Auth::attempt($request->only(['email' , 'password'])))
-	        {
-	        	return redirect()->intended('admin/dashboard');
-	        }else{
-	        	return redirect()->route('login')->withErrors('An error has occurred, check your credentials');
-	        }
+      if (Auth::attempt($request->only(['email' , 'password'])))
+      {
+      	return redirect()->intended('admin/dashboard');
+      }else{
+      	return redirect()->route('login')->withErrors('Ha ocurrido un error. Revise sus credenciales');
+      }
 	 }
 
 	 public function logout()
 	 {
-	 	/*---- funcion de salir/logout/cerrar sesion --*/
+
 	 	Auth::logout();
 	 	return view('login');
-
 	 }
-    
 }
