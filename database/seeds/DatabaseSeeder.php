@@ -16,7 +16,7 @@ class DatabaseSeeder extends Seeder
 
         //ADMIN
         App\Detalles::create([
-          'nombres' => 'Test',
+          'nombres' => 'Admin',
           'apellidos' => 'Developer',
           'cedula' => '20990397',
           'tlf_personal' => '12312312',
@@ -25,7 +25,7 @@ class DatabaseSeeder extends Seeder
 
         App\User::create([
           'detalle_id' => 1,
-          'email' => 'admin@admin.com',
+          'email' => 'admin@test.com',
           'password' => bcrypt('123456'),
           'nivel' => 1
         ]);
@@ -40,7 +40,7 @@ class DatabaseSeeder extends Seeder
 
         App\User::create([
           'detalle_id' => 2,
-          'email' => $faker->email,
+          'email' => 'profesor@test.com',
           'password' => bcrypt('123456'),
           'nivel' => 2
         ]);
@@ -85,7 +85,7 @@ class DatabaseSeeder extends Seeder
 
         App\User::create([
           'detalle_id' => 5,
-          'email' => 'test@test.com',
+          'email' => 'estudiante@test.com',
           'password' => bcrypt('123456'),
           'nivel' => 4
         ]);

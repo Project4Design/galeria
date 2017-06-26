@@ -12,22 +12,28 @@
 		<!-- Formulario -->
 		<div class="row">
 			<div class="col-md-6 col-md-offset-3">
-				<form class="" action="{{ url('admin/pagos') }}" method="POST" >
+				<form class="" action="{{ url('panel/pagos') }}" method="POST" >
 					{{ csrf_field() }}
 					<h4>Registrar Pago</h4>
+					@if(count($inscripciones)===0)
+				    <div class="alert alert-danger flash_important">
+				      <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+				      <strong class="text-center">No tienes cursos pendientes por pagar</strong> 
+				  	</div>
+				  @endif
 
 					<div class="form-group {{ $errors->has('inscripcion_id')?'has-error':'' }}">
 						<label class="control-label" for="inscripcion">Inscripcion:</label>
 						<select id="inscripcion" class="form-control" name="inscripcion">
 							<option value="">Seleccione...</option>
-							@foreach($inscripciones as $i)
-								<option value="{{$i->inscripcion_id}}">{{$i->curso->titulo.' || '.$i->estudiante->user->detalles->nombres}}</option>
+							@foreach($inscripciones as $d)
+								<option value="{{$d->inscripcion_id}}">{{ $d->periodo->periodo.' | '.$d->curso->titulo}}</option>
 							@endforeach
 						</select>
 					</div>
 
 					<div class="form-group {{ $errors->has('tipo')?'has-error':'' }}">
-						<label class="control-label" for="apellidos">Tipo de pago:</label>
+						<label class="control-label" for="tipo_pago">Tipo de pago:</label>
 							<select id="tipo_pago" class="form-control" name="tipo">
 								<option value="">Seleccione...</option>
 								<option value="Deposito">Deposito</option>
@@ -75,7 +81,7 @@
 
 					<div class="form-group text-right">
 						<a class="btn btn-flat btn-default" href="{{route('pagos.index')}}"><i class="fa fa-reply"></i> Volver</a>
-						<button class="btn btn-flat btn-primary" type="submit"><i class="fa fa-send"></i> Guardar</button>
+						<button class="btn btn-flat btn-primary" type="submit" {{$disabled}}><i class="fa fa-send"></i> Guardar</button>
 					</div>
 				</form>
 			</div>
@@ -90,7 +96,6 @@
 			$('.fecha').datepicker({
 				endDate: 'today'
 			});
-
 
 			//funcion para campo de tipo_pago
 			$('#tipo_pago').change(function(){

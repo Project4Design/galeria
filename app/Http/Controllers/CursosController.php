@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Input;
 use Illuminate\Support\Facades\Auth;
 use App\Curso;
+use App\Periodo;
 use App\Bitacora;
 use App\Profesores;
 
@@ -96,12 +97,26 @@ class CursosController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show($id,$periodo = NULL)
     {
         //
     	$curso = Curso::findOrFail($id);
-    	$estudiantes = $curso->estudiantes();
-      return view("cursos.view", ["curso" => $curso,'estudiantes' => $estudiantes]);
+    	switch (Auth::user()->nivel) {
+    		case 1:
+		    	$estudiantes = $curso->estudiantes();
+		      return view("cursos.view", ["curso" => $curso,'estudiantes' => $estudiantes]);
+    		break;
+    		case 2:
+		    	$estudiantes = $curso->estudiantesByPeriodo($periodo);
+		    	$periodo = Periodo::find($periodo);
+		    	$periodo = $periodo->periodo;
+		      return view("area.cursos.view", ["curso" => $curso,'estudiantes' => $estudiantes,'periodo'=>$periodo]);
+    		break;
+    		case 3:
+    		case 4:
+    			return view("panel.cursos.view", ["curso" => $curso]);
+    		break;
+    	}
     }
 
     /**

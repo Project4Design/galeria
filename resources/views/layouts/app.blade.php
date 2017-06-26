@@ -79,7 +79,9 @@
           <!-- Navbar Right Menu -->
           <div class="navbar-custom-menu">
             <ul class="nav navbar-nav">
+            @if(Auth::user()->nivel===1)
             <li><a href="{{route('inscripciones.create')}}"><i class="fa fa-plus" aria-hidden="true"></i> Nueva Inscripcion</a></li>
+            @endif
               <!-- Messages: style can be found in dropdown.less-->
               
               <!-- User Account: style can be found in dropdown.less -->
@@ -97,7 +99,13 @@
                   <!-- Menu Footer-->
                   <li class="user-footer">
                     <div class="pull-left">
-                      <a class="btn btn-flat btn-default" href="{{route('perfil')}}"><i class="fa fa-user"></i> Mi perfil</a>
+				            	@if(Auth::user()->nivel===1)
+                      	<a class="btn btn-flat btn-default" href="{{route('perfil')}}"><i class="fa fa-user"></i> Mi perfil</a>
+				              @elseif(Auth::user()->nivel===2)
+                      	<a class="btn btn-flat btn-default" href="{{url('area/perfil')}}"><i class="fa fa-user"></i> Mi perfil</a>
+				              @elseif(Auth::user()->nivel===4)
+                      	<a class="btn btn-flat btn-default" href="{{url('panel/perfil')}}"><i class="fa fa-user"></i> Mi perfil</a>
+				              @endif
                     </div>
                     <div class="pull-right">
                       <form id="logout-form" action="{{ route('logout') }}" method="POST">
@@ -127,11 +135,21 @@
             <li class="header">MENU</li>
 
             <li>
+            	@if(Auth::user()->nivel===1)
               <a href="{{route('admin_index')}}">
               	<i class="fa fa-dashboard" aria-hidden="true"></i> <span>Escritorio</span>
               </a>
+              @elseif(Auth::user()->nivel===2)
+              <a href="{{url('area/dashboard')}}">
+              	<i class="fa fa-dashboard" aria-hidden="true"></i> <span>Escritorio</span>
+              </a>
+              @elseif(Auth::user()->nivel===4)
+              <a href="{{url('panel/dashboard')}}">
+              	<i class="fa fa-dashboard" aria-hidden="true"></i> <span>Escritorio</span>
+              </a>
+              @endif
             </li>
-
+					@if(Auth::user()->nivel===1)
             <li class="treeview">
               <a href="#">
                 <i class="fa fa-users"></i>
@@ -161,7 +179,6 @@
                 <li><a href="{{ route('profesores.create') }}"><i class="fa fa-circle-o"></i>Agregar profesor</a></li>
               </ul>
             </li>
-
             <li class="treeview">
               <a href="#">
                 <i class="fa fa-university"></i>
@@ -173,8 +190,7 @@
                 <li><a href="{{ url('admin/cursos/create') }}"><i class="fa fa-circle-o"></i>Agregar curso</a></li>
               </ul>
             </li>
-        
-         <li class="treeview">
+         		<li class="treeview">
               <a href="#">
                 <i class="fa fa-file-image-o"></i>
                 <span>Cuadros</span>
@@ -185,7 +201,8 @@
                 <li><a href="{{ route('galeria.create') }}"><i class="fa fa-circle-o"></i>Agregar cuadro</a></li>
               </ul>
             </li>
-
+          @endif
+          @if(Auth::user()->nivel===1||Auth::user()->nivel===4)
             <li class="treeview">
               <a href="#">
                 <i class="fa fa-credit-card"></i>
@@ -193,11 +210,17 @@
                 <i class="fa fa-angle-left pull-right"></i>
               </a>
               <ul class="treeview-menu">
+              @if(Auth::user()->nivel===1)
                 <li><a href="{{ url('admin/pagos') }}"><i class="fa fa-circle-o"></i>Ver pagos</a></li>
                 <li><a href="{{ url('admin/pagos/create') }}"><i class="fa fa-circle-o"></i>Agregar pago</a></li>
+              @elseif(Auth::user()->nivel===4)
+                <li><a href="{{ url('panel/pagos') }}"><i class="fa fa-circle-o"></i>Ver pagos</a></li>
+                <li><a href="{{ url('panel/pagos/create') }}"><i class="fa fa-circle-o"></i>Agregar pago</a></li>
+              @endif
               </ul>
             </li>
-
+          @endif
+					@if(Auth::user()->nivel===1)
             <li class="treeview">
               <a href="#">
                 <i class="fa fa-address-card-o"></i>
@@ -235,7 +258,7 @@
                 <li><a href="{{ route('bitacora.index') }}"><i class="fa fa-circle-o"></i>Bitacora</a></li>
               </ul>
             </li>
-
+					@endif
           </ul>
         </section>
         <!-- /.sidebar -->

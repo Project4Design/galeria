@@ -17,7 +17,15 @@ class Pago extends Model
     'monto'
   ];
 
-  public function inscripcion(){
+  public function inscripcion()
+  {
   	return $this->belongsTo('App\Inscripcion','inscripcion_id');
+  }
+
+  public function byEstudiante($estudiante)
+  {
+  	return $this->Join('Inscripciones','inscripciones.inscripcion_id','=','pagos.inscripcion_id')
+  							->where('inscripciones.estudiante_id',$estudiante)
+  							->get();
   }
 }

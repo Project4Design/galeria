@@ -11,11 +11,7 @@
 @section('content')
 <!-- Formulario -->
 		<section>
-	    <a class="btn btn-flat btn-default" href="{{ url('admin/cursos') }}"><i class="fa fa-reply" aria-hidden="true"></i> Volver</a>
-	    <a class="btn btn-flat btn-success" href="{{ url('admin/cursos/'.$curso->curso_id.'/edit') }}"><i class="fa fa-pencil" aria-hidden="true"></i> Editar</a>
-	    <!--
-	    <button class="btn btn-flat btn-danger" data-toggle="modal" data-target="#delModal"><i class="fa fa-times" aria-hidden="true"></i> Eliminar</button>
-	    -->
+	    <a class="btn btn-flat btn-default" href="{{ url('area/dashboard') }}"><i class="fa fa-reply" aria-hidden="true"></i> Volver</a>
 		</section>
 
 		<section class="perfil">
@@ -30,20 +26,15 @@
 	    	</div>
 				<div class="col-md-4">
 					<h4>Detalles del curso</h4>
-					<p><b>Precio: </b> {{ number_format($curso->precio,2,",",".") }} </p>
 					<p><b>Descripcion: </b> {{ $curso->descripcion }} </p>
 				</div>
 				<div class="col-md-3">
 					<h4>Imagen del curso</h4>
 					<img class="img-responsive" src="{{ asset('/images/cursos/'.$curso->foto) }}">
 				</div>
-
-        <div class="col-md-4 col-md-offset-1">
-          <h4>Profesor <small><a href="{{url('admin/profesores/'.$curso->profesor->id)}}">(Ver perfil)</a></small></h4>
-          <p><b>Nombre:</b> {{$curso->profesor->user->detalles->nombres.' '.$curso->profesor->user->detalles->apellidos}}</p>
-          <p><b>Profesion: </b> {{$curso->profesor->profesion}}</p>
-          <p><b>Foto: </b> <img style="max-height: 150px" class="img-responsive" src="{{ asset('/images/profesores/'.$curso->profesor->user->detalles->foto) }}"></p>
-        </div>
+				<div class="col-md-3">
+					<h4>Periodo: <b>{{$periodo}}</b></h4>
+				</div>
 			</div>
 		</section>
 
@@ -61,13 +52,11 @@
 								<thead>
 									<tr>
 										<th class="text-center">#</th>
-										<th class="text-center">Periodo</th>
 										<th class="text-center">Cedula</th>
 										<th class="text-center">Nombres</th>
 										<th class="text-center">Apellidos</th>
 										<th class="text-center">Email</th>
 										<th class="text-center">Telefono personal</th>
-										<th class="text-center">Accion</th>
 									</tr>
 								</thead>
 								<tbody class="text-center">
@@ -75,15 +64,11 @@
 									@foreach($estudiantes as $d)
 										<tr>
 											<td>{{$i}}</td>
-											<td>{{$d->periodo->periodo}}</td>
 											<td>{{number_format($d->estudiante->user->detalles->cedula,0,",",".")}}</td>
 											<td>{{$d->estudiante->user->detalles->nombres}}</td>
 											<td>{{$d->estudiante->user->detalles->apellidos}}</td>
 											<td>{{$d->estudiante->user->email}}</td>
 											<td>{{$d->estudiante->user->detalles->tlf_personal}}</td>
-											<td>
-												<a class="btn btn-primary btn-flat btn-sm" href="{{ route('estudiantes.index').'/'.$d->estudiante_id }}"><i class="fa fa-search"></i></a>
-											</td>
 										</tr>
 										@php $i++; @endphp
 									@endforeach

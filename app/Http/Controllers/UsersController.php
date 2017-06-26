@@ -193,7 +193,17 @@ class UsersController extends Controller
 
     public function perfil(){
     	$perfil = User::findOrFail(Auth::user()->id);
-    	return view('perfil',['perfil'=>$perfil]);
+    	switch (Auth::user()->nivel) {
+    		case 1:
+    			return view('perfil',['perfil'=>$perfil]);
+  			break;
+  			case 2:
+  				return view('area/perfil',['perfil'=>$perfil]);
+  			break;
+  			case 4:
+  				return view('panel/perfil',['perfil'=>$perfil]);
+  			break;
+    	}
     }
 
     public function update_perfil(Request $request)

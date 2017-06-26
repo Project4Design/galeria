@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Pago;
 use App\Bitacora;
 use App\Inscripcion;
+use App\Estudiante;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
 
@@ -17,9 +18,18 @@ class PagosController extends Controller
      */
     public function index()
     {
-      //
-      $pagos = Pago::all();
-      return view('pagos.index',['pagos'=>$pagos]);
+      switch (Auth::user()->nivel){
+      	case 1:
+		      $pagos = Pago::all();
+		      return view('pagos.index',['pagos'=>$pagos]);
+    		break;
+      	case 4:
+		      $pagos = new Pago;
+		      $estudiante = Estudiante::where('user_id',Auth::user()->id)->get()->first();
+		      $pagos = $pagos->byEstudiante($estudiante->estudiante_id);
+		      return view('panel.pagos.index',['pagos'=>$pagos]);
+    		break;
+      }
     }
 
     /**
@@ -30,11 +40,20 @@ class PagosController extends Controller
     public function create()
     {
     	$pagos = new Pago;
-
-      $pagados = Pago::select('inscripcion_id')->pluck('inscripcion_id')->toArray();
-      $inscripciones = Inscripcion::all()->whereNotIn('inscripcion_id',$pagados);
-
-      return view("pagos.create", ['inscripciones' => $inscripciones]);
+    	switch (Auth::user()->nivel){
+    		case 1:
+		      $pagados = Pago::select('inscripcion_id')->pluck('inscripcion_id')->toArray();
+		      $inscripciones = Inscripcion::all()->whereNotIn('inscripcion_id',$pagados);
+		      return view("pagos.create", ['inscripciones' => $inscripciones]);
+  			break;
+  			case 4:
+  				$estudiante = Estudiante::where('user_id',Auth::user()->id)->get()->first();
+		      $pagados = Pago::select('inscripcion_id')->pluck('inscripcion_id')->toArray();
+		      $inscripciones = Inscripcion::all()->where('estudiante_id',$estudiante->estudiante_id)->whereNotIn('inscripcion_id',$pagados);
+		      $disabled = count($inscripciones)>0?'':'disabled';
+		      return view("panel.pagos.create", ['inscripciones' => $inscripciones,'disabled'=>$disabled]);
+				break;
+    	}
     }
 
     /**
@@ -74,13 +93,14 @@ class PagosController extends Controller
         $bitacora->accion = 'Registro de pago monto '.$pago->monto;
         $bitacora->save();
         // fin bitacora
+        $redirect = Aut::user()->nivel === 1?'admin/pagos':'panel/pagos';
 
-        return redirect("admin/pagos")->with([
+        return redirect($redirect)->with([
             'flash_message' => 'Pago agregado correctamente.',
             'flash_class' => 'alert-success'
             ]);
     	}else{
-        return view("admin/pagos")->with([
+        return redirect($redirect)->with([
         		'title' => "Agregar",
             'flash_message' => 'Ha ocurrido un error.',
             'flash_class' => 'alert-danger',
@@ -98,9 +118,16 @@ class PagosController extends Controller
      */
     public function show($id)
     {
-      $pago = Pago::findOrFail($id);
-      
-      return view("pagos.show", ["pago" => $pago]);
+      switch (Auth::user()->nivel) {
+      	case 1:
+		      $pago = Pago::findOrFail($id);
+		      return view("pagos.show", ["pago" => $pago]);
+    		break;
+      	case 4:
+		      $pago = Pago::findOrFail($id);
+		      return view("panel.pagos.show", ["pago" => $pago]);
+    		break;
+      }
     }
 
     /**

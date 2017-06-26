@@ -24,6 +24,24 @@ Route::get('/admin','FrontCrontroller@login')->name('login');
 Route::post('auth', 'LoginController@login')->name('auth');
 Route::post('/logout', 'LoginController@logout')->name('logout');
 
+//PANEL DE USUARIO
+Route::get('panel/dashboard', 'LoginController@index')->name('index');
+//Cursos
+Route::get('panel/cursos/{id}','CursosController@show');
+//Pagos
+Route::resource('panel/pagos','PagosController');
+//Perfil
+Route::get('panel/perfil','UsersController@perfil')->name('perfil');
+Route::patch('panel/perfil','UsersController@update_perfil')->name('update_perfil');
+//===========================================================================================
+
+//AREA - PROFESORES
+Route::get('area/dashboard', 'LoginController@index')->name('index');
+Route::get('area/cursos/{curso}/{periodo}','CursosController@show');
+Route::get('area/perfil','UsersController@perfil')->name('perfil');
+Route::patch('area/perfil','UsersController@update_perfil')->name('update_perfil');
+//===========================================================================================
+
 //VIEWS ADMIN
 //verificar rutas con permiso auth
 Route::group(['middleware' => 'auth','prefix' => 'admin'],function(){

@@ -24,4 +24,13 @@ class Profesores extends Model
     return $this->hasMany('App\Curso','id_profesor');
   }
 
+  public function inscripciones()
+  {
+  	return $this->hasMany('App\Curso','id_profesor')
+  							->join('inscripciones','cursos.curso_id','=','inscripciones.curso_id')
+  							->groupBy('cursos.curso_id')
+  							->get();
+  	;
+  }
+
 }

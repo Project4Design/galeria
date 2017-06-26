@@ -35,4 +35,14 @@ class Curso extends Model
   {
   	return $this->hasMany('App\Inscripcion','curso_id')->groupBy('estudiante_id')->get();
   }
+
+  public function inscripcion()
+  {
+  	return $this->hasOne('App\Inscripcion','curso_id');
+  }
+
+  public function estudiantesByPeriodo($periodo)
+  {
+  	return $this->hasMany('App\Inscripcion','curso_id')->where('periodo_id',$periodo)->get();
+  }
 }
