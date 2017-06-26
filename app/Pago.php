@@ -20,4 +20,9 @@ class Pago extends Model
   public function inscripcion(){
   	return $this->belongsTo('App\Inscripcion','inscripcion_id');
   }
+
+  public  function fechaBetween($desde,$hasta)
+    {
+        return $this->whereBetween('fecha',[$desde,$hasta])->get();
+    }
 }

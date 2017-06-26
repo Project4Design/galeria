@@ -32,4 +32,31 @@ class ReportesController extends Controller
     	return $pdf->download('estudiantes'.$fecha.'.pdf');
 
     }
+
+    public function pagos_fecha(Request $request)
+    {
+
+    $desde = $request->input('desde');
+    $hasta = $request->input('hasta');
+    
+    $pagos = new Pago;
+    $resultado = $pagos->fechaBetween($desde,$hasta);
+
+    if ($resultado->count() > 0) {
+
+         $fecha = Date('Y-m-d');
+        $pdf = PDF::loadView('reportes.pagos_fe',['pagos' => $resultado,'desde' => $desde,'hasta' => $hasta]);
+        return $pdf->download('pagos'.$fecha.'.pdf');
+
+        }else{
+        return redirect('admin/pagos_bus')->with([
+                'title' => "Agregar",
+            'flash_message' => 'No se encontraron resultados.',
+            'flash_class' => 'alert-danger',
+            'flash_important' => true,
+
+            ]);
+      }//fin if
+    
+    }
 }

@@ -163,4 +163,9 @@ class PagosController extends Controller
     {
       Pago::destroy($id);
     }
+
+    public function busqueda()
+    {
+        return view('pagos.busqueda');
+    }
 }

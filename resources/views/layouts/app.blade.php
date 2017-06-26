@@ -195,6 +195,7 @@
               <ul class="treeview-menu">
                 <li><a href="{{ url('admin/pagos') }}"><i class="fa fa-circle-o"></i>Ver pagos</a></li>
                 <li><a href="{{ url('admin/pagos/create') }}"><i class="fa fa-circle-o"></i>Agregar pago</a></li>
+                <li><a href="{{ route('pagos.busqueda') }}"><i class="fa fa-circle-o"></i>Buscar pagos</a></li>
               </ul>
             </li>
 
