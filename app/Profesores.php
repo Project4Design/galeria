@@ -26,11 +26,15 @@ class Profesores extends Model
 
   public function inscripciones()
   {
+  	return $this->hasManyThrough('App\inscripcion', 'App\Curso','id_profesor','curso_id','id')
+  							->groupBy('periodo_id','inscripciones.curso_id')
+  							->get();
+  /*
   	return $this->hasMany('App\Curso','id_profesor')
   							->join('inscripciones','cursos.curso_id','=','inscripciones.curso_id')
-  							->groupBy('cursos.curso_id')
+  							->groupBy('periodo_id','cursos.curso_id')
   							->get();
-  	;
+  							*/
   }
 
 }

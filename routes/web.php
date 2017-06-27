@@ -26,8 +26,8 @@ Route::post('/logout', 'LoginController@logout')->name('logout');
 
 //PANEL DE USUARIO
 Route::get('panel/dashboard', 'LoginController@index')->name('index');
-//Cursos
-Route::get('panel/cursos/{id}','CursosController@show');
+//Inscripcion
+Route::get('panel/cursos/{inscripcion}','InscripcionesController@view');
 //Pagos
 Route::resource('panel/pagos','PagosController');
 //Perfil
@@ -38,6 +38,7 @@ Route::patch('panel/perfil','UsersController@update_perfil')->name('update_perfi
 //AREA - PROFESORES
 Route::get('area/dashboard', 'LoginController@index')->name('index');
 Route::get('area/cursos/{curso}/{periodo}','CursosController@show');
+Route::patch('area/cursos/{curso}/{periodo}','CursosController@calificar');
 Route::get('area/perfil','UsersController@perfil')->name('perfil');
 Route::patch('area/perfil','UsersController@update_perfil')->name('update_perfil');
 //===========================================================================================

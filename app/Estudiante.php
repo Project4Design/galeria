@@ -40,6 +40,6 @@ class Estudiante extends Model
 
 	public function cursos()
 	{
-		return $this->hasMany('App\Inscripcion','estudiante_id')->groupBy('curso_id')->get();
+		return $this->hasMany('App\Inscripcion','estudiante_id')->groupBy('curso_id','periodo_id')->get();
 	}
 }

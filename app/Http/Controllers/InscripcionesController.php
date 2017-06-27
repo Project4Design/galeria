@@ -3,10 +3,11 @@
 namespace App\Http\Controllers;
 
 use App\Inscripcion;
-use App\Periodo;
+use App\Nota;
 use App\Curso;
-use App\Estudiante;
+use App\Periodo;
 use App\Bitacora;
+use App\Estudiante;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
 
@@ -66,6 +67,10 @@ class InscripcionesController extends Controller
 		      $inscripcion->estudiante_id = $request->input('estudiante');
 
 		      if($inscripcion->save()){
+		      	$nota = new Nota;
+		      	$nota->inscripcion_id = $inscripcion->inscripcion_id;
+		      	$nota->save();
+
 		        //Registro en la bitacora
 		        $bitacora = New Bitacora;
 		        $x = Estudiante::find($request->input('estudiante'));
@@ -145,5 +150,11 @@ class InscripcionesController extends Controller
     public function destroy(Inscripcion $inscripcion)
     {
         //
+    }
+
+    public function view($inscripcion){
+    	$inscripcion = Inscripcion::where([['inscripcion_id',$inscripcion],['estudiante_id',Auth::user()->estudiante->estudiante_id]])->first();
+
+    	return view('panel.cursos.view',['inscripcion'=>$inscripcion]);
     }
 }

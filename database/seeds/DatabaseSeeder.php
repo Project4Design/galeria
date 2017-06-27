@@ -177,16 +177,38 @@ class DatabaseSeeder extends Seeder
         	'estudiante_id' => 1
         ]);
 
+        App\Nota::create([
+        	'inscripcion_id' => 1
+        ]);
+
         App\Inscripcion::create([
         	'periodo_id' => 1,
         	'curso_id' => 1,
         	'estudiante_id' => 2
         ]);
 
+        App\Nota::create([
+        	'inscripcion_id' => 2
+        ]);
+
         App\Inscripcion::create([
         	'periodo_id' => 1,
         	'curso_id' => 2,
         	'estudiante_id' => 2
+        ]);
+
+        App\Nota::create([
+        	'inscripcion_id' => 3
+        ]);
+
+        App\Inscripcion::create([
+        	'periodo_id' => 2,
+        	'curso_id' => 1,
+        	'estudiante_id' => 2
+        ]);
+
+        App\Nota::create([
+        	'inscripcion_id' => 4
         ]);
     }
 }
