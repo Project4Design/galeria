@@ -20,7 +20,7 @@ Route::get('/cursos','CursosController@cursos')->name('cursos.cursos');
 Route::get('/cursos/{id}','CursosController@display')->name('cursos.display');
 
 //LOGIN
-Route::get('/login','FrontCrontroller@login')->name('login');
+Route::get('/admin','FrontCrontroller@login')->name('login');
 Route::post('auth', 'LoginController@login')->name('auth');
 Route::post('/logout', 'LoginController@logout')->name('logout');
 
