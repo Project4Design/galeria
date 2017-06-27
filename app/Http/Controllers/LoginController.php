@@ -58,7 +58,6 @@ class LoginController extends Controller
     		case 2:
     			$profesor = Profesores::where('user_id',Auth::user()->id)->get()->first();
     			$cursos = $profesor->inscripciones();
-    			//dd($cursos);
     			return view('area.dashboard',['cursos'=>$cursos]);
     		break;
     		case 4:

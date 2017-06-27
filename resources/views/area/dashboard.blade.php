@@ -53,11 +53,11 @@
 								@foreach($cursos as $d)	
 									<tr>
 										<td>{{$i}}</td>
-										<td>{{$d->inscripcion->periodo->periodo}}</td>
-										<td>{{$d->titulo}}</td>
-										<td>{{$d->inscritos().'/'.$d->limit}}</td>
+										<td>{{$d->periodo->periodo}}</td>
+										<td>{{$d->curso->titulo}}</td>
+										<td>{{count($d->curso->estudiantesByPeriodo($d->periodo_id)).'/'.$d->curso->limit}}</td>
 										<td>
-											<a class="btn btn-primary btn-flat btn-sm" href="{{ url('area/cursos/'.$d->curso_id.'/'.$d->inscripcion->periodo_id) }}"><i class="fa fa-search"></i></a>
+											<a class="btn btn-primary btn-flat btn-sm" href="{{ url('area/cursos/'.$d->curso_id.'/'.$d->periodo_id) }}"><i class="fa fa-search"></i></a>
 										</td>
 									</tr>
 									@php $i++; @endphp

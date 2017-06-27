@@ -43,6 +43,7 @@
 									<th class="text-center">periodo</th>
 									<th class="text-center">Titulo</th>
 									<th class="text-center">Precio</th>
+									<th class="text-center">Nota</th>
 									<th class="text-center">Accion</th>
 								</tr>
 							</thead>
@@ -54,8 +55,9 @@
 										<td>{{$d->periodo->periodo}}</td>
 										<td>{{$d->curso->titulo}}</td>
 										<td>{{$d->created_at}}</td>
+										<td>{{$d->nota->nota?$d->nota->nota:'-'}}</td>
 										<td>
-											<a class="btn btn-primary btn-flat btn-sm" href="{{ url('panel/cursos/'.$d->curso_id) }}"><i class="fa fa-search"></i></a>
+											<a class="btn btn-primary btn-flat btn-sm" href="{{ url('panel/cursos/'.$d->inscripcion_id) }}"><i class="fa fa-search"></i></a>
 										</td>
 									</tr>
 									@php $i++; @endphp

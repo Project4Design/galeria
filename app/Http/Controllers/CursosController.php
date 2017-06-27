@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Input;
 use Illuminate\Support\Facades\Auth;
+use App\Nota;
 use App\Curso;
 use App\Periodo;
 use App\Bitacora;
@@ -110,7 +111,6 @@ class CursosController extends Controller
     		case 2:
 		    	$estudiantes = $curso->estudiantesByPeriodo($periodo);
 		    	$periodo = Periodo::find($periodo);
-		    	$periodo = $periodo->periodo;
 		      return view("area.cursos.view", ["curso" => $curso,'estudiantes' => $estudiantes,'periodo'=>$periodo]);
     		break;
     		case 3:
@@ -230,5 +230,21 @@ class CursosController extends Controller
       $curso = Curso::find($id);
 
       return view('front.display',['curso'=>$curso]);
+    }
+
+    public function calificar(Request $request,$curso,$periodo){
+    	$curso = Curso::find($curso);
+    	$total = count($curso->estudiantesByPeriodo($periodo));
+
+    	for ($i=0; $i < $total; $i++) {
+    		$nota = Nota::where('inscripcion_id',$request->input("id_".($i+1)))->first();
+    		$nota->nota = $request->input("nota_".($i+1));
+    		$nota->save();
+    	}
+
+    	return redirect("area/cursos/{$curso->curso_id}/{$periodo}")->with([
+    			'flash_class'   => 'alert-success',
+    			'flash_message' => 'Notas asignadas'
+    		]);
     }
 }

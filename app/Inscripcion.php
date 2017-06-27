@@ -43,4 +43,9 @@ class Inscripcion extends Model
   public function verificarRepetido($periodo,$curso,$estudiante){
   	return $this->where([['periodo_id',$periodo],['curso_id',$curso],['estudiante_id',$estudiante]])->count();
   }
+
+  public function nota()
+  {
+  	return $this->hasOne('App\Nota','inscripcion_id');
+  }
 }
