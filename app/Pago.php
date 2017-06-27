@@ -33,5 +33,4 @@ class Pago extends Model
   {
       return $this->whereBetween('fecha',[$desde,$hasta])->get();
   }
-
 }
