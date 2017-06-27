@@ -28,4 +28,10 @@ class Pago extends Model
   							->where('inscripciones.estudiante_id',$estudiante)
   							->get();
   }
+
+  public  function fechaBetween($desde,$hasta)
+  {
+      return $this->whereBetween('fecha',[$desde,$hasta])->get();
+  }
+
 }

@@ -52,6 +52,7 @@ Route::group(['middleware' => 'auth','prefix' => 'admin'],function(){
 	Route::resource('/users','UsersController');
 	//Pagos
 	Route::resource('/pagos','PagosController');
+	Route::get('/pagos_bus','PagosController@busqueda')->name('pagos.busqueda');
 	//Cursos
 	Route::resource('/cursos','CursosController');
 	//Galeria
@@ -73,5 +74,6 @@ Route::group(['middleware' => 'auth','prefix' => 'admin'],function(){
 	/* ----  REPORTES PDF --------*/
 	Route::get('/rep_usuarios','ReportesController@usuarios')->name('pdf.usuarios');
 	Route::get('/rep_estudiantes','ReportesController@estudiantes')->name('pdf.estudiantes');
+	Route::post('/rep_pagos_fe','ReportesController@pagos_fecha')->name('pdf.pagos');
 
 });

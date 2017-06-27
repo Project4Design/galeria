@@ -213,6 +213,7 @@
               @if(Auth::user()->nivel===1)
                 <li><a href="{{ url('admin/pagos') }}"><i class="fa fa-circle-o"></i>Ver pagos</a></li>
                 <li><a href="{{ url('admin/pagos/create') }}"><i class="fa fa-circle-o"></i>Agregar pago</a></li>
+                <li><a href="{{ route('pagos.busqueda') }}"><i class="fa fa-circle-o"></i>Buscar pagos</a></li>
               @elseif(Auth::user()->nivel===4)
                 <li><a href="{{ url('panel/pagos') }}"><i class="fa fa-circle-o"></i>Ver pagos</a></li>
                 <li><a href="{{ url('panel/pagos/create') }}"><i class="fa fa-circle-o"></i>Agregar pago</a></li>
