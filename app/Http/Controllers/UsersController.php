@@ -17,8 +17,7 @@ class UsersController extends Controller
      */
     public function index()
     {
-    	$users = User::select('id')->pluck('id')->toArray();
-    	dd($users);
+    	$users = User::all();
     	return view('users/index',['users'=>$users]);
     }
 

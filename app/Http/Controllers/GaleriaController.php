@@ -44,7 +44,8 @@ class GaleriaController extends Controller
     		'image'=>'required|image',
     		'titulo' => 'required',
         'autor' => 'required',
-        'anio' => 'required|numeric'
+        'anio' => 'required|numeric',
+        'descripcion' => 'required'
     	]);
 
       $cuadro = new Galeria;
@@ -114,10 +115,11 @@ class GaleriaController extends Controller
     public function update(Request $request, $id)
     {
       $this->validate($request,[
-        'image'=>'required|image',
+        'image'=>'nullable|image',
         'titulo' => 'required',
         'autor' => 'required',
-        'anio' => 'required|numeric'
+        'anio' => 'required|numeric',
+        'descripcion' => 'required'
       ]);
         
     	$cuadro = Galeria::findOrFail($id);

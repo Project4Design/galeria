@@ -56,7 +56,7 @@
 									<td>{{$d->user->detalles->nombres}}</td>
 									<td>{{$d->user->detalles->apellidos}}</td>
 									<td>{{$d->user->email}}</td>
-									<td>{{$d->created_at}}</td>
+									<td>{{$d->user->detalles->tlf_personal}}</td>
 									<td>
 										<a class="btn btn-primary btn-flat btn-sm" href="{{ url('admin/profesores/'.$d->id) }}"><i class="fa fa-search"></i></a>
 										<a href="{{ url('admin/profesores/'.$d->id.'/edit') }}" class="btn btn-flat btn-success btn-sm" title="Editar"><i class="fa fa-edit"></i></a>

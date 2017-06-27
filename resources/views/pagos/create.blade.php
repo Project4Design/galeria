@@ -17,7 +17,7 @@
 					<h4>Registrar Pago</h4>
 
 					<div class="form-group {{ $errors->has('inscripcion_id')?'has-error':'' }}">
-						<label class="control-label" for="inscripcion">Inscripcion:</label>
+						<label class="control-label" for="inscripcion">Inscripcion: *</label>
 						<select id="inscripcion" class="form-control" name="inscripcion">
 							<option value="">Seleccione...</option>
 							@foreach($inscripciones as $i)
@@ -27,7 +27,7 @@
 					</div>
 
 					<div class="form-group {{ $errors->has('tipo')?'has-error':'' }}">
-						<label class="control-label" for="apellidos">Tipo de pago:</label>
+						<label class="control-label" for="apellidos">Tipo de pago: *</label>
 							<select id="tipo_pago" class="form-control" name="tipo">
 								<option value="">Seleccione...</option>
 								<option value="Deposito">Deposito</option>
@@ -38,7 +38,7 @@
 
 					<section style="display:none" id="section_pago">
 						<div class="form-group {{ $errors->has('banco')?'has-error':'' }}">
-							<label class="control-label" for="banc">Banco.:</label>
+							<label class="control-label" for="banc">Banco: *</label>
 							<select  id="banco" class="form-control" name="banco">
 								<option value="">Seleccione...</option>
 								<option value="Banco Provincial">Banco Provincial</option>
@@ -48,23 +48,23 @@
 						</div>
 
 						<div class="form-group {{ $errors->has('referencia')?'has-error':'' }}">
-							<label class="control-label" for="referencia">Referencia:</label>
+							<label class="control-label" for="referencia">Referencia: *</label>
 							<input id="referencia" class="form-control" type="number" name="referencia"  placeholder="Referencia">
 						</div>
 					</section>
 					
 					<div class="form-group {{ $errors->has('monto')?'has-error':'' }}">
-						<label class="control-label" for="monto">Monto BsF.:</label>
+						<label class="control-label" for="monto">Monto Bs: *</label>
 						<input id="monto" class="form-control" type="text" name="monto"  placeholder="BsF.">
 					</div>
 
 					<div class="form-group {{ $errors->has('fecha')?'has-error':'' }}">
-						<label class="control-label" for="fecha">Fecha:</label>
+						<label class="control-label" for="fecha">Fecha: *</label>
 						<input id="fecha" class="form-control fecha" type="text" name="fecha"  placeholder="Fecha">
 					</div>
 
 					@if (count($errors) > 0)
-          <div class="alert alert-danger">
+          <div class="alert alert-danger alert-important">
 	          <ul>
 	            @foreach($errors->all() as $error)
 	               <li>{{$error}}</li>

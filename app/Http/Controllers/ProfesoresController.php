@@ -144,7 +144,7 @@ class ProfesoresController extends Controller
           'direccion' => 'required',
           'profesion' => 'required',
           'descripcion_perfil' => 'required',
-          'foto' => 'required|image'
+          'foto' => 'nullable|image'
           ]);
 
         $det = Detalles::find($profesor->user->detalle_id);

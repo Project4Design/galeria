@@ -64,10 +64,8 @@
 						<input id="fecha" class="form-control fecha" type="text" name="fecha"  placeholder="Fecha" value="{{$pago->fecha}}">
 					</div>
 
-					
-
 					@if (count($errors) > 0)
-          <div class="alert alert-danger">
+          <div class="alert alert-danger alert-important">
 	          <ul>
 	            @foreach($errors->all() as $error)
 	               <li>{{$error}}</li>

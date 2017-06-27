@@ -65,25 +65,17 @@ class PagosController extends Controller
     public function store(Request $request)
     {
       $this->validate($request, [
-          'inscripcion' => 'required',
-          'fecha' => 'required',
-          'monto' => 'required|numeric',
-          'tipo'  => 'required',
-        ]);
+        'inscripcion' => 'required',
+        'fecha'       => 'required',
+        'monto'       => 'required|numeric',
+        'tipo'        => 'required',
+        'banco'       => 'required_if:tipo,Transferencia|required_if:tipo,Deposito',
+        'referencia'  => 'required_if:tipo,Transferencia|required_if:tipo,Deposito'
+      ]);
 
     	$pago = new Pago;
     	$pago->inscripcion_id = $request->inscripcion;
     	$pago->fill($request->all());
-
-      if ($request->input('banco') != '' && $request->input('referencia') != '' ){
-      	$this->validate($request,[
-      		'banco' => 'rqeuired',
-      		'referencia' => 'required|numeric'
-      		]);
-
-        $pago->banco = $request->input('banco');
-        $pago->referencia = $request->input('referencia');
-      }
 
     	if($pago->save()){
         //Registro en la bitacora
@@ -93,7 +85,7 @@ class PagosController extends Controller
         $bitacora->accion = 'Registro de pago monto '.$pago->monto;
         $bitacora->save();
         // fin bitacora
-        $redirect = Aut::user()->nivel === 1?'admin/pagos':'panel/pagos';
+        $redirect = Auth::user()->nivel === 1?'admin/pagos':'panel/pagos';
 
         return redirect($redirect)->with([
             'flash_message' => 'Pago agregado correctamente.',
@@ -152,7 +144,15 @@ class PagosController extends Controller
      */
     public function update(Request $request,$id)
     {
-      //
+      $this->validate($request, [
+        'inscripcion' => 'required',
+        'fecha'       => 'required',
+        'monto'       => 'required|numeric',
+        'tipo'        => 'required',
+        'banco'       => 'required_if:tipo,Transferencia|required_if:tipo,Deposito',
+        'referencia'  => 'required_if:tipo,Transferencia|required_if:tipo,Deposito'
+      ]);
+      
     	$pago = Pago::findOrFail($id);
     	$pago->fill($request->all());
         if ($request->input('banco') != '' && $request->input('referencia') != '' ) {
@@ -174,10 +174,6 @@ class PagosController extends Controller
             ]);
     	}else{
         return view("admin/pagos")->with([
-        		'title' => 'Editar',
-        		'pago' => $pago,
-        		'url'=> "admin/pagos/{$pago}/",
-        		'method' => 'PATCH',
             'flash_message' => 'Ha ocurrido un error.',
             'flash_class' => 'alert-danger',
             'flash_important' => true

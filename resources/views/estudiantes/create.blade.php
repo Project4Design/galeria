@@ -30,23 +30,23 @@
           </div>
 
 					<div class="form-group {{ $errors->has('nombres')?'has-error':'' }}">
-						<label class="control-label" for="nombres">Nombres:</label>
-						<input id="nombres" class="form-control" type="text" name="nombres" value="{{ old('nombres')?old('nombres'):''}}" placeholder="Nombres">
+						<label class="control-label" for="nombres">Nombres: *</label>
+						<input id="nombres" class="form-control" type="text" name="nombres" value="{{ old('nombres')?old('nombres'):''}}" placeholder="Nombres" required>
 					</div>
 					
 					<div class="form-group {{ $errors->has('apellidos')?'has-error':'' }}">
-						<label class="control-label" for="apellidos">Apellidos:</label>
-						<input id="apellidos" class="form-control" type="text" name="apellidos" value="{{ old('apellidos')?old('apellidos'):''}}" placeholder="Apellidos">
+						<label class="control-label" for="apellidos">Apellidos: *</label>
+						<input id="apellidos" class="form-control" type="text" name="apellidos" value="{{ old('apellidos')?old('apellidos'):''}}" placeholder="Apellidos" required>
 					</div>
 
 					<div class="form-group {{ $errors->has('cedula')?'has-error':'' }}">
-						<label class="control-label" for="cedula">Cedula:</label>
-						<input id="cedula" class="form-control" type="text" name="cedula" value="{{ old('cedula')?old('cedula'):''}}" placeholder="Apellidos">
+						<label class="control-label" for="cedula">Cedula: *</label>
+						<input id="cedula" class="form-control" type="text" name="cedula" value="{{ old('cedula')?old('cedula'):''}}" placeholder="Apellidos" required>
 					</div>
 
 					<div class="form-group {{ $errors->has('sexo')?'has-error':'' }}">
-						<label class="control-label" for="sexo">Sexo:</label>
-						<select name="sexo" id="sexo" class="form-control">
+						<label class="control-label" for="sexo">Sexo: *</label>
+						<select name="sexo" id="sexo" class="form-control" required>
 							<option value="">Seleccione...</option>
 							<option value="M" @if(old('sexo')) {{ old('sexo')==='M'?'selected':''}} @endif >Masculino</option>
 							<option value="F" @if(old('sexo')) {{ old('sexo')==='F'?'selected':''}} @endif >Femenino</option>
@@ -54,18 +54,18 @@
 					</div>
 
 					<div class="form-group {{ $errors->has('residencia')?'has-error':'' }}">
-						<label class="control-label" for="residencia">Residencia:</label>
-						<input id="residencia" class="form-control" type="text" name="residencia" value="{{ old('residencia')?old('residencia'):'' }}" placeholder="Residencia">
+						<label class="control-label" for="residencia">Residencia: *</label>
+						<input id="residencia" class="form-control" type="text" name="residencia" value="{{ old('residencia')?old('residencia'):'' }}" placeholder="Residencia" required>
 					</div>
 
 					<div class="form-group {{ $errors->has('email')?'has-error':'' }}">
-						<label class="control-label" for="email">Email:</label>
-						<input id="email" class="form-control" type="text" name="email" value="{{ old('email')?old('email'):'' }}" placeholder="Email">
+						<label class="control-label" for="email">Email: *</label>
+						<input id="email" class="form-control" type="text" name="email" value="{{ old('email')?old('email'):'' }}" placeholder="Email" required>
 					</div>
 					
 					<div class="form-group {{ $errors->has('alergico')?'has-error':'' }}">
-						<label class="control-label" for="alergico">Alergico:</label>
-						<select name="alergico" id="alergico" class="form-control">
+						<label class="control-label" for="alergico">Alergico: *</label>
+						<select name="alergico" id="alergico" class="form-control" required>
 							<option value="">Seleccione...</option>
 							<option value="1" @if(old('alergico')) {{ old('alergico')==1?'selected':''}} @endif >Si</option>
 							<option value="0" @if(old('alergico')=="0") {{ old('alergico')==0?'selected':''}} @endif >No</option>
@@ -73,8 +73,8 @@
 					</div>
 
 					<div class="form-group {{ $errors->has('tlf_personal')?'has-error':'' }}">
-						<label class="control-label" for="tlf_personal">Tlf. Personal:</label>
-						<input id="tlf_personal" class="form-control" type="text" name="tlf_personal" value="{{ old('tlf_personal')?old('tlf_personal'):'' }}" placeholder="Telefono personal">
+						<label class="control-label" for="tlf_personal">Tlf. Personal: *</label>
+						<input id="tlf_personal" class="form-control" type="text" name="tlf_personal" value="{{ old('tlf_personal')?old('tlf_personal'):'' }}" placeholder="Telefono personal" required>
 					</div>
 
 					<div class="form-group {{ $errors->has('tlf_local')?'has-error':'' }}">
@@ -83,8 +83,8 @@
 					</div>
 					
 					<div class="form-group {{ $errors->has('nacimiento')?'has-error':'' }}">
-						<label class="control-label" for="nacimiento">Nacimiento:</label>
-						<input id="nacimiento" class="form-control datepicker" type="text" name="nacimiento" value="{{ old('nacimiento')?old('nacimiento'):'' }}" placeholder="Nacimiento" autocomplete="off" readonly>
+						<label class="control-label" for="nacimiento">Nacimiento: *</label>
+						<input id="nacimiento" class="form-control datepicker" type="text" name="nacimiento" value="{{ old('nacimiento')?old('nacimiento'):'' }}" placeholder="Nacimiento" autocomplete="off" readonly required>
 					</div>
 
 					<fieldset id="representante" disabled style="display:none">
@@ -104,28 +104,28 @@
 	          </div>
 
 						<div class="form-group {{ $errors->has('representante_nombres')?'has-error':'' }}">
-							<label class="control-label" for="representante_nombres">Nombres:</label>
-							<input id="representante_nombres" class="form-control" type="text" name="representante_nombres" value="{{ old('representante_nombres')?old('representante_nombres'):'' }}" placeholder="Nombres">
+							<label class="control-label" for="representante_nombres">Nombres: *</label>
+							<input id="representante_nombres" class="form-control" type="text" name="representante_nombres" value="{{ old('representante_nombres')?old('representante_nombres'):'' }}" placeholder="Nombres" required>
 						</div>
 
 						<div class="form-group {{ $errors->has('representante_apellidos')?'has-error':'' }}">
-							<label class="control-label" for="representante_apellidos">Apellidos:</label>
-							<input id="representante_apellidos" class="form-control" type="text" name="representante_apellidos" value="{{ old('representante_apellidos')?old('representante_apellidos'):'' }}" placeholder="Apellido">
+							<label class="control-label" for="representante_apellidos">Apellidos: *</label>
+							<input id="representante_apellidos" class="form-control" type="text" name="representante_apellidos" value="{{ old('representante_apellidos')?old('representante_apellidos'):'' }}" placeholder="Apellido" required>
 						</div>
 						
 						<div class="form-group {{ $errors->has('representante_email')?'has-error':'' }}">
-							<label class="control-label" for="representante_email">Email:</label>
-							<input id="representante_email" class="form-control" type="mail" name="representante_email" value="{{ old('representante_email')?old('representante_email'):'' }}" placeholder="Email">
+							<label class="control-label" for="representante_email">Email: *</label>
+							<input id="representante_email" class="form-control" type="mail" name="representante_email" value="{{ old('representante_email')?old('representante_email'):'' }}" placeholder="Email" required>
 						</div>
 
 						<div class="form-group {{ $errors->has('representante_cedula')?'has-error':'' }}">
-							<label class="control-label" for="representante_cedula">Cedula:</label>
-							<input id="representante_cedula" class="form-control" type="text" name="representante_cedula" value="{{ old('representante_cedula')?old('representante_cedula'):'' }}" placeholder="Cedula">
+							<label class="control-label" for="representante_cedula">Cedula: *</label>
+							<input id="representante_cedula" class="form-control" type="text" name="representante_cedula" value="{{ old('representante_cedula')?old('representante_cedula'):'' }}" placeholder="Cedula" required>
 						</div>
 
 						<div class="form-group {{ $errors->has('representante_tlf_personal')?'has-error':'' }}">
-							<label class="control-label" for="representante_tlf_personal">Telefono personal:</label>
-							<input id="representante_tlf_personal" class="form-control" type="text" name="representante_tlf_personal" value="{{ old('representante_tlf_personal')?old('representante_tlf_personal'):'' }}" placeholder="Telefono personal">
+							<label class="control-label" for="representante_tlf_personal">Telefono personal: *</label>
+							<input id="representante_tlf_personal" class="form-control" type="text" name="representante_tlf_personal" value="{{ old('representante_tlf_personal')?old('representante_tlf_personal'):'' }}" placeholder="Telefono personal" required>
 						</div>
 
 						<div class="form-group {{ $errors->has('representante_tlf_local')?'has-error':'' }}">
@@ -134,14 +134,14 @@
 						</div>
 
 						<div class="form-group {{ $errors->has('representante_residencia')?'has-error':'' }}">
-							<label class="control-label" for="representante_residencia">Residencia:</label>
-							<input id="representante_residencia" class="form-control" type="text" name="representante_residencia" value="{{ old('representante_residencia')?old('representante_residencia'):'' }}" placeholder="Residencia">
+							<label class="control-label" for="representante_residencia">Residencia: *</label>
+							<input id="representante_residencia" class="form-control" type="text" name="representante_residencia" value="{{ old('representante_residencia')?old('representante_residencia'):'' }}" placeholder="Residencia" required>
 						</div>
 						<!--================================================================================-->
 					</fieldset>
 
 					@if (count($errors) > 0)
-          <div class="alert alert-danger">
+          <div class="alert alert-danger alert-important">
 	          <ul>
 	            @foreach($errors->all() as $error)
 	               <li>{{$error}}</li>
@@ -191,10 +191,11 @@
 	      age--;
 	    }
 	    var enable = (age<18);
-			if(enable){
-				$('#representante').show().prop('disabled',!enable);
+			if(enable===true){
+				$('#representante').show().prop({'disabled':false,'required':true});
 			}else{
-				$('#representante').hide().prop('disabled',enable);
+				console.log("mayor");
+				$('#representante').hide().prop({'disabled':true,'required':false});
 			}
 		}
 		

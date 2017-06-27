@@ -30,27 +30,27 @@
           </div>
 
 					<div class="form-group {{ $errors->has('nombres')?'has-error':'' }}">
-						<label class="control-label" for="nombres">Nombres:</label>
+						<label class="control-label" for="nombres">Nombres: *</label>
 						<input id="nombres" class="form-control" type="text" name="nombres" value="{{ old('nombres')?old('nombres'):$representante->user->detalles->nombres }}" placeholder="Nombre">
 					</div>
 
 					<div class="form-group {{ $errors->has('apellidos')?'has-error':'' }}">
-						<label class="control-label" for="apellidos">Apellidos:</label>
+						<label class="control-label" for="apellidos">Apellidos: *</label>
 						<input id="apellidos" class="form-control" type="text" name="apellidos" value="{{ old('apellidos')?old('apellidos'):$representante->user->detalles->apellidos }}" placeholder="Apellido">
 					</div>
 					
 					<div class="form-group {{ $errors->has('email')?'has-error':'' }}">
-						<label class="control-label" for="email">Email:</label>
+						<label class="control-label" for="email">Email: *</label>
 						<input id="email" class="form-control" type="mail" name="email" value="{{ old('email')?old('email'):$representante->user->email }}" placeholder="Email">
 					</div>
 
 					<div class="form-group {{ $errors->has('cedula')?'has-error':'' }}">
-						<label class="control-label" for="cedula">Cedula:</label>
+						<label class="control-label" for="cedula">Cedula: *</label>
 						<input id="cedula" class="form-control" type="text" name="cedula" value="{{ old('cedula')?old('cedula'):$representante->user->detalles->cedula }}" placeholder="Cedula">
 					</div>
 
 					<div class="form-group {{ $errors->has('tlf_personal')?'has-error':'' }}">
-						<label class="control-label" for="tlf_personal">Telefono personal:</label>
+						<label class="control-label" for="tlf_personal">Telefono personal: *</label>
 						<input id="tlf_personal" class="form-control" type="text" name="tlf_personal" value="{{ old('tlf_personal')?old('tlf_personal'):$representante->user->detalles->tlf_personal }}" placeholder="Telefono personal">
 					</div>
 
@@ -60,13 +60,13 @@
 					</div>
 
 					<div class="form-group {{ $errors->has('residencia')?'has-error':'' }}">
-						<label class="control-label" for="residencia">Residencia:</label>
+						<label class="control-label" for="residencia">Residencia: *</label>
 						<input id="residencia" class="form-control" type="text" name="residencia" value="{{ old('residencia')?old('residencia'):$representante->residencia }}" placeholder="Residencia">
 					</div>
 
 
 					@if (count($errors) > 0)
-          <div class="alert alert-danger">
+          <div class="alert alert-danger alert-important">
 	          <ul>
 	            @foreach($errors->all() as $error)
 	               <li>{{$error}}</li>

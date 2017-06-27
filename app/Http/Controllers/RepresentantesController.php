@@ -49,7 +49,7 @@ class RepresentantesController extends Controller
         'apellidos' => 'required',
         'cedula' => 'required|numeric|unique:detalles',
         'tlf_personal'=> 'required|numeric',
-        'tlf_local'=> 'required|numeric',
+        'tlf_local'=> 'nullable|numeric',
         'residencia' => 'required',
         'foto' => 'required|image'
       ]);
@@ -137,9 +137,9 @@ class RepresentantesController extends Controller
         'apellidos' => 'required',
         'cedula' => 'required|numeric|unique:detalles,cedula,'.$representante->user->detalle_id.',detalle_id',
         'tlf_personal'=> 'required|numeric',
-        'tlf_local'=> 'required|numeric',
+        'tlf_local'=> 'nullable|numeric',
         'residencia' => 'required',
-        'foto' => 'image'
+        'foto' => 'nullable|image'
       ]);
 
       $det = Detalles::find($representante->user->detalle_id);

@@ -41,6 +41,7 @@
 								<th class="text-center">Periodo</th>
 								<th class="text-center">Curso</th>
 								<th class="text-center">Estudiante</th>
+								<th class="text-center">Fecha</th>
 							</tr>
 						</thead>
 						<tbody class="text-center">
@@ -51,6 +52,7 @@
 									<td><a href="{{ url('admin/periodos/'.$d->periodo->periodo_id) }}">{{$d->periodo->periodo}}</td>
 									<td><a href="{{ url('admin/cursos/'.$d->curso->curso_id) }}">{{$d->curso->titulo}}</td>
 									<td><a href="{{ url('admin/estudiantes/'.$d->estudiante->estudiante_id) }}">{{$d->estudiante->user->detalles->nombres." ".$d->estudiante->user->detalles->apellidos}}</a></td>
+									<td>{{$d->created_at}}</td>
 								</tr>
 								@php $i++; @endphp
 							@endforeach

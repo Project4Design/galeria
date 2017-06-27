@@ -49,8 +49,9 @@ class CursosController extends Controller
     public function store(Request $request)
     {
         
-        
       $this->validate($request, [
+      	'titulo' => 'required',
+      	'descripcion' => 'required',
         'precio' => 'required|numeric',
         'limit' => 'required',
         'image' => 'required|image',
@@ -144,7 +145,16 @@ class CursosController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        
+      $this->validate($request, [
+      	'titulo' => 'required',
+      	'descripcion' => 'required',
+        'precio' => 'required|numeric',
+        'limit' => 'required',
+        'image' => 'nullable|image',
+        'id_profesor'=>'required'
+      ]);
+
     	$curso = Curso::findOrFail($id);
     	$curso->fill($request->all());
 

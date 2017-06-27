@@ -30,27 +30,27 @@
           </div>
 
 					<div class="form-group {{ $errors->has('titulo')?'has-error':'' }}">
-						<label class="control-label" for="titulo">Titulo:</label>
+						<label class="control-label" for="titulo">Titulo: *</label>
 						<input id="titulo" class="form-control" type="text" name="titulo" value="{{ old('titulo')?old('titulo'):$cuadro->titulo }}" placeholder="Titulo">
 					</div>
 
 					<div class="form-group {{ $errors->has('autor')?'has-error':'' }}">
-						<label class="control-label" for="autor">Autor:</label>
+						<label class="control-label" for="autor">Autor: *</label>
 						<input id="autor" class="form-control" type="text" name="autor" value="{{ old('autor')?old('autor'):$cuadro->autor }}" placeholder="Autor">
 					</div>
 
 					<div class="form-group {{ $errors->has('anio')?'has-error':'' }}">
-						<label class="control-label" for="anio">Año:</label>
+						<label class="control-label" for="anio">Año: *</label>
 						<input id="anio" class="form-control" type="text" name="anio" value="{{ old('anio')?old('anio'):$cuadro->anio }}" placeholder="Año">
 					</div>
 
 					<div class="form-group {{ $errors->has('descripcion')?'has-error':'' }}">
-						<label class="control-label" for="descripcion">Descripcion:</label>
+						<label class="control-label" for="descripcion">Descripcion: *</label>
 						<input id="descripcion" class="form-control" type="text" name="descripcion" value="{{ old('descripcion')?old('descripcion'):$cuadro->descripcion }}" placeholder="Descripcion">
 					</div>
 
 					@if (count($errors) > 0)
-          <div class="alert alert-danger">
+          <div class="alert alert-danger alert-important">
 	          <ul>
 	            @foreach($errors->all() as $error)
 	               <li>{{$error}}</li>

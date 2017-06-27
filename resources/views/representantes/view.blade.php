@@ -39,7 +39,7 @@
                   <b>Telefono personal</b> <span class="pull-right">{{$representante->user->detalles->tlf_personal}}</span>
                 </li>
                 <li class="list-group-item">
-                  <b>Telefono local</b> <span class="pull-right">{{$representante->user->detalles->tlf_local}}</span>
+                  <b>Telefono local</b> <span class="pull-right">{{$representante->user->detalles->tlf_local?$representante->user->detalles->tlf_local:'N/A'}}</span>
                 </li>
                 <li class="list-group-item">
                   <b>Residencia</b> <span class="pull-right">{{$representante->residencia}}</span>

@@ -38,6 +38,16 @@
 					    <p><b>Referencia: </b> {{ $pago->referencia }} </p>
 					@endif
 				</div>
+				<div class="col-md-4">
+					<h4>Detalles del curso <small><a href="{{url('admin/cursos/'.$pago->inscripcion->curso_id)}}">(Ver curso)</a></small></h4>
+					<p><b>Curso: </b> {{ $pago->inscripcion->curso->titulo }} </p>
+				</div>
+				<div class="col-md-4">
+					<h4>Detalles del estudiante <small><a href="{{url('admin/estudiantes/'.$pago->inscripcion->estudiante_id)}}">(Ver estudiante)</a></small></h4>
+					<p><b>Nombre: </b> {{$pago->inscripcion->estudiante->user->detalles->nombres." ".$pago->inscripcion->estudiante->user->detalles->apellidos}}</p>
+					<p><b>Cedula: </b> {{ number_format($pago->inscripcion->estudiante->user->detalles->cedula,0,",",".") }} </p>
+					<p><b>Telefono: </b> {{ $pago->inscripcion->estudiante->user->detalles->tlf_personal }} </p>
+				</div>
 				
 			</div>
 		</section>

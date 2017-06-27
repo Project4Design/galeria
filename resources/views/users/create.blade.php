@@ -43,7 +43,7 @@
 
 					<div class="form-group {{ $errors->has('tlf_local')?'has-error':'' }}">
 						<label class="control-label" for="tlf_local">Telefono local: </label>
-						<input id="tlf_local" class="form-control" type="text" name="tlf_local" value="{{ old('tlf_local')?old('tlf_local'):'' }}" placeholder="tlf_local">
+						<input id="tlf_local" class="form-control" type="text" name="tlf_local" value="{{ old('tlf_local')?old('tlf_local'):'' }}" placeholder="telefono local">
 					</div>
 					
 					<div class="form-group {{ $errors->has('password')?'has-error':'' }}">
@@ -57,7 +57,7 @@
 					</div>
 
 					@if (count($errors) > 0)
-	          <div class="alert alert-danger">
+	          <div class="alert alert-danger alert-important">
 	          <ul>
 	            @foreach($errors->all() as $error)
 	               <li>{{$error}}</li>

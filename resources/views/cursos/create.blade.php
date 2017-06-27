@@ -44,12 +44,12 @@
 						<input id="precio" class="form-control" type="number" name="precio" value="{{ old('precio')?old('precio'):$curso->precio }}" placeholder="precio">
 					</div>
 
-					<div class="form-group {{ $errors->has('limite')?'has-error':'' }}">
-						<label class="control-label" for="limite">Limite: *</label>
-						<select id="limite" class="form-control" type="number" name="limit">
+					<div class="form-group {{ $errors->has('limit')?'has-error':'' }}">
+						<label class="control-label" for="limit">Limite: *</label>
+						<select id="limit" class="form-control" type="number" name="limit">
 							<option value="">Seleccione</option>
-							<option value="10">10</option>
-							<option value="20">20</option>
+							<option value="10" @if(old('limit')) {{old('limit')==10?'seletec':''}} @else {{$curso->limit==10?'selected':''}} @endif >10</option>
+							<option value="20" @if(old('limit')) {{old('limit')==10?'seletec':''}} @else {{$curso->limit==20?'selected':''}} @endif >20</option>
 						</select>
 					</div>
 
@@ -58,13 +58,13 @@
 						<select id="id_profesor" name="id_profesor" class="form-control">
 							<option value="">Seleccione...</option>
 							@foreach($profesor as $p)
-								<option value="{{ old('id_profesor')?old('id_profesor'):$p->id}}" {{$curso->id_profesor?'selected':''}}>{{$p->user->detalles->nombres.' '.$p->user->detalles->apellidos}}</option>
+								<option value="{{$p->id}}" @if(old('id_profesor')) {{old('id_profesor')==$p->id?'seletec':''}} @else {{$curso->id_profesor==$p->id?'selected':''}} @endif >{{$p->user->detalles->nombres.' '.$p->user->detalles->apellidos}}</option>
 							@endforeach
 						</select>
 					</div>
 
 					@if (count($errors) > 0)
-          <div class="alert alert-danger">
+          <div class="alert alert-danger alert-important">
 	          <ul>
 	            @foreach($errors->all() as $error)
 	               <li>{{$error}}</li>

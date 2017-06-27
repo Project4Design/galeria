@@ -55,7 +55,7 @@ class EstudiantesController extends Controller
     		'email' =>'required|email|unique:users',
     		'alergico' => 'required|numeric',
     		'tlf_personal' => 'required|numeric',
-    		'tlf_local' => 'numeric'
+    		'tlf_local' => 'nullable|numeric'
     	]);
 
     	//Calculamos si el estudiante es menor de edad
@@ -75,7 +75,7 @@ class EstudiantesController extends Controller
 	    		'representante_residencia' => 'required',
 	    		'representante_email' =>'required|email|unique:users,email',
 	    		'representante_tlf_personal' => 'required|numeric',
-	    		'representante_tlf_local' => 'numeric'
+	    		'representante_tlf_local' => 'nullable|numeric'
 	    		]);
 
 	    	$rep = new Detalles;
@@ -200,7 +200,7 @@ class EstudiantesController extends Controller
         $estudiante = Estudiante::findOrFail($id);
 
         $this->validate($request, [
-	    		'foto' => 'image',
+	    		'foto' => 'nullable|image',
 	    		'nombres' => 'required',
 	    		'apellidos' => 'required',
 	    		'cedula' => 'required|numeric|unique:detalles,cedula,'.$estudiante->user->detalle_id.',detalle_id',
@@ -210,7 +210,7 @@ class EstudiantesController extends Controller
 	    		'email' =>'required|email|unique:users,email,'.$estudiante->user_id.',id',
 	    		'alergico' => 'required',
 	    		'tlf_personal' => 'required|numeric',
-	    		'tlf_local' => 'numeric'
+	    		'tlf_local' => 'nullable|numeric'
         ]);
 
         $det = Detalles::find($estudiante->user->detalle_id);
