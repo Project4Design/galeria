@@ -3,6 +3,7 @@
 <head>
 	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 	<meta name="viewport" content="width=device-width; initial-scale=1; maximum-scale=1" />
+  <link rel="shortcut icon" href="{{asset('img/logo.png')}}">
 	<title>@yield('title',config('app.name'))</title>
 	<link rel="stylesheet" type="text/css" media="all" href="{{asset('css/style.css')}}" />
 	<link rel="stylesheet" href="{{asset('css/prettyPhoto.css')}}" type="text/css" media="screen" charset="utf-8"/>
