@@ -13,6 +13,7 @@
 		<section>
 	    <a class="btn btn-flat btn-default" href="{{ url('area/dashboard') }}"><i class="fa fa-reply" aria-hidden="true"></i> Volver</a>
 	    <button class="btn btn-flat btn-warning" data-toggle="modal" data-target="#notaModal"><i class="fa fa-pencil-square-o" aria-hidden="true"></i> Asignar Notas</button>
+	    <a href="{{url('admin/rep_profesor/'.$curso->curso_id.'/'.$periodo->periodo_id)}}" class="btn btn-flat btn-danger"><i class="fa fa-print" aria-hidden="true"></i> Imprimir</a>
 		</section>
 
 		<section>

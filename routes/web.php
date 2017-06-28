@@ -76,5 +76,6 @@ Route::group(['middleware' => 'auth','prefix' => 'admin'],function(){
 	Route::get('/rep_estudiantes','ReportesController@estudiantes')->name('pdf.estudiantes');
 	Route::post('/rep_pagos_fe','ReportesController@pagos_fecha')->name('pdf.pagos');
 	Route::get('/rep_periodo/{id}','ReportesController@periodos');
+	Route::get('/rep_profesor/{id}/{periodo}','ReportesController@profesores');
 
 });

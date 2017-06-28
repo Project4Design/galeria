@@ -2,91 +2,58 @@
 <html lang="en">
   <head>
     <meta charset="utf-8">
-    <title>Example 1</title>
+    <title>Periodo {{$periodo->periodo}}</title>
     <link rel="stylesheet" href="css/pdf.css" media="all" />
   </head>
   <body>
     <header class="clearfix">
       <div id="logo">
-        <img src="logo.png">
+        <img src="IMG/logo.png">
       </div>
-      <h1>INVOICE 3-2-1</h1>
-      <div id="company" class="clearfix">
-        <div>Company Name</div>
-        <div>455 Foggy Heights,<br /> AZ 85004, US</div>
-        <div>(602) 519-0450</div>
-        <div><a href="mailto:company@example.com">company@example.com</a></div>
-      </div>
+      <h1>TITULO : {{$curso->titulo}}</h1>
       <div id="project">
-        <div><span>PROJECT</span> Website development</div>
-        <div><span>CLIENT</span> John Doe</div>
-        <div><span>ADDRESS</span> 796 Silver Harbour, TX 79273, US</div>
-        <div><span>EMAIL</span> <a href="mailto:john@example.com">john@example.com</a></div>
-        <div><span>DATE</span> August 17, 2015</div>
-        <div><span>DUE DATE</span> September 17, 2015</div>
+        <div><span>REGISTRADO</span> {{$curso->created_at}}</div>
+        <div><span>TITULO</span>{{$curso->titulo}}</div>
+        <div><span>DESCRIPCION</span> {{$curso->descripcion}} </div>
+        <div><span>INSCRITOS</span> {{count($curso->estudiantesByPeriodo($periodo->periodo_id)).'/'.$curso->limit}}</div>
       </div>
     </header>
     <main>
-      <table>
-        <thead>
-          <tr>
-            <th class="service">SERVICE</th>
-            <th class="desc">DESCRIPTION</th>
-            <th>PRICE</th>
-            <th>QTY</th>
-            <th>TOTAL</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr>
-            <td class="service">Design</td>
-            <td class="desc">Creating a recognizable design solution based on the company's existing visual identity</td>
-            <td class="unit">$40.00</td>
-            <td class="qty">26</td>
-            <td class="total">$1,040.00</td>
-          </tr>
-          <tr>
-            <td class="service">Development</td>
-            <td class="desc">Developing a Content Management System-based Website</td>
-            <td class="unit">$40.00</td>
-            <td class="qty">80</td>
-            <td class="total">$3,200.00</td>
-          </tr>
-          <tr>
-            <td class="service">SEO</td>
-            <td class="desc">Optimize the site for search engines (SEO)</td>
-            <td class="unit">$40.00</td>
-            <td class="qty">20</td>
-            <td class="total">$800.00</td>
-          </tr>
-          <tr>
-            <td class="service">Training</td>
-            <td class="desc">Initial training sessions for staff responsible for uploading web content</td>
-            <td class="unit">$40.00</td>
-            <td class="qty">4</td>
-            <td class="total">$160.00</td>
-          </tr>
-          <tr>
-            <td colspan="4">SUBTOTAL</td>
-            <td class="total">$5,200.00</td>
-          </tr>
-          <tr>
-            <td colspan="4">TAX 25%</td>
-            <td class="total">$1,300.00</td>
-          </tr>
-          <tr>
-            <td colspan="4" class="grand total">GRAND TOTAL</td>
-            <td class="grand total">$6,500.00</td>
-          </tr>
-        </tbody>
-      </table>
-      <div id="notices">
-        <div>NOTICE:</div>
-        <div class="notice">A finance charge of 1.5% will be made on unpaid balances after 30 days.</div>
+      <table border="1">
+                <thead>
+                  <tr>
+                    <th>#</th>
+                    <th>Cedula</th>
+                    <th>Nombres</th>
+                    <th>Apellidos</th>
+                    <th>Email</th>
+                    <th>Telefono personal</th>
+                    <th>Nota</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  @php $i=1; @endphp
+                  @foreach($estudiantes as $d)
+                    <tr>
+                      <td>{{$i}}</td>
+                      <td>{{number_format($d->estudiante->user->detalles->cedula,0,",",".")}}</td>
+                      <td>{{$d->estudiante->user->detalles->nombres}}</td>
+                      <td>{{$d->estudiante->user->detalles->apellidos}}</td>
+                      <td>{{$d->estudiante->user->email}}</td>
+                      <td>{{$d->estudiante->user->detalles->tlf_personal}}</td>
+                      <td>{{$d->nota->nota?$d->nota->nota:'-'}}</td>
+                    </tr>
+                    @php $i++; @endphp
+                  @endforeach
+                </tbody>
+              </table>
+     <div id="notices">
+        <div>IMPORTANTE:</div>
+        <div class="notice">Esta informaacion debe manejarse con cuidado.</div>
       </div>
     </main>
     <footer>
-      Invoice was created on a computer and is valid without the signature and seal.
+      Copyright © GALERIA D´ ABILIO 2017 . - Desarrollado por Marily Ortegana y Frangelis Hernandez
     </footer>
   </body>
 </html>

@@ -58,6 +58,7 @@
 										<td>{{count($d->curso->estudiantesByPeriodo($d->periodo_id)).'/'.$d->curso->limit}}</td>
 										<td>
 											<a class="btn btn-primary btn-flat btn-sm" href="{{ url('area/cursos/'.$d->curso_id.'/'.$d->periodo_id) }}"><i class="fa fa-search"></i></a>
+											 <a href="{{url('admin/rep_profesor/'.$d->curso_id.'/'.$d->periodo_id)}}" class="btn btn-flat btn-danger btn-sm"><i class="fa fa-print" aria-hidden="true"></i></a>
 										</td>
 									</tr>
 									@php $i++; @endphp
