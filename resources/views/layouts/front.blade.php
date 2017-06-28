@@ -18,10 +18,11 @@
 	    <div class="menu">
 	      <ul>
 	        <li class="selected"><a href="{{route('front_index')}}">Inicio</a></li>
+	        <li><a href="{{url('/login')}}">Login</a></li>
 	        <li><a href="{{route('about')}}">Acerca de</a></li>
 	        <li><a href="{{route('cursos.cursos')}}">Cursos</a></li>
 	        <li><a href="{{route('galeria')}}">Galeria</a></li>
-	        <li><a href="{{route('contacto')}}">Contacto</a></li> 
+	        <li><a href="{{route('contacto')}}">Contacto</a></li>
 	      </ul>
 	    </div> 
   	</div><!-- End of Header-->

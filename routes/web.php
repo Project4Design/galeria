@@ -27,7 +27,7 @@ Route::post('/logout', 'LoginController@logout')->name('logout');
 //PANEL DE USUARIO
 Route::get('panel/dashboard', 'LoginController@index')->name('index');
 //Cursos
-Route::get('panel/cursos/{id}','CursosController@show');
+Route::get('panel/cursos/{id}','InscripcionesController@view');
 //Pagos
 Route::resource('panel/pagos','PagosController');
 //Perfil
