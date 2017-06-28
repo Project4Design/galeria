@@ -51,6 +51,7 @@
             <!-- /.box-body -->
           </div>
           <!-- /.box -->
+          <a href="{{url('admin/rep_periodo/'.$periodo->periodo_id)}}" class="btn btn-flat btn-danger" ><i class="fa fa-print" > Imprimir</i></a>
         </div>
 
         <div class="col-md-9">

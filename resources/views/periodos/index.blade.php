@@ -58,6 +58,9 @@
 									<td>
 										<a class="btn btn-primary btn-flat btn-sm" href="{{ url('admin/periodos/'.$d->periodo_id) }}"><i class="fa fa-search"></i></a>
 										<a href="{{ url('admin/periodos/'.$d->periodo_id.'/edit') }}" class="btn btn-flat btn-success btn-sm" title="Editar"><i class="fa fa-edit"></i></a>
+										@if(count($d->estudiantesPeriodo()) > 0 && count($d->cursosPeriodo()) > 0)
+											 <a href="{{url('admin/rep_periodo/'.$d->periodo_id)}}" class="btn btn-flat btn-danger btn-sm" ><i class="fa fa-print" > </i></a>
+										 @endif
 									</td>
 								</tr>
 								@php $i++; @endphp

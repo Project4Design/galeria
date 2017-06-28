@@ -10,6 +10,7 @@ use App\Pago;
 use App\Profesores;
 use App\Bitacora;
 use App\Estudiante;
+use App\Periodo;
 
 class ReportesController extends Controller
 {
@@ -58,5 +59,29 @@ class ReportesController extends Controller
             ]);
       }//fin if
     
+    }
+
+    public function  periodos($id)
+    {
+
+      $periodo = Periodo::findOrFail($id);
+      $cursos = $periodo->cursosPeriodo();
+      $estudiantes = $periodo->estudiantesPeriodo();
+      $fecha = Date('Y-m-d');
+        $pdf = PDF::loadView('reportes.periodos',['periodo'=>$periodo,'cursos'=>$cursos,'estudiantes'=>$estudiantes]);
+
+        return $pdf->download('periodo'.$periodo->periodo.'.pdf');
+    }
+
+    public function profesores($id,$periodo = NULL)
+    {
+
+      $curso = Curso::findOrFail($id);
+      $estudiantes = $curso->estudiantesByPeriodo($periodo);
+      $periodo = Periodo::find($periodo);
+      $fecha = Date('Y-m-d');
+        $pdf = PDF::loadView('reportes.cursos',["curso" => $curso,'estudiantes' => $estudiantes,'periodo'=>$periodo]);
+
+        return $pdf->download('curso'.$curso->curso_id.'.pdf');
     }
 }
