@@ -25,32 +25,33 @@ Route::post('/registro','EstudiantesController@estStore')->name('eststore');
 Route::get('/login','FrontCrontroller@login')->name('login');
 Route::post('auth', 'LoginController@login')->name('auth');
 Route::post('/logout', 'LoginController@logout')->name('logout');
+Route::group(['middleware' => 'auth','prefix' => 'admin'],function(){
+	//PANEL DE USUARIO
+	Route::get('panel/dashboard', 'LoginController@index')->name('index');
+	//Cursos
+	Route::get('panel/ver/{id}','InscripcionesController@view');
+	Route::get('panel/cursos/{id}','CursosController@panel_show');
+	Route::post('panel/cursos/','InscripcionesController@store');
+	//Pagos
+	Route::get('panel/pagos','PagosController@index');
+	Route::get('panel/pagos/create','PagosController@create');
+	Route::get('panel/pagos/{id}','PagosController@show');
+	Route::post('panel/pagos/','PagosController@store');
+	Route::get('panel/pagos/{id}/edit','PagosController@edit');
+	Route::patch('panel/pagos/{id}','PagosController@update');
+	//Perfil
+	Route::get('panel/perfil','UsersController@perfil')->name('perfil');
+	Route::patch('panel/perfil','UsersController@update_perfil')->name('update_perfil');
+	//===================================================================================
 
-//PANEL DE USUARIO
-Route::get('panel/dashboard', 'LoginController@index')->name('index');
-//Cursos
-Route::get('panel/ver/{id}','InscripcionesController@view');
-Route::get('panel/cursos/{id}','CursosController@panel_show');
-Route::post('panel/cursos/','InscripcionesController@store');
-//Pagos
-Route::get('panel/pagos','PagosController@index');
-Route::get('panel/pagos/create','PagosController@create');
-Route::get('panel/pagos/{id}','PagosController@show');
-Route::post('panel/pagos/','PagosController@store');
-Route::get('panel/pagos/{id}/edit','PagosController@edit');
-Route::patch('panel/pagos/{id}','PagosController@update');
-//Perfil
-Route::get('panel/perfil','UsersController@perfil')->name('perfil');
-Route::patch('panel/perfil','UsersController@update_perfil')->name('update_perfil');
-//===================================================================================
-
-//AREA - PROFESORES
-Route::get('area/dashboard', 'LoginController@index')->name('index');
-Route::get('area/cursos/{curso}/{periodo}','CursosController@show');
-Route::patch('area/cursos/{curso}/{periodo}','CursosController@calificar');
-Route::get('area/perfil','UsersController@perfil')->name('perfil');
-Route::patch('area/perfil','UsersController@update_perfil')->name('update_perfil');
-//===========================================================================================
+	//AREA - PROFESORES
+	Route::get('area/dashboard', 'LoginController@index')->name('index');
+	Route::get('area/cursos/{curso}/{periodo}','CursosController@show');
+	Route::patch('area/cursos/{curso}/{periodo}','CursosController@calificar');
+	Route::get('area/perfil','UsersController@perfil')->name('perfil');
+	Route::patch('area/perfil','UsersController@update_perfil')->name('update_perfil');
+	//===========================================================================================
+});
 
 //VIEWS ADMIN
 //verificar rutas con permiso auth
