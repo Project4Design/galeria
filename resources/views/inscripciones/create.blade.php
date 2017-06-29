@@ -11,6 +11,7 @@
 @section('content')
 		<!-- Formulario -->
 		<div class="row">
+			@include('partials.flash')
 			<div class="col-md-6 col-md-offset-3">
 				<form class="" action="{{ url('admin/inscripciones') }}" method="POST" enctype="multipart/form-data">
 					{{ method_field('POST') }}
@@ -22,7 +23,7 @@
 						<select id="periodo" name="periodo" class="form-control">
 							<option value="">Seleccione...</option>
 							@foreach($periodos as $d)
-								<option value="{{$d->periodo_id}}" @if(old('periodo')) {{ old('periodo_id')==$d->periodo_id?'selected':''}} @endif >{{$d->periodo}}</option>
+								<option value="{{$d->periodo_id}}" {{ old('periodo_id')==$d->periodo_id?'selected':''}}>{{$d->periodo}}</option>
 							@endforeach
 						</select>
 					</div>
@@ -32,7 +33,7 @@
 						<select id="curso" name="curso" class="form-control">
 							<option value="">Seleccione...</option>
 							@foreach($cursos as $d)
-								<option value="{{$d->curso_id}}" @if(old('curso')) {{ old('curso')==$d->curso_id?'selected':''}} @endif >{{$d->titulo}}</option>
+								<option value="{{$d->curso_id}}" {{ old('curso')==$d->curso_id?'selected':''}}>{{$d->titulo}}</option>
 							@endforeach
 						</select>
 					</div>
@@ -42,7 +43,7 @@
 						<select id="estudiante" name="estudiante" class="form-control">
 							<option value="">Seleccione...</option>
 							@foreach($estudiantes as $d)
-								<option value="{{$d->estudiante_id}}" @if(old('estudiante')) {{ old('estudiante')==$d->estudiante_id?'selected':''}} @endif >{{$d->user->detalles->nombres." ".$d->user->detalles->apellidos." | ".$d->user->detalles->cedula }}</option>
+								<option value="{{$d->estudiante_id}}" @if($estudiante) {{$estudiante==$d->estudiante_id?'selected':''}} @else {{old('estudiante')==$d->estudiante_id?'selected':''}} @endif >{{$d->user->detalles->nombres." ".$d->user->detalles->apellidos." | ".$d->user->detalles->cedula }}</option>
 							@endforeach
 						</select>
 					</div>

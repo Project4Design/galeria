@@ -38,6 +38,7 @@
 						<thead>
 							<tr>
 								<th class="text-center">#</th>
+								<th class="text-center">Estado</th>
 								<th class="text-center">Periodo</th>
 								<th class="text-center">Curso</th>
 								<th class="text-center">Estudiante</th>
@@ -52,6 +53,7 @@
 							@foreach($pagos as $p)
 								<tr>
 									<td>{{$i}}</td>
+									<td>{!!$p->status()!!}</td>
 									<td>{{$p->inscripcion->periodo->periodo}}</td>
 									<td>{{$p->inscripcion->curso->titulo}}</td>
 									<td>{{$p->inscripcion->estudiante->user->detalles->nombres." ".$p->inscripcion->estudiante->user->detalles->apellidos}}</td>
@@ -60,7 +62,9 @@
 									<td>{{$p->fecha}}</td>
 									<td>
 										<a class="btn btn-primary btn-flat btn-sm" href="{{ url('admin/pagos/'.$p->pago_id) }}"><i class="fa fa-search"></i></a>
+										@if($p->status===2)
 										<a  href="{{ url('admin/pagos/'.$p->pago_id.'/edit') }}" class="btn btn-flat btn-success btn-sm" title="Editar"><i class="fa fa-edit"></i></a>
+										@endif
 									</td>
 								</tr>
 								@php $i++; @endphp

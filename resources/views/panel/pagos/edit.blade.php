@@ -13,55 +13,44 @@
 		<div class="row">
 			<div class="col-md-6 col-md-offset-3">
 				<form class="" action="{{ url('panel/pagos/'.$pago->pago_id) }}" method="POST">
-					{{method_field('PUT')}}
+					{{method_field('PATCH')}}
 					{{ csrf_field() }}
 					<h4>Modificar Pago</h4>
 
-					<div class="form-group {{ $errors->has('inscripcion_id')?'has-error':'' }}">
-						<label class="control-label" for="nombres">Inscripcion:</label>
-						<select  class="form-control" name="inscripcion_id">
-							<option value="">Seleccione...</option>
-							@foreach($inscripciones as $i)
-								<option value="{{$i->inscripcion_id}}" @if($i->inscripcion_id == $pago->inscripcion_id) selected @endif>{{$i->curso->titulo.'    ||     '.$i->estudiante->user->detalles->nombres}}</option>
-							@endforeach
-						</select>
-					</div>
-
 					<div class="form-group {{ $errors->has('tipo')?'has-error':'' }}">
-						<label class="control-label" for="apellidos">Tipo de pago:</label>
+						<label class="control-label" for="tipo_pago">Tipo de pago:</label>
 							<select id="tipo_pago" class="form-control" name="tipo">
 								<option value="">Seleccione...</option>
-								<option value="Deposito" @if($pago->tipo == "Deposito") selected @endif>Deposito</option>
-								<option value="Transferencia" @if($pago->tipo == "Transferencia") selected @endif>Transferencia</option>
-								<option value="Efectivo" @if($pago->tipo == "Efectivo") selected @endif>Efectivo</option>
+								<option value="Deposito" @if(old('tipo')) {{old('tipo')=='Deposito'?'selected':''}} @else {{$pago->tipo=='Deposito'?'selected':''}} @endif>Deposito</option>
+								<option value="Transferencia" @if(old('tipo')) {{old('tipo')=='Transferencia'?'selected':''}} @else {{$pago->tipo=='Transferencia'?'selected':''}} @endif>Transferencia</option>
 							</select>
 					</div>
-				<section style="display:none" id="section_pago">
-					<div class="form-group {{ $errors->has('banco')?'has-error':'' }}">
-						<label class="control-label" for="banc">Banco.:</label>
-						<select  id="banco" class="form-control" name="banco">
-							<option value="">Seleccione...</option>
-							<option value="Banco Provincial" @if($pago->banco == "Banco Provincial") selected @endif>Banco Provincial</option>
-							<option value="Banco Bicentenario" @if($pago->banco == "Banco Bicentenario") selected @endif>Banco Bicentenario</option>
-							<option value="Banco Mercantil" @if($pago->banco == "Banco Mercantil") selected @endif>Banco Mercantil</option>
-						</select>
-					</div>
 
-					<div class="form-group {{ $errors->has('referencia')?'has-error':'' }}">
-						<label class="control-label" for="referencia">Referencia:</label>
-						<input id="referencia" class="form-control" type="number" name="referencia"  placeholder="Referencia" value="{{$pago->referencia}}">
-					</div>
-				</section>
-					
+					<section style="display:none" id="section_pago">
+						<div class="form-group {{ $errors->has('banco')?'has-error':'' }}">
+							<label class="control-label" for="banc">Banco.:</label>
+							<select  id="banco" class="form-control" name="banco">
+								<option value="">Seleccione...</option>
+								<option value="Banco Provincial" @if(old('banco')) {{old('banco')=='Banco Provincial'?'selected':''}} @else $pago->banco=='Banco Provincial'?'selected':'' @endif>Banco Provincial</option>
+								<option value="Banco Bicentenario" @if(old('banco')) {{old('banco')=='Banco Bicentenario'?'selected':''}} @else $pago->banco=='Banco Bicentenario'?'selected':'' @endif>Banco Bicentenario</option>
+								<option value="Banco Mercantil" @if(old('banco')) {{old('banco')=='Banco Mercantil'?'selected':''}} @else $pago->banco=='Banco Mercantil'?'selected':'' @endif>Banco Mercantil</option>
+							</select>
+						</div>
+
+						<div class="form-group {{ $errors->has('referencia')?'has-error':'' }}">
+							<label class="control-label" for="referencia">Referencia:</label>
+							<input id="referencia" class="form-control" type="number" name="referencia" value="{{old('referencia')?old('referencia'):$pago->referencia}}" placeholder="Referencia">
+						</div>
+					</section>
 					
 					<div class="form-group {{ $errors->has('monto')?'has-error':'' }}">
-						<label class="control-label" for="monto">Monto BsF.:</label>
-						<input id="monto" class="form-control" type="text" name="monto"  placeholder="BsF." value="{{$pago->monto}}">
+						<label class="control-label" for="monto">Monto Bs:</label>
+						<input id="monto" class="form-control" type="text" name="monto"  value="{{old('monto')?old('monto'):$pago->monto}}" placeholder="Bs">
 					</div>
 
 					<div class="form-group {{ $errors->has('fecha')?'has-error':'' }}">
 						<label class="control-label" for="fecha">Fecha:</label>
-						<input id="fecha" class="form-control fecha" type="text" name="fecha"  placeholder="Fecha" value="{{$pago->fecha}}">
+						<input id="fecha" class="form-control fecha" type="text" name="fecha"  value="{{old('fecha')?old('fecha'):$pago->fecha}}" placeholder="Fecha">
 					</div>
 
 					@if (count($errors) > 0)

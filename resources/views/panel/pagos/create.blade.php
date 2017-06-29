@@ -16,57 +16,54 @@
 					{{ csrf_field() }}
 					<h4>Registrar Pago</h4>
 					@if(count($inscripciones)===0)
-				    <div class="alert alert-danger flash_important">
+				    <div class="alert alert-danger alert-important">
 				      <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
 				      <strong class="text-center">No tienes cursos pendientes por pagar</strong> 
 				  	</div>
 				  @endif
 
 					<div class="form-group {{ $errors->has('inscripcion_id')?'has-error':'' }}">
-						<label class="control-label" for="inscripcion">Inscripcion:</label>
-						<select id="inscripcion" class="form-control" name="inscripcion">
+						<label class="control-label" for="inscripcion">Inscripcion: *</label>
+						<select id="inscripcion" class="form-control" name="inscripcion" required>
 							<option value="">Seleccione...</option>
 							@foreach($inscripciones as $d)
-								<option value="{{$d->inscripcion_id}}">{{ $d->periodo->periodo.' | '.$d->curso->titulo}}</option>
+								<option value="{{$d->inscripcion_id}}" @if(old('inscripcion')) {{old('inscripcion')==$d->inscripcion_id?'selected':''}} @endif>{{ $d->periodo->periodo.' | '.$d->curso->titulo}}</option>
 							@endforeach
 						</select>
 					</div>
 
 					<div class="form-group {{ $errors->has('tipo')?'has-error':'' }}">
-						<label class="control-label" for="tipo_pago">Tipo de pago:</label>
-							<select id="tipo_pago" class="form-control" name="tipo">
+						<label class="control-label" for="tipo_pago">Tipo de pago: *</label>
+							<select id="tipo_pago" class="form-control" name="tipo" required>
 								<option value="">Seleccione...</option>
-								<option value="Deposito">Deposito</option>
-								<option value="Transferencia">Transferencia</option>
-								<option value="Efectivo">Efectivo</option>
+								<option value="Deposito" {{old('tipo')=='Deposito'?'selected':''}} >Deposito</option>
+								<option value="Transferencia" {{old('tipo')=='Transferencia'?'selected':''}}>Transferencia</option>
 							</select>
 					</div>
 
-					<section style="display:none" id="section_pago">
-						<div class="form-group {{ $errors->has('banco')?'has-error':'' }}">
-							<label class="control-label" for="banc">Banco.:</label>
-							<select  id="banco" class="form-control" name="banco">
-								<option value="">Seleccione...</option>
-								<option value="Banco Provincial">Banco Provincial</option>
-								<option value="Banco Bicentenario">Banco Bicentenario</option>
-								<option value="Banco Mercantil">Banco Mercantil</option>
-							</select>
-						</div>
+					<div class="form-group {{ $errors->has('banco')?'has-error':'' }}">
+						<label class="control-label" for="banc">Banco:</label>
+						<select  id="banco" class="form-control" name="banco" required>
+							<option value="">Seleccione...</option>
+							<option value="Banco Provincial" @if(old('banco')) {{old('banco')=='Banco Provincial'?'selected':''}} @endif>Banco Provincial</option>
+							<option value="Banco Bicentenario" @if(old('banco')) {{old('banco')=='Banco Bicentenario'?'selected':''}} @endif>Banco Bicentenario</option>
+							<option value="Banco Mercantil" @if(old('banco')) {{old('banco')=='Banco Mercantil'?'selected':''}} @endif>Banco Mercantil</option>
+						</select>
+					</div>
 
-						<div class="form-group {{ $errors->has('referencia')?'has-error':'' }}">
-							<label class="control-label" for="referencia">Referencia:</label>
-							<input id="referencia" class="form-control" type="number" name="referencia"  placeholder="Referencia">
-						</div>
-					</section>
+					<div class="form-group {{ $errors->has('referencia')?'has-error':'' }}">
+						<label class="control-label" for="referencia">Referencia:</label>
+						<input id="referencia" class="form-control" type="number" name="referencia" value="{{old('referencia')?old('referencia'):''}}" placeholder="Referencia" required>
+					</div>
 					
 					<div class="form-group {{ $errors->has('monto')?'has-error':'' }}">
-						<label class="control-label" for="monto">Monto BsF.:</label>
-						<input id="monto" class="form-control" type="text" name="monto"  placeholder="BsF.">
+						<label class="control-label" for="monto">Monto Bs:</label>
+						<input id="monto" class="form-control" type="text" name="monto"  value="{{old('monto')?old('monto'):''}}" placeholder="Bs" required>
 					</div>
 
 					<div class="form-group {{ $errors->has('fecha')?'has-error':'' }}">
 						<label class="control-label" for="fecha">Fecha:</label>
-						<input id="fecha" class="form-control fecha" type="text" name="fecha"  placeholder="Fecha">
+						<input id="fecha" class="form-control fecha" type="text" name="fecha"  value="{{old('fecha')?old('fecha'):''}}" placeholder="Fecha" required>
 					</div>
 
 					@if (count($errors) > 0)
@@ -80,7 +77,7 @@
         	@endif
 
 					<div class="form-group text-right">
-						<a class="btn btn-flat btn-default" href="{{route('pagos.index')}}"><i class="fa fa-reply"></i> Volver</a>
+						<a class="btn btn-flat btn-default" href="{{url('panel/pagos')}}"><i class="fa fa-reply"></i> Volver</a>
 						<button class="btn btn-flat btn-primary" type="submit" {{$disabled}}><i class="fa fa-send"></i> Guardar</button>
 					</div>
 				</form>
@@ -94,20 +91,9 @@
 			$('#inscripcion').select2();
 			
 			$('.fecha').datepicker({
-				endDate: 'today'
+				endDate: 'today',
+				autoclose: true
 			});
-
-			//funcion para campo de tipo_pago
-			$('#tipo_pago').change(function(){
-				if ($('#tipo_pago').val() == 'Transferencia' || $('#tipo_pago').val() == 'Deposito' ) {
-          $("#section_pago").fadeIn(1000);
-          $('#banco,#referencia').attr('required',true);
-				}else{
-					$("#section_pago").fadeOut('slow/400/fast');
-					$('#banco,#referencia').val('');
-					$('#banco,#referencia').attr('required',false);
-				}
-	    });
 		});
 	</script>
 @endsection

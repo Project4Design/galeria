@@ -80,8 +80,8 @@ class ReportesController extends Controller
       $estudiantes = $curso->estudiantesByPeriodo($periodo);
       $periodo = Periodo::find($periodo);
       $fecha = Date('Y-m-d');
-        $pdf = PDF::loadView('reportes.cursos',["curso" => $curso,'estudiantes' => $estudiantes,'periodo'=>$periodo]);
+      $pdf = PDF::loadView('reportes.cursos',["curso" => $curso,'estudiantes' => $estudiantes,'periodo'=>$periodo]);
 
-        return $pdf->download('curso'.$curso->curso_id.'.pdf');
+      return $pdf->download('curso'.$curso->curso_id.'.pdf');
     }
 }

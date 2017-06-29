@@ -12,7 +12,7 @@
       </div>
       <h1>TITULO : {{$curso->titulo}}</h1>
       <div id="project">
-        <div><span>PERIODO</span>{{$curso->periodo->periodo}}</div>
+        <div><span>PERIODO</span>{{$periodo->periodo}}</div>
         <div><span>REGISTRADO</span> {{$curso->created_at}}</div>
         <div><span>TITULO</span>{{$curso->titulo}}</div>
         <div><span>DESCRIPCION</span> {{$curso->descripcion}} </div>

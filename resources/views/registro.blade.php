@@ -1,21 +1,37 @@
-@extends('layouts.app')
-@section('title','Estudiantes - '.config('app.name'))
-@section('header','Estudiantes')
-@section('breadcrumb')
-	<ol class="breadcrumb">
-	  <li><a href="#"><i class="fa fa-dashboard" aria-hidden="true"></i> Escritorio</a></li>
-	  <li> Estudiantes </li>
-	  <li class="active">Agregar</li>
-	</ol>
-@endsection
-@section('content')
-		<!-- Formulario -->
-		<div class="row">
-			<div class="col-md-6 col-md-offset-3">
-				<form class="" action="{{ url('admin/estudiantes') }}" method="POST" enctype="multipart/form-data">
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>{{ config('app.name') }}</title>
+    <!-- Tell the browser to be responsive to screen width -->
+    <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
+    <!-- Bootstrap 3.3.5 -->
+    <link rel="stylesheet" href="{{asset('css/bootstrap.min.css')}}">
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="{{asset('css/font-awesome.css')}}">
+    <!-- Theme style -->
+    <link rel="stylesheet" href="{{asset('css/AdminLTE.min.css')}}">
+    <link rel="stylesheet" type="text/css" href="{{asset('css/glyphicons.css')}}">
+    <!-- AdminLTE Skins. Choose a skin from the css/skins
+         folder instead of downloading all of them to reduce the load. -->
+    <link rel="stylesheet" href="{{asset('css/_all-skins.min.css')}}">
+    <link rel="stylesheet" href="{{asset('css/styles.css')}}">
+    <link rel="shortcut icon" href="{{asset('img/logo.png')}}">
+    <link rel="stylesheet" type="text/css" href="{{asset('css/bootstrap-datepicker3.min.css')}}">
+  </head>
+
+<body class="hold-transition login-page">
+    <div class="login-logo">
+    	<br>
+    	<center><img class="img-responsive" src="{{ asset('img/logo.png') }}" alt="Logo" style="height:135px"></center>
+    </div><!-- /.login-logo -->
+    <div class="row">
+    	<div class="col-md-6 col-md-offset-3" style="background-color:#fff;border:1px solid #ccc;">
+	      <form class="col-md-10 col-md-offset-1" action="{{ route('eststore') }}" method="POST" enctype="multipart/form-data">
 					{{ method_field('POST') }}
 					{{ csrf_field() }}
-					<h4>Agregar estudiante</h4>
+					<h4>Registro</h4>
 
 					<div class="form-group">
             <div class="imageUploadWidget {{ $errors->has('foto')?'has-error':'' }}">
@@ -80,6 +96,16 @@
 					<div class="form-group {{ $errors->has('tlf_local')?'has-error':'' }}">
 						<label class="control-label" for="tlf_local">Tlf. Local:</label>
 						<input id="tlf_local" class="form-control" type="text" name="tlf_local" value="{{ old('tlf_local')?old('tlf_local'):'' }}" placeholder="Telefono Local">
+					</div>
+
+					<div class="form-group {{ $errors->has('password')?'has-error':'' }}">
+						<label class="control-label" for="password">Constraseña: *</label>
+						<input id="password" class="form-control" type="password" name="password">
+					</div>
+
+					<div class="form-group {{ $errors->has('password_confirmation')?'has-error':'' }}">
+						<label class="control-label" for="password_confirmation">Confirmacion: *</label>
+						<input id="password_confirmation" class="form-control" type="password" name="password_confirmation">
 					</div>
 					
 					<div class="form-group {{ $errors->has('nacimiento')?'has-error':'' }}">
@@ -155,12 +181,20 @@
 						<button class="btn btn-flat btn-primary" type="submit"><i class="fa fa-send"></i> Guardar</button>
 					</div>
 				</form>
-			</div>
-		</div>
-@endsection
+	    </div>
+    </div><!-- /.row -->
+    <footer class="main-footer" style="margin: 20px 0 0 0;width:100%;">
+      <strong>Copyright &copy; GALERIA D´ ABILIO 2017 </strong>. - Desarrollado por Marily Ortegana y Frangelis Hernandez
+    </footer>
 
-@section('script')
-	<script type="text/javascript">
+
+    <!-- jQuery 2.1.4 -->
+    <script src="{{asset('js/jQuery-2.1.4.min.js')}}"></script>
+    <!-- Bootstrap 3.3.5 -->
+    <script src="{{asset('js/bootstrap.min.js')}}"></script>
+    <script type="text/javascript" src="{{asset('js/bootstrap-datepicker.min.js')}}"></script>
+
+    <script type="text/javascript">
 		$(document).ready(function(){
 			$('#file').change(preview);
 			$('#r_file').change(preview2);
@@ -194,7 +228,6 @@
 			if(enable===true){
 				$('#representante').show().prop({'disabled':false,'required':true});
 			}else{
-				console.log("mayor");
 				$('#representante').hide().prop({'disabled':true,'required':false});
 			}
 		}
@@ -287,4 +320,6 @@
 	    }else{ img.parent().parent().removeClass('error'); }
 	  }//Preview-----------------------------------------------------------------------------------
 	</script>
-@endsection
+
+</body>
+</html>

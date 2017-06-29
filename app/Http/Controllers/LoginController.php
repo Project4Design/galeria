@@ -63,7 +63,8 @@ class LoginController extends Controller
     		case 4:
     			$estudiante = Estudiante::where('user_id',Auth::user()->id)->get()->first();
     			$cursos = $estudiante->cursos();
-    			return view('panel.dashboard',['cursos'=>$cursos]);
+    			$disponibles = Curso::all();
+    			return view('panel.dashboard',['cursos'=>$cursos,'disponibles'=>$disponibles]);
     		break;
     	}
 	 	}

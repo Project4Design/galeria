@@ -29,12 +29,12 @@ class InscripcionesController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
+    public function create($estudiante = NULL)
     {
       $periodos    = Periodo::all()->where('status',1);
       $cursos      = Curso::all();
       $estudiantes = Estudiante::all();
-      return view('inscripciones.create',['periodos'=>$periodos,'cursos'=>$cursos,'estudiantes'=>$estudiantes]);
+      return view('inscripciones.create',['periodos'=>$periodos,'cursos'=>$cursos,'estudiantes'=>$estudiantes,'estudiante' => $estudiante]);
     }
 
     /**
@@ -45,26 +45,43 @@ class InscripcionesController extends Controller
      */
     public function store(Request $request)
     {
-      $this->validate($request,[
-      	'periodo'    => 'required',
-      	'curso'      => 'required',
-      	'estudiante' => 'required'
-      	]);
+    	switch (Auth::user()->nivel) {
+    		case 1:
+		      $this->validate($request,[
+		      	'periodo'    => 'required',
+		      	'curso'      => 'required',
+		      	'estudiante' => 'required'
+	      	]);
+
+	      	$p = $request->input('periodo');
+    			$c = $request->input('curso');
+    			$e = $request->input('estudiante');
+    			$redirect = 'admin/inscripciones';
+  			break;
+    		
+    		case 4:
+    			$this->validate($request,['periodo' => 'required']);
+    			$p = $request->input('periodo');
+    			$c = $request->input('curso');
+    			$estudiante = Estudiante::where('user_id',Auth::user()->id)->get()->first();
+    			$e = $estudiante->estudiante_id;
+    			$redirect = 'panel/cursos/'.$c;
+  			break;
+    	}
 
       $inscripcion = new Inscripcion;
 
-      $cantidad = $inscripcion->verificarLimite($request->input('periodo'),$request->input('curso'));
-
-      $curso = Curso::find($request->input('curso'));
+      $cantidad = $inscripcion->verificarLimite($p,$c);
+      $curso = Curso::find($c);
 
       if($cantidad < $curso->limit){
 
-      	$repetido = $inscripcion->verificarRepetido($request->input('periodo'),$request->input('curso'),$request->input('estudiante'));
+      	$repetido = $inscripcion->verificarRepetido($p,$c,$e);
 
       	if($repetido === 0){
-		      $inscripcion->periodo_id = $request->input('periodo');
-		      $inscripcion->curso_id = $request->input('curso');
-		      $inscripcion->estudiante_id = $request->input('estudiante');
+		      $inscripcion->periodo_id = $p;
+		      $inscripcion->curso_id = $c;
+		      $inscripcion->estudiante_id = $e;
 
 		      if($inscripcion->save()){
 		      	$nota = new Nota;
@@ -73,33 +90,34 @@ class InscripcionesController extends Controller
 
 		        //Registro en la bitacora
 		        $bitacora = New Bitacora;
-		        $x = Estudiante::find($request->input('estudiante'));
-		        $y = Curso::find($request->input('curso'));
+		        $x = Estudiante::find($e);
+		        $y = Curso::find($c);
 		        $bitacora->usuario = Auth::user()->email;
 		        $bitacora->modulo = 'Inscripcion';
 		        $bitacora->accion = 'Se inscribio al usuario '.$x->user->email.' en el curso '.$y->titulo;
 		        $bitacora->save();
 		        // fin bitacora
-		      	return redirect('admin/inscripciones/')->with([
+		        if(Auth::user()->nivel===1){ $redirect = 'admin/pagos/create/'.$inscripcion->inscripcion_id;}
+		      	return redirect($redirect)->with([
 		      			'flash_message'=>'Inscripcion realizada correctamente.',
 		      			'flash_class'=>'alert-success'
 		      		]);
 		      }else{
-		      	return redirect('admin/inscripciones/')->with([
+		      	return redirect($redirect)->with([
 		            'flash_message' => 'Ha ocurrido un error.',
 		            'flash_class' => 'alert-danger',
 		            'flash_important' => true
 		      		]);
 		      }
 		    }else{
-      		return redirect('admin/inscripciones/')->with([
+      		return redirect($redirect)->with([
             'flash_message' => 'Este estudiante ya se encuentra inscrito en ese curso.',
             'flash_class' => 'alert-danger',
             'flash_important' => true
       		]);
 		    }
 	    }else{
-      	return redirect('admin/inscripciones/')->with([
+      	return redirect($redirect)->with([
             'flash_message' => 'Error, limite de estudiantes alcanzado.',
             'flash_class' => 'alert-danger',
             'flash_important' => true

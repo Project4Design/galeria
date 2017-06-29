@@ -18,6 +18,8 @@ Route::get('/contacto','FrontCrontroller@contacto')->name('contacto');
 Route::get('/galeria', 'FrontCrontroller@galeria')->name('galeria');
 Route::get('/cursos','CursosController@cursos')->name('cursos.cursos');
 Route::get('/cursos/{id}','CursosController@display')->name('cursos.display');
+Route::get('/registro','FrontCrontroller@registro')->name('registro');
+Route::post('/registro','EstudiantesController@estStore')->name('eststore');
 
 //LOGIN
 Route::get('/login','FrontCrontroller@login')->name('login');
@@ -27,17 +29,25 @@ Route::post('/logout', 'LoginController@logout')->name('logout');
 //PANEL DE USUARIO
 Route::get('panel/dashboard', 'LoginController@index')->name('index');
 //Cursos
-Route::get('panel/cursos/{id}','InscripcionesController@view');
+Route::get('panel/ver/{id}','InscripcionesController@view');
+Route::get('panel/cursos/{id}','CursosController@panel_show');
+Route::post('panel/cursos/','InscripcionesController@store');
 //Pagos
-Route::resource('panel/pagos','PagosController');
+Route::get('panel/pagos','PagosController@index');
+Route::get('panel/pagos/create','PagosController@create');
+Route::get('panel/pagos/{id}','PagosController@show');
+Route::post('panel/pagos/','PagosController@store');
+Route::get('panel/pagos/{id}/edit','PagosController@edit');
+Route::patch('panel/pagos/{id}','PagosController@update');
 //Perfil
 Route::get('panel/perfil','UsersController@perfil')->name('perfil');
 Route::patch('panel/perfil','UsersController@update_perfil')->name('update_perfil');
-//===========================================================================================
+//===================================================================================
 
 //AREA - PROFESORES
 Route::get('area/dashboard', 'LoginController@index')->name('index');
 Route::get('area/cursos/{curso}/{periodo}','CursosController@show');
+Route::patch('area/cursos/{curso}/{periodo}','CursosController@calificar');
 Route::get('area/perfil','UsersController@perfil')->name('perfil');
 Route::patch('area/perfil','UsersController@update_perfil')->name('update_perfil');
 //===========================================================================================
@@ -51,6 +61,8 @@ Route::group(['middleware' => 'auth','prefix' => 'admin'],function(){
 	Route::patch('perfil','UsersController@update_perfil')->name('update_perfil');
 	Route::resource('/users','UsersController');
 	//Pagos
+	Route::patch('/pagos/{id}/estado','PagosController@estado');
+	Route::get('/pagos/create/{id}','PagosController@create');
 	Route::resource('/pagos','PagosController');
 	Route::get('/pagos_bus','PagosController@busqueda')->name('pagos.busqueda');
 	//Cursos
@@ -67,6 +79,7 @@ Route::group(['middleware' => 'auth','prefix' => 'admin'],function(){
 	Route::patch('/periodos/{id}/cerrar','PeriodosController@cerrar');
 	Route::resource('/periodos','PeriodosController');
 	//Inscripciones
+	Route::get('/inscripciones/create/{id}','InscripcionesController@create');
 	Route::resource('/inscripciones','InscripcionesController');
 	//Bitacora
 	Route::get('/bitacora','BitacoraController@index')->name('bitacora.index');

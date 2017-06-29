@@ -24,16 +24,17 @@
     <center><img class="img-responsive" src="{{ asset('img/logo.png') }}" alt="Logo" style="height:135px"></center>
     </div><!-- /.login-logo -->
     <div class="login-box-body">
-      <p class="login-box-msg">-Solo personal autorizado-</p>
+    	@include('partials.flash')
       @if (count($errors) > 0)
-          <div class="alert alert-danger">
-          <ul>
-            @foreach($errors->all() as $error)
-               <li>{{$error}}</li>
-             @endforeach
-           </ul>  
-          </div>
-        @endif
+        <div class="alert alert-danger">
+	        <ul>
+	          @foreach($errors->all() as $error)
+	             <li>{{$error}}</li>
+	           @endforeach
+	        </ul>  
+        </div>
+      @endif
+      <h3 class="text-center">Iniciar sesion</h3>
       <form id="form-login" action="{{route('auth')}}" method="POST">
           {{ csrf_field() }}
     
@@ -57,7 +58,7 @@
           </div><!-- /.col -->
         </div>
       </form>
-
+			<a href="{{route('registro')}}">¿No posees una cuenta? ¡Registrate!</a>
       
     </div><!-- /.login-box-body -->
   </div><!-- /.login-box -->

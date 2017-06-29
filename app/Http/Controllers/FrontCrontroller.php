@@ -38,4 +38,9 @@ class FrontCrontroller extends Controller
 	{
 		return view('login');
 	}
+
+	public function registro()
+	{
+		return view('registro');
+	}
 }

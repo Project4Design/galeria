@@ -247,4 +247,12 @@ class CursosController extends Controller
     			'flash_message' => 'Notas asignadas'
     		]);
     }
+
+    public function panel_show($id)
+    {
+    	$curso = Curso::findOrFail($id);
+    	$periodos = Periodo::all();
+
+    	return view('panel.cursos.show',['curso'=>$curso,'periodos'=>$periodos]);
+    }
 }

@@ -23,6 +23,7 @@ class CreatePagosTable extends Migration
           $table->string('referencia')->nullable();
           $table->decimal('monto',11,2)->unsigned();
           $table->string('fecha',10)->comment('Fecha en que se realizo el pago');
+          $table->integer('status')->default(2);
           $table->softDeletes();
           $table->timestamps();
         });

@@ -11,6 +11,7 @@
 @section('content')
 		<!-- Formulario -->
 		<div class="row">
+			@include('partials.flash')
 			<div class="col-md-6 col-md-offset-3">
 				<form class="" action="{{ url('admin/pagos') }}" method="POST" >
 					{{ csrf_field() }}
@@ -21,7 +22,7 @@
 						<select id="inscripcion" class="form-control" name="inscripcion">
 							<option value="">Seleccione...</option>
 							@foreach($inscripciones as $i)
-								<option value="{{$i->inscripcion_id}}">{{$i->curso->titulo.' || '.$i->estudiante->user->detalles->nombres}}</option>
+								<option value="{{$i->inscripcion_id}}" @if($inscripcion) {{$inscripcion==$i->inscripcion_id?'selected':''}} @else {{old('inscripcion')===$i->inscripcion_id?'selected':''}} @endif>{{$i->periodo->periodo.' - '.$i->curso->titulo.' | '.$i->estudiante->user->detalles->nombres." ".$i->estudiante->user->detalles->apellidos}}</option>
 							@endforeach
 						</select>
 					</div>
@@ -30,9 +31,9 @@
 						<label class="control-label" for="apellidos">Tipo de pago: *</label>
 							<select id="tipo_pago" class="form-control" name="tipo">
 								<option value="">Seleccione...</option>
-								<option value="Deposito">Deposito</option>
-								<option value="Transferencia">Transferencia</option>
-								<option value="Efectivo">Efectivo</option>
+								<option value="Deposito" {{old('tipo_pago')=='Deposito'?'selected':''}} >Deposito</option>
+								<option value="Transferencia" {{old('tipo_pago')=='Transferencia'?'selected':''}} >Transferencia</option>
+								<option value="Efectivo" {{old('tipo_pago')=='Efectivo'?'selected':''}} >Efectivo</option>
 							</select>
 					</div>
 
@@ -41,26 +42,26 @@
 							<label class="control-label" for="banc">Banco: *</label>
 							<select  id="banco" class="form-control" name="banco">
 								<option value="">Seleccione...</option>
-								<option value="Banco Provincial">Banco Provincial</option>
-								<option value="Banco Bicentenario">Banco Bicentenario</option>
-								<option value="Banco Mercantil">Banco Mercantil</option>
+								<option value="Banco Provincial" {{old('banco')=='Banco Provincial'?'selected':''}}>Banco Provincial</option>
+								<option value="Banco Bicentenario" {{old('banco')=='Banco Bicentenario'?'selected':''}}>Banco Bicentenario</option>
+								<option value="Banco Mercantil" {{old('banco')=='Banco Mercantil'?'selected':''}}>Banco Mercantil</option>
 							</select>
 						</div>
 
 						<div class="form-group {{ $errors->has('referencia')?'has-error':'' }}">
 							<label class="control-label" for="referencia">Referencia: *</label>
-							<input id="referencia" class="form-control" type="number" name="referencia"  placeholder="Referencia">
+							<input id="referencia" class="form-control" type="number" name="referencia" value="{{ old('referencia')?old('referencia'):''}}" placeholder="Referencia">
 						</div>
 					</section>
 					
 					<div class="form-group {{ $errors->has('monto')?'has-error':'' }}">
 						<label class="control-label" for="monto">Monto Bs: *</label>
-						<input id="monto" class="form-control" type="text" name="monto"  placeholder="BsF.">
+						<input id="monto" class="form-control" type="text" name="monto" value="{{ old('monto')?old('monto'):''}}" placeholder="Bs.">
 					</div>
 
 					<div class="form-group {{ $errors->has('fecha')?'has-error':'' }}">
 						<label class="control-label" for="fecha">Fecha: *</label>
-						<input id="fecha" class="form-control fecha" type="text" name="fecha"  placeholder="Fecha">
+						<input id="fecha" class="form-control fecha" type="text" name="fecha" value="{{ old('fecha')?old('fecha'):''}}" placeholder="Fecha">
 					</div>
 
 					@if (count($errors) > 0)
@@ -88,9 +89,9 @@
 			$('#inscripcion').select2();
 			
 			$('.fecha').datepicker({
-				endDate: 'today'
+				endDate: 'today',
+				autoClose: true
 			});
-
 
 			//funcion para campo de tipo_pago
 			$('#tipo_pago').change(function(){

@@ -12,11 +12,16 @@
 <!-- Formulario -->
 		<section>
 	    <a class="btn btn-flat btn-default" href="{{ url('admin/pagos') }}"><i class="fa fa-reply" aria-hidden="true"></i> Volver</a>
+	    @if($pago->status===2)
 	    <a class="btn btn-flat btn-success" href="{{ url('admin/pagos/'.$pago->pago_id.'/edit') }}"><i class="fa fa-pencil" aria-hidden="true"></i> Editar</a>
-	    <!--
-	    <button class="btn btn-flat btn-danger" data-toggle="modal" data-target="#delModal"><i class="fa fa-times" aria-hidden="true"></i> Eliminar</button>
-	    -->
+	    <button class="btn btn-flat btn-primary" data-toggle="modal" data-target="#estModal" data-text="Aprobar" data-status="1"><i class="fa fa-check" aria-hidden="true"></i> Aprobar</button>
+	    <button class="btn btn-flat btn-danger" data-toggle="modal" data-target="#estModal" data-text="Rechazar" data-status="0"><i class="fa fa-times" aria-hidden="true"></i> Rechazar</button>
+	    @endif
 		</section>
+			
+		<div class="row">
+			@include('partials.flash')
+		</div>
 
 		<section class="perfil">
 			<div class="row">
@@ -30,6 +35,7 @@
 	    	</div>
 				<div class="col-md-4">
 					<h4>Detalles del pago</h4>
+					<p><b>Estado: </b> {!! $pago->status() !!} </p>
 					<p><b>Monto: </b> {{ number_format($pago->monto,2,",",".") }} </p>
 					<p><b>Tipo: </b> {{ $pago->tipo }} </p>
 					<p><b>Fecha: </b>{{$pago->fecha}}</p>
@@ -40,6 +46,7 @@
 				</div>
 				<div class="col-md-4">
 					<h4>Detalles del curso <small><a href="{{url('admin/cursos/'.$pago->inscripcion->curso_id)}}">(Ver curso)</a></small></h4>
+					<p><b>Periodo: </b> {{ $pago->inscripcion->periodo->periodo }} </p>
 					<p><b>Curso: </b> {{ $pago->inscripcion->curso->titulo }} </p>
 				</div>
 				<div class="col-md-4">
@@ -52,31 +59,23 @@
 			</div>
 		</section>
 
-		
-
-		<div id="delModal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="delModalLabel">
+		<div id="estModal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="estModalLabel">
 	    <div class="modal-dialog" role="document">
 	      <div class="modal-content">
 	        <div class="modal-header">
 	          <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-	          <h4 class="modal-title" id="delModalLabel">Eliminar pago</h4>
+	          <h4 class="modal-title" id="estModalLabel"></h4>
 	        </div>
 	        <div class="modal-body">
 	          <div class="row">
-	            <form id="delProduct" class="col-md-8 col-md-offset-2" action="{{url('admin/cursos/'.$pago->pago_id)}}" method="POST">
-	              <input type="hidden" name="_method" value="DELETE">
+	            <form id="delProduct" class="col-md-8 col-md-offset-2" action="{{url('admin/pagos/'.$pago->pago_id.'/estado')}}" method="POST">
+	              <input type="hidden" name="_method" value="PATCH">
+	              <input id="status" type="hidden" name="status" value="2">
 	              {{ csrf_field() }}
-	              <h4 class="text-center">Esta seguro de eliminar este pago?</h4><br>
+	              <h4 class="text-center">Esta seguro de <b><span id="text"></span></b> este pago?</h4><br>
 
-	              <div class="form-group">
-	                <div class="progress" style="display:none">
-	                  <div class="progress-bar progress-bar-striped active" role="progressbar" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100" style="width:100%">
-	                  </div>
-	                </div>
-	                <div class="alert" style="display:none" role="alert"><span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>&nbsp;<span id="msj"></span></div>
-	              </div>
 	              <center>
-	                <button class="btn btn-flat btn-danger" type="submit">Eliminar</button>
+	                <button class="btn btn-flat btn-danger" type="submit">Enviar</button>
 	                <button type="button" class="btn btn-flat btn-default" data-dismiss="modal">Cancelar</button>
 	              </center>
 	            </form>
@@ -85,4 +84,19 @@
 	      </div>
 	    </div>
 	  </div>
+@endsection
+@section('script')
+	<script type="text/javascript">
+		$(document).ready(function(){
+			$('#estModal').on('show.bs.modal', function (event) {
+			  var button = $(event.relatedTarget);
+			  var text = button.data('text');
+			  var status = button.data('status');
+			  var modal = $(this);
+			  modal.find('.modal-body #status').val(status);
+			  modal.find('.modal-title').text(text);
+			  modal.find('.modal-body #text').text(text);
+			})
+		});
+	</script>
 @endsection

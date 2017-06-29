@@ -11,22 +11,6 @@
 	<section class="content">
 		<!-- Info boxes -->
     <div class="row">
-    <!--
-      <div class="col-md-2 col-md-offset-1 col-sm-6 col-xs-12">
-        <div class="small-box bg-red">
-          <div class="inner">
-            <h3>0</h3>
-            <p>Usuarios</p>
-          </div>
-          <div class="icon">
-            <i class="fa fa-users"></i>
-          </div>
-          <a href="{{ route('users.index') }}" class="small-box-footer">
-            More info <i class="fa fa-arrow-circle-right"></i>
-          </a>
-        </div>
-      </div>
-      -->
     </div><!--row-->
   @include('partials.flash')
 	  <div class="row">
@@ -42,7 +26,7 @@
 									<th class="text-center">#</th>
 									<th class="text-center">periodo</th>
 									<th class="text-center">Titulo</th>
-									<th class="text-center">Precio</th>
+									<th class="text-center">Inscrito</th>
 									<th class="text-center">Nota</th>
 									<th class="text-center">Accion</th>
 								</tr>
@@ -57,7 +41,7 @@
 										<td>{{$d->created_at}}</td>
 										<td>{{$d->nota->nota?$d->nota->nota:'-'}}</td>
 										<td>
-											<a class="btn btn-primary btn-flat btn-sm" href="{{ url('panel/cursos/'.$d->inscripcion_id) }}"><i class="fa fa-search"></i></a>
+											<a class="btn btn-primary btn-flat btn-sm" href="{{ url('panel/ver/'.$d->inscripcion_id) }}"><i class="fa fa-search"></i></a>
 										</td>
 									</tr>
 									@php $i++; @endphp
@@ -68,6 +52,18 @@
 				</div>
 	    </div><!-- /.col -->
 	  </div><!-- /.row -->
-
+	  <div class="row">
+	  	<div class="col-md-12">
+	  		<h3 class="text-center">Cursos disponibles</h3>
+	  		@foreach($disponibles AS $d)
+	  			<div class="col-md-3" style="background-color:#fff;padding:10px;margin:5px;border:1px solid #ccc;">
+	  				<img class="img-responsive" src="{{asset('images/cursos/'.$d->foto)}}">
+	  				<p><b>{{$d->titulo}}</b></p>
+	  				<p>Bs. {{number_format($d->precio,0,",",".")}}</p>
+	  				<a href="{{url('/panel/cursos/'.$d->curso_id)}}">Ver detalles</a>
+	  			</div>
+	  		@endforeach
+	  	</div>
+	  </div>
 	</section><!-- /.content -->
 @endsection

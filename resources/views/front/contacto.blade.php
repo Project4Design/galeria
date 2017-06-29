@@ -30,7 +30,7 @@
           </div>
         </div>
        	<div class="form_bottom">
-       		<input type="submit" class="form_submit" value="Submit" />
+       		<input type="submit" class="form_submit" value="Enviar" />
        	</div>
       </form>
     </div>

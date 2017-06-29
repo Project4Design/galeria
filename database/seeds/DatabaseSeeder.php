@@ -181,6 +181,16 @@ class DatabaseSeeder extends Seeder
         	'inscripcion_id' => 1
         ]);
 
+        App\Pago::create([
+        	'inscripcion_id' => 1,
+        	'tipo' => 'Transferencia',
+        	'banco' => 'Banco Mercantil',
+        	'referencia' => '114233200',
+        	'monto' => '40000',
+        	'fecha' => '15/06/2017',
+        	'status' => 1
+      	]);
+
         App\Inscripcion::create([
         	'periodo_id' => 1,
         	'curso_id' => 1,
@@ -190,6 +200,14 @@ class DatabaseSeeder extends Seeder
         App\Nota::create([
         	'inscripcion_id' => 2
         ]);
+
+        App\Pago::create([
+        	'inscripcion_id' => 2,
+        	'tipo' => 'Efectivo',
+        	'monto' => '40000',
+        	'fecha' => '15/06/2017',
+        	'status' => 1
+      	]);
 
         App\Inscripcion::create([
         	'periodo_id' => 1,

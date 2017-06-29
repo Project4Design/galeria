@@ -38,6 +38,7 @@
 						<thead>
 							<tr>
 								<th class="text-center">#</th>
+								<th class="text-center">Estado</th>
 								<th class="text-center">Periodo</th>
 								<th class="text-center">Curso</th>
 								<th class="text-center">Tipo</th>
@@ -51,6 +52,7 @@
 							@foreach($pagos as $p)
 								<tr>
 									<td>{{$i}}</td>
+									<td>{!!$p->status()!!}</td>
 									<td>{{$p->inscripcion->periodo->periodo}}</td>
 									<td>{{$p->inscripcion->curso->titulo}}</td>
 									<td>{{$p->tipo}}</td>

@@ -35,7 +35,7 @@
 		        -->
 		      </div>
 		      <div class="post_right">
-		      	<h3>{{$d->user->detalles->nombres.' '.$d->user->detalles->nombres}}</h3>
+		      	<h3>{{$d->user->detalles->nombres.' '.$d->user->detalles->apellidos}}</h3>
 		        <p>
 		          {{$d->descripcion_perfil}}
 		        </p>

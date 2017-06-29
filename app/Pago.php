@@ -14,7 +14,8 @@ class Pago extends Model
     'fecha',
     'banco',
     'referencia',
-    'monto'
+    'monto',
+    'status'
   ];
 
   public function inscripcion()
@@ -24,7 +25,7 @@ class Pago extends Model
 
   public function byEstudiante($estudiante)
   {
-  	return $this->Join('Inscripciones','inscripciones.inscripcion_id','=','pagos.inscripcion_id')
+  	return $this->join('Inscripciones','inscripciones.inscripcion_id','=','pagos.inscripcion_id')
   							->where('inscripciones.estudiante_id',$estudiante)
   							->get();
   }
@@ -32,5 +33,21 @@ class Pago extends Model
   public  function fechaBetween($desde,$hasta)
   {
       return $this->whereBetween('fecha',[$desde,$hasta])->get();
+  }
+
+  public function status()
+  {
+  	switch ($this->attributes['status']) {
+  		case 0:
+  			$estado = '<span class="label label-danger">Rechazado</span>';
+			break;
+			case 1:
+				$estado = '<span class="label label-success">Aprovado</span>';
+			break;
+			case 2:
+				$estado = '<span class="label label-warning">Pendiente</span>';
+			break;
+  	}
+  	return $estado;
   }
 }

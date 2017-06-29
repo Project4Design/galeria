@@ -12,6 +12,9 @@
 <!-- Formulario -->
 		<section>
 	    <a class="btn btn-flat btn-default" href="{{ url('panel/pagos') }}"><i class="fa fa-reply" aria-hidden="true"></i> Volver</a>
+	    @if($pago->status === 2)
+	    <a class="btn btn-flat btn-success" href="{{ url('panel/pagos/'.$pago->pago_id.'/edit') }}"><i class="fa fa-pencil" aria-hidden="true"></i> Editar</a>
+	    @endif
 		</section>
 
 		<section class="perfil">
@@ -25,15 +28,20 @@
 	    	</div>
 				<div class="col-md-4">
 					<h4>Detalles del pago</h4>
+					<p><b>Estado: </b> {!!$pago->status()!!} </p>
 					<p><b>Monto: </b> {{ number_format($pago->monto,2,",",".") }} </p>
 					<p><b>Tipo: </b> {{ $pago->tipo }} </p>
 					<p><b>Fecha: </b>{{$pago->fecha}}</p>
 					@if ($pago->banco != '')
 						<p><b>Banco: </b> {{ $pago->banco }} </p>
-					    <p><b>Referencia: </b> {{ $pago->referencia }} </p>
+					  <p><b>Referencia: </b> {{ $pago->referencia }} </p>
 					@endif
 				</div>
-				
+				<div class="col-md-4">
+					<h4>Detalles del curso</h4>
+					<p><b>Periodo: </b> {{ $pago->inscripcion->periodo->periodo }} </p>
+					<p><b>Curso: </b> {{ $pago->inscripcion->curso->titulo }} </p>
+				</div>
 			</div>
 		</section>
 @endsection

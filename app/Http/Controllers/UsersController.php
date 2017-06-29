@@ -46,8 +46,8 @@ class UsersController extends Controller
           'cedula' => 'required|numeric|unique:detalles',
           'tlf_personal' => 'required|numeric',
           'tlf_local' => 'numeric',
-          'password' => 'required|min:6|max:15|confirmed',
-          'password_confirmation' => 'required|min:6|max:15|same:password'
+          'password' => 'required|min:6|confirmed',
+          'password_confirmation' => 'required|min:6|same:password'
           ]);
 
         $det = new Detalles;
