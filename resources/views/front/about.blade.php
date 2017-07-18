@@ -76,7 +76,7 @@
   </div>
 
   <div class="section_two_three">
-    <h2>Objectivos</h2>
+    <h2>Objetivos</h2>
 		<p style="font-size:120%">Ser competitivos según las exigencias del mercado, siempre ofrecer lo mejor.</p><br><br>
 		<p style="font-size:120%">Generar empleo a nuestra comunidad artística.</p><br><br>
 		<p style="font-size:120%">Contar con las herramientas necesarias para  ofrecer obras artísticas de calidad.</p><br><br>

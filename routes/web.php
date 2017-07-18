@@ -25,7 +25,7 @@ Route::post('/registro','EstudiantesController@estStore')->name('eststore');
 Route::get('/login','FrontCrontroller@login')->name('login');
 Route::post('auth', 'LoginController@login')->name('auth');
 Route::post('/logout', 'LoginController@logout')->name('logout');
-Route::group(['middleware' => 'auth','prefix' => 'admin'],function(){
+Route::group(['middleware' => 'auth'],function(){
 	//PANEL DE USUARIO
 	Route::get('panel/dashboard', 'LoginController@index')->name('index');
 	//Cursos

@@ -53,7 +53,20 @@
     <div class="wrapper">
       <header class="main-header">
         <!-- Logo -->
-        <a href="{{route('admin_index')}}" class="logo">
+
+      	@if(Auth::user()->nivel===1)
+	        <a href="{{route('admin_index')}}" class="logo">
+	          <!-- mini logo for sidebar mini 50x50 pixels -->
+	          <span class="logo-mini"><img class="img-responsive" src="{{ asset('img/logo.png') }}" alt="Logo" style="height:30px;margin:10px 0 0 10px"></span>
+	          <!-- logo for regular state and mobile devices -->
+	          <span class="logo-lg">
+	            <b style="font-size: 18px">
+	              <img src="{{ asset('img/logo.png') }}" alt="logo" height="25px">&nbsp;{{ config('app.name') }}
+	            </b>
+	          </span>
+	        </a>
+        @elseif(Auth::user()->nivel===2)
+        <a href="{{url('area/dashboard')}}" class="logo">
           <!-- mini logo for sidebar mini 50x50 pixels -->
           <span class="logo-mini"><img class="img-responsive" src="{{ asset('img/logo.png') }}" alt="Logo" style="height:30px;margin:10px 0 0 10px"></span>
           <!-- logo for regular state and mobile devices -->
@@ -63,6 +76,18 @@
             </b>
           </span>
         </a>
+        @elseif(Auth::user()->nivel===4)
+        <a href="{{url('panel/dashboard')}}" class="logo">
+          <!-- mini logo for sidebar mini 50x50 pixels -->
+          <span class="logo-mini"><img class="img-responsive" src="{{ asset('img/logo.png') }}" alt="Logo" style="height:30px;margin:10px 0 0 10px"></span>
+          <!-- logo for regular state and mobile devices -->
+          <span class="logo-lg">
+            <b style="font-size: 18px">
+              <img src="{{ asset('img/logo.png') }}" alt="logo" height="25px">&nbsp;{{ config('app.name') }}
+            </b>
+          </span>
+        </a>
+        @endif
 
         <!-- Header Navbar: style can be found in header.less -->
         <nav class="navbar navbar-static-top" role="navigation">

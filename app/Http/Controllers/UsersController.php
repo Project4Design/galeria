@@ -216,25 +216,33 @@ class UsersController extends Controller
         'cedula' => 'required|numeric|unique:detalles,cedula,'.$user->detalle_id.',detalle_id',
         'tlf_personal' => 'required|numeric'
         ]);
+
+      $det = Detalles::find($user->detalle_id);
+      $det->fill($request->all());
+
+    	$user->fill($request->all());
+
       if($request->input('checkbox') === "Yes"){
       	$this->validate($request,[
           'password' => 'required|min:6|max:15|confirmed',
           'password_confirmation' => 'required|min:6|max:15|same:password'
     		]);
+  		$user->password = bcrypt($request->input('password'));
       }
 
-      $det = Detalles::find($user->detalle_id);
-      $det->fill($request->all());
-    	$user->fill($request->all());
-  		$user->password = bcrypt($request->input('password'));
+      switch (Auth::user()->nivel) {
+      	case 1: $url = 'admin/perfil'; break;
+      	case 2: $url = 'area/perfil'; break;
+      	case 4: $url = 'panel/perfil'; break;
+      }
 
     	if($det->save() && $user->save()){
-        return redirect("admin/perfil")->with([
+        return redirect($url)->with([
             'flash_message' => 'Cambios guardados correctamente.',
             'flash_class' => 'alert-success'
             ]);
     	}else{
-        return redirect("admin/perfil")->with([
+        return redirect($url)->with([
             'flash_message' => 'Ha ocurrido un error.',
             'flash_class' => 'alert-danger',
             'flash_important' => true

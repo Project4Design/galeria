@@ -58,7 +58,7 @@
 				    </div>
 				  </div>
 				  
-				  <section id="pass" style="display:none">
+				  <fieldset id="pass" style="display:none" disabled>
 					  <div class="form-group col-md-4 col-md-offset-4">
 					  	<label>Contraseña nueva</label>
 					  	<input type="password" class="form-control" name="password" id="pass_new">
@@ -72,7 +72,7 @@
 					      <strong class="text-center">Las contraseñas deben ser iguales</strong> 
   				    </div>
 					  </div>
-				  </section>
+				  </fieldset>
 
 					@if (count($errors) > 0)
 					<div class="col-md-12">
@@ -105,9 +105,11 @@
 	 		var bool = this.checked;
 	 		if(bool === true){
 	 			$("#pass").show('fast');
+	 			$('#pass').prop('disabled',false);
 	 			$("#pass_new,pass_rep").prop('required',true);
 	 		}else{
 	 			$("#pass").hide('fast');
+	 			$('#pass').prop('disabled',true);
 	 			$("#pass_new,pass_rep").prop('required',false).val('');
 	 		}
 	 	});

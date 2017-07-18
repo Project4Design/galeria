@@ -134,7 +134,7 @@ class PagosController extends Controller
     public function edit($id)
     {
       switch (Auth::user()->nivel) {
-      	case 'value':
+      	case 1:
     			$pago = Pago::findOrFail($id);
 		      $inscripciones = Inscripcion::all();
 		      return view("pagos.modificar", ['pago' => $pago,'inscripciones' => $inscripciones]);
@@ -157,7 +157,7 @@ class PagosController extends Controller
      */
     public function update(Request $request,$id)
     {
-    	switch (Auth::user()->nivel) {
+    	switch (Auth::user()->nivel){
     		case 1:
     			$this->validate($request, [
 		        'inscripcion' => 'required',

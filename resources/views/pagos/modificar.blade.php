@@ -17,9 +17,9 @@
 					{{ csrf_field() }}
 					<h4>Modificar Pago</h4>
 
-					<div class="form-group {{ $errors->has('inscripcion_id')?'has-error':'' }}">
+					<div class="form-group {{ $errors->has('inscripcion')?'has-error':'' }}">
 						<label class="control-label" for="nombres">Inscripcion:</label>
-						<select  class="form-control" name="inscripcion_id">
+						<select  class="form-control" name="inscripcion">
 							<option value="">Seleccione...</option>
 							@foreach($inscripciones as $i)
 								<option value="{{$i->inscripcion_id}}" @if($i->inscripcion_id == $pago->inscripcion_id) selected @endif>{{$i->curso->titulo.'    ||     '.$i->estudiante->user->detalles->nombres}}</option>
@@ -88,23 +88,20 @@
 @section('script')
 	<script type="text/javascript">
 		$(document).ready(function(){
-			//$('#inscripcion').select2();
 			$('.fecha').datepicker();
-
-			//funcion para campo de tipo_pago
 			var select = $('#tipo_pago');
 			select.change(function(){
 				if (select.val() == 'Transferencia' || select.val() == 'Deposito' ) {
-	               $("#section_pago").fadeIn(1000);
-	               $('#banco,#referencia').attr('required',true);
-
+          $("#section_pago").fadeIn(1000);
+          $('#banco,#referencia').attr('required',true);
 				}else{
 					$("#section_pago").fadeOut('slow/400/fast');
 					$('#banco,#referencia').val('');
 					$('#banco,#referencia').attr('required',false);
-					
 				}
-	       });
+	    });
+
+			select.change();
 		});
 	</script>
 @endsection
