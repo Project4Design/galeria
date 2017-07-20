@@ -3,9 +3,14 @@
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Estudiante extends Model
-{  
+{
+  use SoftDeletes;
+
+  protected $dates = ['deleted_at'];  
+  
   public $table = "estudiantes";
 
 	protected $primaryKey = 'estudiante_id';
@@ -15,7 +20,7 @@ class Estudiante extends Model
 		'sexo',
 		'nacimiento',
 		'residencia',
-		'alergico'
+		'alergia'
 	];
 
   public function user()
@@ -36,6 +41,11 @@ class Estudiante extends Model
     $edad = $date->format('%y');
 
     return $edad;
+	}
+
+	public function inscripciones()
+	{
+		return $this->hasMany('App\inscripcion','estudiante_id')->get();
 	}
 
 	public function cursos()

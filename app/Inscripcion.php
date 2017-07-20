@@ -31,7 +31,7 @@ class Inscripcion extends Model
 
 	public function pago()
 	{
-		return $this->hasOne('App\Pago');
+		return $this->hasOne('App\Pago','inscripcion_id');
 	}
 
 	//Verificar limite de inscripciones por curso

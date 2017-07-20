@@ -126,7 +126,7 @@ class DatabaseSeeder extends Seeder
 					'sexo' => 'M',
 					'nacimiento' => '06-06-2003',
 					'residencia' => 'El rosal',
-					'alergico' => 0,
+					'alergia' => 'Oleo',
         ]);
 
         App\Estudiante::create([
@@ -134,7 +134,7 @@ class DatabaseSeeder extends Seeder
 					'sexo' => 'M',
 					'nacimiento' => '05-11-1992',
 					'residencia' => 'Cagua',
-					'alergico' => 0,
+					'alergia' => 'Oleo',
         ]);
 
         App\Galeria::create([

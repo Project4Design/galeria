@@ -45,7 +45,7 @@ class UsersController extends Controller
           'email' =>'required|email|unique:users',
           'cedula' => 'required|numeric|unique:detalles',
           'tlf_personal' => 'required|numeric',
-          'tlf_local' => 'numeric',
+          'tlf_local' => 'nullable|numeric',
           'password' => 'required|min:6|confirmed',
           'password_confirmation' => 'required|min:6|same:password'
           ]);
@@ -130,21 +130,27 @@ class UsersController extends Controller
         'email' =>'required|email|unique:users,email,'.$user->email.',email',
         'cedula' => 'required|numeric|unique:detalles,cedula,'.$user->detalle_id.',detalle_id',
         'tlf_personal' => 'required|numeric',
-        'tlf_local' => 'numeric'
+        'tlf_local' => 'nullable|numeric',
+        'password' => 'nullable|min:6|confirmed',
+        'password_confirmation' => 'nullable|min:6|same:password'
         ]);
 
       $det = Detalles::find($user->detalle_id);
       $det->fill($request->all());
     	$user->fill($request->all());
+    	if($request->input('password')!=""){
+    		$user->password = bcrypt($request->input('password'));	
+    	}
+    	
 
     	if($det->save() && $user->save()){
-             //Registro en la bitaora
-                $bitacora = New Bitacora;
-                $bitacora->usuario = Auth::user()->email;
-                $bitacora->modulo = 'Usuarios';
-                $bitacora->accion = 'Modifico el usuario '.$user->email;
-                $bitacora->save();
-                // fin bitacora
+        //Registro en la bitaora
+        $bitacora = New Bitacora;
+        $bitacora->usuario = Auth::user()->email;
+        $bitacora->modulo = 'Usuarios';
+        $bitacora->accion = 'Modifico el usuario '.$user->email;
+        $bitacora->save();
+        // fin bitacora
         return redirect("admin/users")->with([
             'flash_message' => 'Usuario editado correctamente.',
             'flash_class' => 'alert-success'
@@ -166,17 +172,16 @@ class UsersController extends Controller
      */
     public function destroy($id)
     {
-
         $user = User::findOrFail($id);
-
-             //Registro en la bitaora
-                $bitacora = New Bitacora;
-                $bitacora->usuario = Auth::user()->email;
-                $bitacora->modulo = 'Usuarios';
-                $bitacora->accion = 'Se elemino el usuario '.$user->email;
-                $bitacora->save();
-                // fin bitacora
-        if($user->delete()){
+        $detalle = Detalles::find($user->detalle_id);
+        if($detalle->delete()){
+	        //Registro en la bitaora
+	        $bitacora = New Bitacora;
+	        $bitacora->usuario = Auth::user()->email;
+	        $bitacora->modulo = 'Usuarios';
+	        $bitacora->accion = 'Se elemino el usuario '.$user->email;
+	        $bitacora->save();
+	        // fin bitacora
         return redirect("admin/users")->with([
             'flash_message' => 'Usuario eliminado correctamente.',
             'flash_class' => 'alert-success'

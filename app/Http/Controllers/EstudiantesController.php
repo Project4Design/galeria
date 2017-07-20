@@ -53,7 +53,6 @@ class EstudiantesController extends Controller
     		'nacimiento' => 'required',
     		'residencia' => 'required',
     		'email' =>'required|email|unique:users',
-    		'alergico' => 'required|numeric',
     		'tlf_personal' => 'required|numeric',
     		'tlf_local' => 'nullable|numeric'
     	]);
@@ -208,7 +207,6 @@ class EstudiantesController extends Controller
 	    		'nacimiento' => 'required',
 	    		'residencia' => 'required',
 	    		'email' =>'required|email|unique:users,email,'.$estudiante->user_id.',id',
-	    		'alergico' => 'required',
 	    		'tlf_personal' => 'required|numeric',
 	    		'tlf_local' => 'nullable|numeric'
         ]);
@@ -272,7 +270,6 @@ class EstudiantesController extends Controller
     		'nacimiento' => 'required',
     		'residencia' => 'required',
     		'email' =>'required|email|unique:users',
-    		'alergico' => 'required|numeric',
     		'tlf_personal' => 'required|numeric',
     		'tlf_local' => 'nullable|numeric',
         'password' => 'required|min:6|confirmed',

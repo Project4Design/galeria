@@ -77,6 +77,13 @@
 							<option value="0" {{($estudiante->alergico === 0)?'selected':''}}>No</option>
 						</select>
 					</div>
+					
+					<fieldset id="c-alergia" style="display:none">
+						<div class="form-group {{ $errors->has('alergia')?'has-error':'' }}">
+							<label class="control-label" for="alergia">Alergia: </label>
+							<input id="alergia" class="form-control" type="text" name="alergia" value="{{ old('alergia')?old('alergia'):'' }}" placeholder="Especifique" required>
+						</div>
+					</fieldset>
 
 					<div class="form-group {{ $errors->has('tlf_personal')?'has-error':'' }}">
 						<label class="control-label" for="tlf_personal">Tlf. Personal: *</label>
@@ -111,7 +118,17 @@
 	<script type="text/javascript">
 		$(document).ready(function(){
 			console.log("script cargado");
-			$('#file').change(preview);	
+			$('#file').change(preview);
+
+			$('#alergico').change(function(){
+				if($(this).val()==1){
+					$('#c-alergia').show();
+					$('#alergia').prop('required',true);
+				}else{
+					$('#c-alergia').hide();
+					$('#alergia').prop('required',false);
+				}
+			});
 		});
 		
 		function preview(){

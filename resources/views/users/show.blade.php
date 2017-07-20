@@ -13,9 +13,7 @@
 		<section>
 	    <a class="btn btn-flat btn-default" href="{{ url('admin/users') }}"><i class="fa fa-reply" aria-hidden="true"></i> Volver</a>
 	    <a class="btn btn-flat btn-success" href="{{ url('admin/users/'.$user->id.'/edit') }}"><i class="fa fa-pencil" aria-hidden="true"></i> Editar</a>
-	    <!--
 	    <button class="btn btn-flat btn-danger" data-toggle="modal" data-target="#delModal"><i class="fa fa-times" aria-hidden="true"></i> Eliminar</button>
-	    -->
 		</section>
 
 		<section class="perfil">
@@ -50,7 +48,7 @@
         </div>
         <div class="modal-body">
           <div class="row">
-            <form id="delProduct" class="col-md-8 col-md-offset-2" action="{{ url('admin/users/'.$user->id) }}" method="POST">
+            <form id="delProduct" class="col-md-8 col-md-offset-2" action="{{ route('users.destroy',['user'=>$user->id]) }}" method="POST">
               <input type="hidden" name="_method" value="DELETE">
               {{ csrf_field() }}
               <h4 class="text-center">¿Esta seguro de eliminar este usuario?</h4><br>

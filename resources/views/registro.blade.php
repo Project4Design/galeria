@@ -87,6 +87,13 @@
 							<option value="0" @if(old('alergico')=="0") {{ old('alergico')==0?'selected':''}} @endif >No</option>
 						</select>
 					</div>
+					
+					<fieldset id="c-alergia" style="display:none">
+						<div class="form-group {{ $errors->has('alergia')?'has-error':'' }}">
+							<label class="control-label" for="alergia">Alergia: </label>
+							<input id="alergia" class="form-control" type="text" name="alergia" value="{{ old('alergia')?old('alergia'):'' }}" placeholder="Especifique" required>
+						</div>
+					</fieldset>
 
 					<div class="form-group {{ $errors->has('tlf_personal')?'has-error':'' }}">
 						<label class="control-label" for="tlf_personal">Tlf. Personal: *</label>
@@ -198,6 +205,16 @@
 		$(document).ready(function(){
 			$('#file').change(preview);
 			$('#r_file').change(preview2);
+
+			$('#alergico').change(function(){
+				if($(this).val()==1){
+					$('#c-alergia').show();
+					$('#alergia').prop('required',true);
+				}else{
+					$('#c-alergia').hide();
+					$('#alergia').prop('required',false);
+				}
+			});
 
       $('.datepicker').datepicker({
         autoclose: true,

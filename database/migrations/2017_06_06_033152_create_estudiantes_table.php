@@ -23,7 +23,7 @@ class CreateEstudiantesTable extends Migration
             $table->string('sexo',1);
             $table->string('nacimiento',11);
             $table->string('residencia',150);
-            $table->tinyInteger('alergico')->unsigned();
+            $table->string('alergia')->nullable();
             $table->softDeletes();
             $table->timestamps();
         });

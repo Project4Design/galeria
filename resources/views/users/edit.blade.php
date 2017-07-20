@@ -46,6 +46,27 @@
 						<input id="tlf_local" class="form-control" type="text" name="tlf_local" value="{{ old('tlf_local')?old('tlf_local'):$user->detalles->tlf_local }}" placeholder="tlf_local">
 					</div>
 
+				  <div class="form-group">
+				  	<div class="checkbox">
+					    <label>
+					      <input type="checkbox" id="pp" name="checkbox" value="Yes"> Cambiar contraseña?
+					    </label>
+				    </div>
+				  </div>
+
+					<fieldset id="pass" style="display:none" disabled>
+						<legend>Cambiar constraseña</legend>
+						<div class="form-group {{ $errors->has('password')?'has-error':'' }}">
+							<label class="control-label" for="password">Contraseña:</label>
+							<input id="password" class="form-control" type="password" name="password" value="{{ old('password')?old('password'):'' }}">
+						</div>
+
+						<div class="form-group {{ $errors->has('password_confirmation')?'has-error':'' }}">
+							<label class="control-label" for="password_confirmation">Verificar:</label>
+							<input id="password_confirmation" class="form-control" type="password" name="password_confirmation" value="{{ old('password_confirmation')?old('password_confirmation'):'' }}">
+						</div>
+					</fieldset>
+
 					@if (count($errors) > 0)
           <div class="alert alert-danger alert-important">
 	          <ul>
@@ -64,3 +85,39 @@
 			</div>
 		</div>
 @endsection
+
+
+@section('script')
+ 	<script type="text/javascript">
+ 	$(document).ready(function(){
+ 			$("#pp").click(function(event) {
+	 		var bool = this.checked;
+	 		if(bool === true){
+	 			$("#pass").show('fast');
+	 			$('#pass').prop('disabled',false);
+	 			$("#password,#password_confirmation").prop('required',true);
+	 		}else{
+	 			$("#pass").hide('fast');
+	 			$('#pass').prop('disabled',true);
+	 			$("#password,#password_confirmation").prop('required',false);
+	 		}
+	 	});
+
+		$("#send").click(function(event) {
+			event.preventDefault();
+			var form  = $('#editar');
+			var pass1 = $("#pass_new").val();
+			var pass2 = $("#pass_rep").val();
+			var message = $("#message");
+			if(pass1 === pass2){
+				form.submit();
+			}else{
+				$("#pass_new").css('border','solid 1px red');
+				$("#pass_rep").css('border','solid 1px red');
+				message.fadeIn('slow/400/fast');
+				message.fadeOut(3000);				
+			}
+	 	});
+ 	});
+ 	</script>
+@stop

@@ -21,6 +21,7 @@ class CreateTableDetalles extends Migration
         $table->string('tlf_personal');
         $table->string('tlf_local')->nullable();
         $table->string('foto')->nullable();
+        $table->softDeletes();
       });
     }
 

@@ -50,7 +50,7 @@
                   <b>Direccion</b> <span class="pull-right">{{$estudiante->residencia}}</span>
                 </li>
                 <li class="list-group-item">
-                  <b>Alergico</b> <span class="pull-right">{{$estudiante->alergico?'Si':'No'}}</span>
+                  <b>Alergia</b> <span class="pull-right">{{$estudiante->alergia?$estudiante->alergia:'N/A'}}</span>
                 </li>
               </ul>
             </div>
@@ -140,10 +140,10 @@
         </div>
         <div class="modal-body">
           <div class="row">
-            <form id="delProduct" class="col-md-8 col-md-offset-2" action="#" method="POST">
+            <form id="delProduct" class="col-md-8 col-md-offset-2" action="{{route('users.destroy',['user',$estudiante->user->id])}}" method="POST">
               <input type="hidden" name="_method" value="DELETE">
               {{ csrf_field() }}
-              <h4 class="text-center">Esta seguro de eliminar este curso?</h4><br>
+              <h4 class="text-center">Esta seguro de eliminar este estudiante?</h4><br>
 
               <div class="form-group">
                 <div class="progress" style="display:none">
@@ -153,8 +153,8 @@
                 <div class="alert" style="display:none" role="alert"><span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>&nbsp;<span id="msj"></span></div>
               </div>
               <center>
-                <button class="btn btn-flat btn-danger" type="submit">Save</button>
-                <button type="button" class="btn btn-flat btn-default" data-dismiss="modal">Close</button>
+                <button class="btn btn-flat btn-danger" type="submit">Eliminar</button>
+                <button type="button" class="btn btn-flat btn-default" data-dismiss="modal">Cerrar</button>
               </center>
             </form>
           </div>
